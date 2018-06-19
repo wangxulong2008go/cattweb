@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const webpack = require('webpack')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
@@ -13,7 +14,10 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: ["babel-polyfill", "./src/main.js"]
+    },
+  externals: {
+    // jquery: "jQuery"
   },
   output: {
     path: config.build.assetsRoot,
@@ -22,6 +26,13 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+   plugins: [
+    new webpack.ProvidePlugin({
+      // $: "jquery",
+      // jQuery: "jquery",
+      // "windows.jQuery": "jquery"
+    })
+  ], 
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
