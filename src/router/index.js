@@ -4,7 +4,7 @@ import App from '../App'
 Router.prototype.goBack = function () {
   this.isBack = true;//判断后退前进效果效果
   this.go(-1)
-};
+}
 
 Vue.use(Router);
 const Home = resolve => require(['../views/home/Home'],resolve);
@@ -18,15 +18,14 @@ const router = new Router({
       children:[
         {
           path:'/home',
-          component:Home
+          component:Home,
+          meta: { keepAlive: true }
         },
         {
           path: '/error',
           component: Error,
-          name: 'error',
           meta: {
-            title: '错误页面',
-            requireAuth: false
+            keepAlive:true
           }
         },
         {

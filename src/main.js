@@ -12,8 +12,63 @@ if (url.indexOf("?") != -1) {
     }
       theRequest[strs[i].split("=")[0]]=unescape(value);   
    }   
-}   
+}
 window.UrlParams = theRequest; 
+//动态适配
+window.autoSize=function (){
+  let oHtml = document.querySelector("html")
+  let iW= oHtml.getBoundingClientRect().width;
+  let fontSize = iW/16;
+  oHtml.style.fontSize = fontSize>=40?40+"px":fontSize+"px";
+ }
+window.autoSize();
+window.addEventListener("resize", window.autoSize, false);
+window.addEventListener("orientationchange", window.autoSize, false);
+
+//判断打开浏览器
+let u = navigator.userAgent;
+if (!!u.match(/AppleWebKit.*Mobile.*/)) {//判断是否是移动设备打开。有些逻辑需要区分浏览器类型
+  var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    window.isBrowserMobile = 'weixin'
+  }
+  if (ua.match(/WeiBo/i) == "weibo") {
+    window.isBrowserMobile = 'weibo'
+  }
+  if (ua.match(/QQ/i) == "qq") {
+    window.isBrowserMobile = 'qq'
+  }
+  if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+    window.isBrowserMobile = 'ios'
+  } 
+  if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1){
+    window.isBrowserMobile = 'android'
+  }
+} else {
+   window.isBrowserMobile = 'pc'
+}
+//pushHistory();  暂时不处理,微信中进入页面就触发了popstate事件
+// let Historybool=false;
+// setTimeout(()=>{
+//   Historybool = true;
+// },1500) 
+window.addEventListener("popstate", function(evt) {
+  if(history.state == null){
+    //首次可能在刷新的时候会触发，但这里不需要处理，因为beforeRouteUpdate方法处理的时候肯定不会是第一次
+    window.historyisHistory = true;
+  }
+  //if(Historybool){
+      //处理
+  //}
+}, false);
+
+function pushHistory() {  
+  var state = {  
+      title: "title",  
+      url: "#"  
+  };  
+  window.history.pushState(state, "title", "#");  
+} 
 import Vue from 'vue'
 import router from './router'
 import 'vue-awesome/icons'
@@ -23,6 +78,8 @@ import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import Vuex from 'vuex'
 import Store from './store'
+import FastClick from 'fastclick';
+FastClick.attach(document.body);
 // Vue.prototype.$echarts = echarts; //全局引入echarts
 Vue.component('icon', Icon)
 Vue.use(Mint);

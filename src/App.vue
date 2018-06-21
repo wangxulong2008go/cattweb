@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view class="child-view"></router-view>
+      <keep-alive exclude="Error">
+          <router-view class="child-view" v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view class="child-view" v-if="!$route.meta.keepAlive"></router-view>
     </transition>
   </div>
 </template>
@@ -15,15 +18,19 @@ export default {
       transitionName:''
     }
   },
+  mounted(){
+  
+  },
   beforeRouteEnter(to, from, next){
     let that =this;
-    if(to.path == '/home' || to.path == '/error'){
-      //不需要验证
+    if(to.path == '/error'){
+      //错误页面不需要验证
       next();
     }else{
       getSession();
     }
     function getSession() {
+      //调取登录接口状态
       Indicator.open({
         text:'加载中...',
         spinnerType:'fading-circle'
@@ -37,17 +44,14 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     Indicator.close();//全局关闭loading
-    let isFade = this.$router.isFade;
     let isBack = this.$router.isBack;
-    if(isFade){
-      this.transitionName = 'fade';
-    }else if (isBack) {
+    if (window.historyisHistory || isBack) {
       this.transitionName = 'slide-right'
     } else {
       this.transitionName = 'slide-left'
     }
     this.$router.isBack = false;
-    this.$router.isFade = false;
+    window.historyisHistory = false;
     next()
   }
 
@@ -58,4 +62,6 @@ export default {
   @import "assets/css/normalize.css";
   @import "assets/css/weui.min.css";
   @import "assets/css/animate.css";
+  @import "assets/css/base.scss";
+  @import "assets/css/style.css";
 </style>

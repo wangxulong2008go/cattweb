@@ -1,0 +1,198 @@
+$baseColor:#007852;
+.child-view {
+  position: absolute;
+  width:100%;
+  -webkit-transition: all .8s cubic-bezier(.55,0,.1,1);
+  transition: all .8s cubic-bezier(.55,0,.1,1);
+}
+.slide-left-enter, .slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(50px, 0);
+  transform: translate(50px, 0);
+}
+.slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-50px, 0);
+  transform: translate(-50px, 0);
+
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+
+.weui-btn_blue{
+  background: $baseColor;
+  color: #fff;
+}
+.weui-btn_white{
+  background: #fff;
+  color: #787878;
+}
+.mint-msgbox-btns{
+  .mint-msgbox-confirm{
+    color:$baseColor;
+    &:active{
+      color:$baseColor;
+    }
+  }
+}
+
+.weui-btn_base{
+  background: $baseColor;
+  color: #fff;
+}
+
+.weui-btn_plain-blue{
+  color: $baseColor;
+  border: 1px solid $baseColor;
+}
+.weui-btn_disabled.weui-btn_blue{
+  background: #7FA09A;
+}
+.weui-vcode-btn{
+  color: $baseColor;
+  &:active{
+    color: #9DCFEC;
+  }
+}
+.weui-agree__checkbox:checked:before{
+  color: $baseColor;
+}
+.header{
+  background: $baseColor;
+  color: #fff;
+  height: 45px;
+  line-height: 45px;
+  padding:0 15px;
+}
+
+.font-white{
+  color: #fff !important;
+}
+.font-base{
+  color: $baseColor !important;
+}
+
+.weui-loadmore_line .weui-loadmore__tips{
+  background: #f5f5f5;
+}
+
+.baseScroller{
+  overflow-y: scroll;
+  -webkit-overflow-scrolling:touch;
+}
+.tabScroller{
+  overflow-x:scroll;
+  -webkit-overflow-scrolling:touch;
+}
+.weui-dialog__btn_primary{
+  color: $baseColor;
+}
+.weui-switch-cp__input:checked~.weui-switch-cp__box, .weui-switch:checked{
+  border-color: $baseColor;
+  background-color: $baseColor;
+}
+.weui-panel{
+  color: #999;
+}
+.masget-panel{
+  width: 95%;
+  margin: 10px  auto 0 auto;
+  box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.2);
+  &:first-child{
+    margin-top: 10px;
+  }
+  //border-radius: 5px;
+  .weui-panel__hd{
+    .weui-cells{
+      //border-radius: 5px;
+
+    }
+  }
+}
+.mint-indicator-wrapper{
+  z-index: 2;
+}
+.masget-form-preview{
+  width: 95%;
+  margin: 10px  auto 0 auto;
+  box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.2);
+  &:first-child{
+    margin-top: 10px;
+  }
+  .weui-form-preview__hd:after{
+      left: 0;
+  }
+  .weui-form-preview__arrow{
+    display: inline-block;
+    &:after{
+      border: 2px solid #c8c8cd;
+      border-bottom-width: 0;
+      border-left-width: 0;
+      content: " ";
+      top: 50%;
+      right: 20px;
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      -webkit-transform: translateY(-50%) rotate(45deg);
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+}
+.baseAbsolute{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  z-index: 9000;
+  background: #f5f5f5;
+}
+/*设置IOS页面长按不可复制粘贴，但是IOS上出现input、textarea不能输入，因此将使用-webkit-user-select:auto;*/
+*{
+  -webkit-touch-callout:none; /*系统默认菜单被禁用*/
+  -webkit-user-select:none; /*webkit浏览器*/
+  -khtml-user-select:none; /*早期浏览器*/
+  -moz-user-select:none;/*火狐*/
+  -ms-user-select:none; /*IE10*/
+  user-select:none;
+}
+input,textarea {
+  -webkit-user-select:auto; /*webkit浏览器*/
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+  appearance:none;
+  -webkit-appearance: none;
+}
+.mint-indicator{
+  z-index:90000 !important;
+  position:fixed;
+  .mint-indicator-wrapper{
+    z-index:90000 !important;
+  }
+  .mint-indicator-mask{
+    z-index:90000 !important;
+  }
+}
+
+.weui-cell__icon {
+  width: 20px;
+  margin-right: 5px;
+  display: block !important;
+}
+
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
+.weui-tabbar__item.weui-bar__item_on
+.weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label{
+  color: $baseColor;
+}
+.maxHeight {
+  height: 100%;
+}
