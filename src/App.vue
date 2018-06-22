@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div style="height:100%">
     <transition :name="transitionName">
       <keep-alive exclude="Error">
           <router-view class="child-view" v-if="$route.meta.keepAlive"></router-view>
@@ -31,10 +31,10 @@ export default {
     }
     function getSession() {
       //调取登录接口状态
-      Indicator.open({
-        text:'加载中...',
-        spinnerType:'fading-circle'
-      });
+      // Indicator.open({
+      //   text:'加载中...',
+      //   spinnerType:'fading-circle'
+      // });
       next();
       //if(this.s){
       // next();

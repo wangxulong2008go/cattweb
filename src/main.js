@@ -78,9 +78,12 @@ import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import Vuex from 'vuex'
 import Store from './store'
-import FastClick from 'fastclick';
-FastClick.attach(document.body);
+//import FastClick from 'fastclick';
+//FastClick.attach(document.body);
 // Vue.prototype.$echarts = echarts; //全局引入echarts
+import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
+import  Velocity from 'velocity-animate'
+Vue.prototype.$Velocity = Velocity;
 Vue.component('icon', Icon)
 Vue.use(Mint);
 Vue.use(Vuex);

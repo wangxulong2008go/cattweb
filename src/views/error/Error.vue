@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="goback()">错误页面fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+    <div v-tap="goback">错误页面fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
   </div>
 </template>
 <script>
@@ -14,7 +14,8 @@
       console.log('error');
     },
     methods:{
-      goback(){
+      goback(e,s){
+        console.log(e,s);
         this.$router.goBack();
       }
     }
