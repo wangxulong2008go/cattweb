@@ -206,3 +206,43 @@ input,textarea {
 .absolute{
   position: absolute;
 }
+.contorl-left-top{
+  top: 2rem;
+  left: 1rem;
+  z-index: 199;
+}
+.contorl-bottom-center{
+  bottom: 1rem;
+  left: 45%;
+  z-index: 300;
+}
+.map-small-box{
+  top: 1rem;
+  right: 0.5rem;
+  z-index: 200;
+   border-radius: 4px;
+  border:1px solid #ddd;
+  overflow: hidden;
+
+}
+.map-box{
+  bottom: 0;
+  top:0;
+  left:0;
+  right: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+.small-viewport{
+  background: rgba(0,0,0,.3);
+  height: 1.6rem;
+  width: 1.6rem;
+}
+.small-box-bg{
+  background: transparent;
+  height: 100%;
+  width: 100%;
+}
+.event-none{
+  pointer-events: none;
+}
