@@ -20,9 +20,11 @@ $baseColor:#007852;
   transition: opacity .5s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0
+  opacity: 0;
 }
-
+.flage-image{
+  width: 1.344rem;height: 1.429333rem; position:absolute;
+}
 .weui-btn_blue{
   background: $baseColor;
   color: #fff;
@@ -207,13 +209,13 @@ input,textarea {
   position: absolute;
 }
 .contorl-left-top{
-  top: 2rem;
+  top: 1rem;
   left: 1rem;
   z-index: 199;
 }
 .contorl-bottom-center{
   bottom: 1rem;
-  left: 45%;
+  left: calc(50% - 3.38rem);
   z-index: 300;
 }
 .map-small-box{

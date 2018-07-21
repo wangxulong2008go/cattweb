@@ -7,9 +7,10 @@ Router.prototype.goBack = function () {
 }
 
 Vue.use(Router);
-const Home = resolve => require(['../views/home/Home'],resolve);
+const Home = resolve => require(['../views/home/Home'],resolve);//首页
 
 const Error = resolve => require(['../views/error/Error'],resolve);//错误页面
+const Guid = resolve => require(['../views/home/Guid'],resolve);//引导页面
 const router = new Router({
   routes: [
     {
@@ -20,6 +21,13 @@ const router = new Router({
           path:'/home',
           component:Home,
           meta: { keepAlive: true }
+        },
+        {
+          path: '/guid',
+          component: Guid,
+          meta: {
+            keepAlive:false
+          }
         },
         {
           path: '/error',

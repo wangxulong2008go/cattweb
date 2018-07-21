@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" CssFileName="../images" ImageName="img" IsPhone="true" SpriteImgFileType="Png" xmlns="CssSprite">
+  <SpriteList>
+    <Sprite Path="back_2.png" LocationX="0" LocationY="0" />
+    <Sprite Path="icon_home_pop.png" LocationX="63" LocationY="0" />
+    <Sprite Path="back_house.png" LocationX="135" LocationY="0" />
+    <Sprite Path="icon_home.png" LocationX="128" LocationY="95" />
+    <Sprite Path="icon_rule.png" LocationX="0" LocationY="100" />
+    <Sprite Path="house_window_5_btn_1.png" LocationX="0" LocationY="226" />
+    <Sprite Path="house_window_5_btn_2.png" LocationX="0" LocationY="346" />
+    <Sprite Path="house_window_4_btn.png" LocationX="258" LocationY="0" />
+    <Sprite Path="window_2_btn.png" LocationX="257" LocationY="125" />
+    <Sprite Path="house_window_3_btn.png" LocationX="254" LocationY="255" />
+    <Sprite Path="house_window_1_btn.png" LocationX="469" LocationY="0" />
+    <Sprite Path="home_image_1.png" LocationX="468" LocationY="143" />
+    <Sprite Path="house_btn.png" LocationX="0" LocationY="477" />
+  </SpriteList>
+</SpriteFile>

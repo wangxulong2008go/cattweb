@@ -71,23 +71,29 @@ function pushHistory() {
 } 
 import Vue from 'vue'
 import router from './router'
-import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'vue-awesome/icons'
+// import Icon from 'vue-awesome/components/Icon'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import Vuex from 'vuex'
 import Store from './store'
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueLazyLoad,{
+  attempt: 1
+})
 //import FastClick from 'fastclick';
 //FastClick.attach(document.body);
 // Vue.prototype.$echarts = echarts; //全局引入echarts
 import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
 import  Velocity from 'velocity-animate'
+import { Indicator } from 'mint-ui';
 Vue.prototype.$Velocity = Velocity;
-Vue.component('icon', Icon)
+Vue.prototype.$Indicator = Indicator;
+//Vue.component('icon', Icon)
 Vue.use(Mint);
 Vue.use(Vuex);
-Vue.use(VueAwesomeSwiper)
+//Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false;
 const store = new Vuex.Store(Store)
 /* eslint-disable no-new */

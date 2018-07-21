@@ -1,33 +1,33 @@
 <template>
   <div class="contain-box relative">
     <div class="map-box absolute">
-    <!--  地图原始大小比例设置3:4，具体的根据原型来，不过需要修改对应比例，与smallmap相对应 -->
         <div style="background:#999" v-bind:style="{'top':bigMapTop+'px',left: bigMapLeft + 'px','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fsdfdf</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
-            neirong<div>fdf99999</div>
+            <div class="map_bg" style="height:100%;width:100%;line-height:0;">
+                <div class="one" style="display:flex">
+                    <img width="100px" v-lazy ="bgImage[0]" alt="bg">
+                    <img width="100px" v-lazy ="bgImage[1]" alt="bg">
+                </div>
+                 <div class="two" style="display:flex">
+                    <img width="50%" v-lazy ="bgImage[2]" alt="bg">
+                    <img width="50%" v-lazy ="bgImage[3]" alt="bg">
+                </div> 
+                <div class="three" style="display:flex">
+                    <img width="50%" v-lazy ="bgImage[4]" alt="bg">
+                    <img width="50%" v-lazy ="bgImage[5]" alt="bg">
+                </div>
+            </div>
+            <div class="building-box">
+                <div v-for="(item,index) in buildImage" :key="index" :style="item.style">
+                    <img v-lazy="item.src" alt="1" style="height:100%;width:100%" />
+                </div>
+            </div>
+            <div class="building-box">
+              <div v-for="(item,index) in flageImage" v-if="item.isShow" class="flage-image" :key="index" :style="item.style">
+                    <img v-lazy="flageImageSrc" alt="1" style="height:100%;width:100%" />
+                </div>
+            </div>
         </div>
-        <!-- 也可以用canvas自动画出可是区域地图 -->
-        <!-- <canvas></canvas> -->
+        
         <!-- 用于实际拖动事件目标 -->
         <div v-tap="tapMap" id="mask" class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width:100%; height: 100%; opacity: 0; background: rgb(0, 0, 0); transition: opacity 0.6s;"></div>
     </div>
@@ -36,22 +36,34 @@
         <div class="small-viewport absolute"></div>
       </div>
     </div>
-    <div class="absolute contorl-left-top">左上角控制器</div>
-    <div class="absolute contorl-bottom-center">中心下</div>
+    <div class="absolute contorl-left-top">
+      <div class="map-close map-icon"></div>
+      <div class="map-guide map-icon"></div>
+      <div class="map-house map-icon"></div>
+    </div>
+    <div class="absolute contorl-bottom-center">
+      <div class="map-go map-icon"></div>
+    </div>
   </div>
 </template>
 <script>
+  import {setStore,getStore} from '@/utils/utils.js'
+  import {buildJson,flageJson} from '@/utils/build.js'
   export default {
     data(){
       return {
+          bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
+          buildImage:[],
+          flageImage:[],
+          flageImageSrc:'static/map_image_icon.png',
           screenWidth:document.body.clientWidth,
           screenHeight:document.body.clientHeight,
           smallWidth:0,//按屏幕比例，现在是屏幕的三分之一
           smallHeight:0,//4:3
           bigMapTop:0,
           bigMapLeft:0,
-          bigMapWidth:80,//单位是rem
-          bigMapHeight:80,
+          bigMapWidth:78.9333,//单位是rem
+          bigMapHeight:48.853,
           bigMapWidthr:0,
           bigMapHeightr:0,
           smallMapTop:0,
@@ -90,7 +102,23 @@
                 }
           }
       },
-    computer:{
+  created() {
+    // this.$Indicator.open({
+    //         text: '正在努力加载中...',
+    //         spinnerType: 'triple-bounce'
+    //       });
+    let needGuid = getStore('needGuid');
+    if(!needGuid){
+      setStore('needGuid',true);
+      this.$router.push({path:'guid',query: {page:'guid'}});
+    }
+    this.$nextTick(()=>{
+      this.buildImage = buildJson();
+      this.flageImage = flageJson();
+    });
+    
+  },
+    computed:{
 
     },
     mounted(){
@@ -285,3 +313,78 @@
     },
   }
 </script>
+<style scoped>
+.map_bg{
+  display: flex;
+  flex-direction:column;
+}
+.map_bg .one,.map_bg .two{
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 25%;
+}
+.map_bg .two{
+  margin-top:-1px;
+}
+.map_bg .three{
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: calc(50% + 2px);
+  margin-top: -1px;
+}
+.map_bg img{
+  width:50%;padding:0;box-sizing:border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: auto;
+  flex-wrap: wrap;
+}
+.map_bg img:last-child{
+  position: relative;
+  margin-left: -1px;
+  width: calc(50% + 1px);
+}
+
+.map-close{
+  height: 1.92rem;
+  width: 1.92rem;
+  background:url('data:image/png;base64,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');
+  background-size: cover;
+}
+.map-guide{
+  height:2.8rem;
+  width: 2.56rem;
+  background:url('../../assets/img/icon/icon_rule.png');
+  background-size: 2.39rem 2.688rem;
+  background-position-y: 0rem;
+  margin-top: 0.4rem;
+}
+.map-house{
+  height:2.8rem;
+  width: 2.56rem;
+  background:url('../../assets/img/icon/img.png');
+  background-size: 16.62rem 13.78rem;
+  background-position-y: -1.98rem;
+  background-position-x: -2.62rem;
+  margin-top: 0.3rem;
+}
+.map-go{
+  height:3.6rem;
+  width: 6.76rem;
+  background:url('../../assets/img/icon/img.png');
+  background-size: 16.62rem 13.78rem;
+  background-position-y: -10.1rem;
+  margin-top: 0.3rem;
+}
+.map-icon{
+  background-repeat: no-repeat;
+}
+.building-box{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 8;
+  top:0;
+}
+
+</style>

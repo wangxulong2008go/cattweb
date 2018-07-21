@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpriteFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" CssFileName="../images" ImageName="img" IsPhone="true" SpriteImgFileType="Png" xmlns="CssSprite">
+  <SpriteList>
+    <Sprite Path="city_60.png" LocationX="0" LocationY="0" />
+    <Sprite Path="city_62.png" LocationX="10" LocationY="0" />
+    <Sprite Path="city_57.png" LocationX="20" LocationY="0" />
+    <Sprite Path="city_54.png" LocationX="30" LocationY="0" />
+    <Sprite Path="house__53.png" LocationX="44" LocationY="0" />
+    <Sprite Path="city_09.png" LocationX="64" LocationY="0" />
+    <Sprite Path="city_38.png" LocationX="86" LocationY="0" />
+    <Sprite Path="city_15.png" LocationX="118" LocationY="0" />
+    <Sprite Path="city_25.png" LocationX="155" LocationY="0" />
+    <Sprite Path="house__46.png" LocationX="208" LocationY="0" />
+    <Sprite Path="city_48.png" LocationX="268" LocationY="0" />
+    <Sprite Path="city_51.png" LocationX="341" LocationY="0" />
+    <Sprite Path="city_42.png" LocationX="414" LocationY="0" />
+    <Sprite Path="city_45.png" LocationX="487" LocationY="0" />
+    <Sprite Path="index_close.png" LocationX="560" LocationY="0" />
+    <Sprite Path="city_12.png" LocationX="649" LocationY="0" />
+    <Sprite Path="house__43.png" LocationX="742" LocationY="0" />
+    <Sprite Path="house__56.png" LocationX="844" LocationY="0" />
+    <Sprite Path="house__11.png" LocationX="973" LocationY="0" />
+    <Sprite Path="house__24.png" LocationX="1107" LocationY="0" />
+    <Sprite Path="house__34.png" LocationX="1241" LocationY="0" />
+    <Sprite Path="house__29.png" LocationX="1377" LocationY="0" />
+    <Sprite Path="index__06.png" LocationX="1520" LocationY="0" />
+    <Sprite Path="city_22.png" LocationX="1691" LocationY="0" />
+    <Sprite Path="city_03.png" LocationX="1864" LocationY="0" />
+    <Sprite Path="city_06.png" LocationX="2066" LocationY="0" />
+    <Sprite Path="index__11.png" LocationX="2268" LocationY="0" />
+    <Sprite Path="house__59.png" LocationX="2491" LocationY="0" />
+    <Sprite Path="i_26.png" LocationX="2721" LocationY="0" />
+    <Sprite Path="i_06.png" LocationX="2958" LocationY="0" />
+    <Sprite Path="house__20.png" LocationX="3195" LocationY="0" />
+    <Sprite Path="house__18.png" LocationX="3441" LocationY="0" />
+    <Sprite Path="house__21.png" LocationX="3688" LocationY="0" />
+    <Sprite Path="i_10.png" LocationX="3935" LocationY="0" />
+    <Sprite Path="none_03.png" LocationX="4186" LocationY="0" />
+    <Sprite Path="house__67.png" LocationX="4447" LocationY="0" />
+    <Sprite Path="house__64.png" LocationX="4744" LocationY="0" />
+    <Sprite Path="none_06.png" LocationX="5041" LocationY="0" />
+    <Sprite Path="house__05.png" LocationX="5343" LocationY="0" />
+    <Sprite Path="house__08.png" LocationX="5653" LocationY="0" />
+    <Sprite Path="city_29.png" LocationX="5963" LocationY="0" />
+  </SpriteList>
+</SpriteFile>
