@@ -31,9 +31,9 @@
         <!-- 用于实际拖动事件目标 -->
         <div v-tap="tapMap" id="mask" class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width:100%; height: 100%; opacity: 0; background: rgb(0, 0, 0); transition: opacity 0.6s;"></div>
     </div>
-    <div v-bind:style="{'width':smallWidth+'px',height: smallHeight + 'px'}" class="map-small-box absolute">
+    <div v-bind:style="{'width':smallWidth+'rem',height: smallHeight + 'rem'}" class="map-small-box absolute">
       <div class="small-box-bg absolute event-none" v-bind:style="{'top':smallMapTop+'px',left: smallMapLeft + 'px'}">
-        <div class="small-viewport absolute"></div>
+        <div class="small-viewport absolute" v-bind:style="{width:viewportWhidth+'rem','height': viewportHeight + 'rem'}"></div>
       </div>
     </div>
     <div class="absolute contorl-left-top">
@@ -58,20 +58,22 @@
           flageImageSrc:'static/map_image_icon.png',
           screenWidth:document.body.clientWidth,
           screenHeight:document.body.clientHeight,
-          smallWidth:0,//按屏幕比例，现在是屏幕的三分之一
-          smallHeight:0,//4:3
           bigMapTop:0,
           bigMapLeft:0,
           bigMapWidth:78.9333,//单位是rem
           bigMapHeight:48.853,
           bigMapWidthr:0,
           bigMapHeightr:0,
+          viewportHeight:0,
+          viewportWhidth:1.2,
+          smallWidth:5.866667,//与大地图比例相同
+          smallWidthr:0,
+          smallHeight:3.63,
+          smallHeightr:0,
           smallMapTop:0,
           smallMapLeft:0,
           smallBigSCaleLeft:1,
           smallBigSCaleTop:1,
-          viewPortWidth:1,
-          viewPortHeight:1,
           smallTouchData:{
             startPageX:0,
             startPageY:0,
@@ -145,24 +147,24 @@
         this.setSmallBoxSize();
       },
       setScaleMap(){
-        let dom = document.querySelector('.small-viewport')
-       // dom.style.width = dom.offsetWidth + 'px'
-       // dom.style.height = (this.screenHeight/this.screenWidth) * dom.offsetWidth + 'px';
+        let that = this;
         //关联大小地图比例
-        this.smallBigSCaleLeft = this.bigMapWidthr/this.smallWidth
-        this.smallBigSCaleTop = this.bigMapHeightr/this.smallHeight
-        //小视口与大视口比例
-        this.viewPortWidth = this.screenWidth/dom.offsetWidth;
-        this.viewPortHeight = this.screenHeight/dom.offsetHeight;
+        this.smallBigSCaleLeft = this.bigMapWidth/this.smallWidth
+        this.smallBigSCaleTop = this.bigMapHeight/this.smallHeight
+        //小视口与屏幕比例
+        that.$nextTick(()=>{
+          that.viewportHeight = 1.2*(that.screenHeight/that.screenWidth); //vieport高度,与屏幕比例一致
+        });
+        
       },
       setSmallBoxSize(){
-        this.smallWidth = this.screenWidth*0.3
-        this.smallHeight = (this.screenWidth*0.3*4/3)//小map不根据屏幕比例iPhoneX的太长，导致太难看，固定3:4的比例
         let oHtml = document.querySelector("html")
         let fontSize = oHtml.style.fontSize
         fontSize = parseFloat(fontSize.replace(/px/,''));
         this.bigMapWidthr = fontSize * this.bigMapWidth;//获取真实大小
         this.bigMapHeightr = fontSize * this.bigMapHeight;//获取真实大小
+        this.smallWidthr = fontSize * this.smallWidth ;
+        this.smallHeightr = fontSize * this.smallHeight ;
        //设置比例
         this.setScaleMap();
          //获取mapbox的大小,设置可视区域
@@ -173,8 +175,8 @@
         let smallLeft = this.bigMapLeft/this.smallBigSCaleLeft
         let smallTop = this.bigMapTop/this.smallBigSCaleTop
         this.$nextTick(()=>{
-          this.smallMapTop = smallTop
-          this.smallMapLeft = smallLeft
+          this.smallMapTop = -smallTop
+          this.smallMapLeft = -smallLeft
         })
       },
       setSmallBoxSinglePosition(isSetBigMap){
@@ -188,11 +190,11 @@
        disX -= smallboxSizew/2;
        disY -= smallboxSizeh/2;
        //是否需要小窗口一定全部显示
-       if(this.smallWidth < smallboxSizew + disX){
-          disX = this.smallWidth - smallboxSizew
+       if(this.smallWidthr < smallboxSizew + disX){
+          disX = this.smallWidthr - smallboxSizew
         }
-        if(this.smallHeight < smallboxSizeh + disY){
-          disY = this.smallHeight - smallboxSizeh
+        if(this.smallHeightr < smallboxSizeh + disY){
+          disY = this.smallHeightr - smallboxSizeh
         }
         if(disX < 0){
           disX = 0;
@@ -290,7 +292,6 @@
         }else{
            disY = disY + this.bigMapTop
         }
-        console.log(disX)
         if(disX > 0){
           disX = 0;
         }
@@ -301,7 +302,7 @@
         this.bigMapTop = disY
         //是否更新小地图,默认时时更新
         if(isSetBigMap){
-         
+         this.setSmallBoxPosition()
         }
       },
       tapMap(){
@@ -386,5 +387,8 @@
   z-index: 8;
   top:0;
 }
-
+.map-small-box{
+  background:url('../../assets/img/icon/map_little.png');
+  background-size: cover;
+}
 </style>
