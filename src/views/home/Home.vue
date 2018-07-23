@@ -29,7 +29,7 @@
         </div>
         
         <!-- 用于实际拖动事件目标 -->
-        <div v-tap="tapMap" id="mask" class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width:100%; height: 100%; opacity: 0; background: rgb(0, 0, 0); transition: opacity 0.6s;"></div>
+        <div id="mask" class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width:100%; height: 100%; opacity: 0; background: rgb(0, 0, 0); transition: opacity 0.6s;"></div>
     </div>
     <div v-bind:style="{'width':smallWidth+'rem',height: smallHeight + 'rem'}" class="map-small-box absolute">
       <div class="small-box-bg absolute event-none" v-bind:style="{'top':smallMapTop+'px',left: smallMapLeft + 'px'}">
@@ -37,24 +37,33 @@
       </div>
     </div>
     <div class="absolute contorl-left-top">
-      <div class="map-close map-icon"></div>
+      <div v-tap="openClose" class="map-close map-icon"></div>
       <div class="map-guide map-icon"></div>
       <div class="map-house map-icon"></div>
     </div>
     <div class="absolute contorl-bottom-center">
       <div class="map-go map-icon"></div>
     </div>
+    <!-- <vue-lazy-component :timeout="1000">
+        
+    </vue-lazy-component> -->
+    <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
   </div>
 </template>
 <script>
   import {setStore,getStore} from '@/utils/utils.js'
   import {buildJson,flageJson} from '@/utils/build.js'
+  import oneAlert from '@/views/home/oneAlert.vue'
   export default {
     data(){
       return {
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],
+          closeDialogIsShow:{
+            isShow : false,
+            isMash:true
+          },
           flageImageSrc:'static/map_image_icon.png',
           screenWidth:document.body.clientWidth,
           screenHeight:document.body.clientHeight,
@@ -88,6 +97,9 @@
           }
       }
     },
+   components:{
+     oneAlert:oneAlert
+   },
    watch: {
           screenWidth (val) {
               if (!this.timer) {
@@ -139,6 +151,7 @@
             })()
         }
         this.init();
+        
     },
     methods:{
       //默认是根据大map，设置小map
@@ -304,6 +317,11 @@
         if(isSetBigMap){
          this.setSmallBoxPosition()
         }
+      },
+      openClose(){
+        this.$nextTick(()=>{
+          this.closeDialogIsShow.isShow = true;
+        });
       },
       tapMap(){
         //点击map上面时候，判断是否有可点击点
