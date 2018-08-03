@@ -38,7 +38,7 @@
     </div>
     <div class="absolute contorl-left-top">
       <div v-tap="openClose" class="map-close map-icon"></div>
-      <div class="map-guide map-icon"></div>
+      <div v-tap="openGuide" class="map-guide map-icon"></div>
       <div class="map-house map-icon"></div>
     </div>
     <div class="absolute contorl-bottom-center">
@@ -48,12 +48,14 @@
         
     </vue-lazy-component> -->
     <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
+    <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
   </div>
 </template>
 <script>
   import {setStore,getStore} from '@/utils/utils.js'
   import {buildJson,flageJson} from '@/utils/build.js'
   import oneAlert from '@/views/home/oneAlert.vue'
+  import guideAlert from '@/views/home/guideAlert.vue'
   export default {
     data(){
       return {
@@ -61,6 +63,10 @@
           buildImage:[],
           flageImage:[],
           closeDialogIsShow:{
+            isShow : false,
+            isMash:true
+          },
+          guideDialogIsShow:{
             isShow : false,
             isMash:true
           },
@@ -98,7 +104,8 @@
       }
     },
    components:{
-     oneAlert:oneAlert
+     oneAlert:oneAlert,
+     guideAlert
    },
    watch: {
           screenWidth (val) {
@@ -321,6 +328,11 @@
       openClose(){
         this.$nextTick(()=>{
           this.closeDialogIsShow.isShow = true;
+        });
+      },
+      openGuide(){
+        this.$nextTick(()=>{
+          this.guideDialogIsShow.isShow = true;
         });
       },
       tapMap(){
