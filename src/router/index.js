@@ -11,6 +11,8 @@ const Home = resolve => require(['../views/home/Home'],resolve);//首页
 
 const Error = resolve => require(['../views/error/Error'],resolve);//错误页面
 const Guid = resolve => require(['../views/home/Guid'],resolve);//引导页面
+const House = resolve => require(['../views/home/House'],resolve);//我的小窝
+const City = resolve => require(['../views/home/City'],resolve);//城市列表
 const router = new Router({
   routes: [
     {
@@ -27,6 +29,20 @@ const router = new Router({
           component: Guid,
           meta: {
             keepAlive:false
+          }
+        },
+        {
+          path: '/house',
+          component: House,
+          meta: {
+            keepAlive:true
+          }
+        },
+        {
+          path: '/city',
+          component: City,
+          meta: {
+            keepAlive:true
           }
         },
         {

@@ -47,6 +47,7 @@ if (!!u.match(/AppleWebKit.*Mobile.*/)) {//判断是否是移动设备打开。�
 } else {
    window.isBrowserMobile = 'pc'
 }
+
 //pushHistory();  暂时不处理,微信中进入页面就触发了popstate事件
 // let Historybool=false;
 // setTimeout(()=>{
@@ -84,7 +85,7 @@ Vue.use(VueLazyLoad,{
 })
 //import FastClick from 'fastclick';
 //FastClick.attach(document.body);
-// Vue.prototype.$echarts = echarts; //全局引入echarts
+ //Vue.prototype.$echarts = echarts; //全局引入echarts
 import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
 import  Velocity from 'velocity-animate'
 import { Indicator } from 'mint-ui';

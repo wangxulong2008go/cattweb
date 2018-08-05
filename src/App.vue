@@ -17,6 +17,7 @@
 <script>
 import router from '@/router';
 import { Indicator } from 'mint-ui';
+
 export default {
   data(){
     return{

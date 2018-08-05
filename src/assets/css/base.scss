@@ -1,4 +1,10 @@
 $baseColor:#007852;
+body{
+  -webkit-overflow-scrolling: auto;
+  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+  touch-action: none;
+  overflow: hidden;
+}
 .child-view {
   position: absolute;
   width:100%;
@@ -245,6 +251,7 @@ input,textarea {
   background: transparent;
   height: 100%;
   width: 100%;
+  transition: all 1s cubic-bezier(0.1, 0.85, 0.25, 1) 0s;
 }
 .event-none{
   pointer-events: none;

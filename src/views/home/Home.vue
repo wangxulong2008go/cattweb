@@ -1,24 +1,24 @@
 <template>
   <div class="contain-box relative">
     <div class="map-box absolute">
-        <div style="background:#999" v-bind:style="{'top':bigMapTop+'px',left: bigMapLeft + 'px','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
+        <div style="background:#999" v-bind:style="{'transform':'translate3d('+bigMapLeft + 'px,'+bigMapTop+'px,0)','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
             <div class="map_bg" style="height:100%;width:100%;line-height:0;">
                 <div class="one" style="display:flex">
                     <img width="100px" v-lazy ="bgImage[0]" alt="bg">
                     <img width="100px" v-lazy ="bgImage[1]" alt="bg">
                 </div>
                  <div class="two" style="display:flex">
-                    <img width="50%" v-lazy ="bgImage[2]" alt="bg">
+                    <img width="50%" :src ="bgImage[2]" alt="bg">
                     <img width="50%" v-lazy ="bgImage[3]" alt="bg">
                 </div> 
                 <div class="three" style="display:flex">
-                    <img width="50%" v-lazy ="bgImage[4]" alt="bg">
+                    <img width="50%" :src ="bgImage[4]" alt="bg">
                     <img width="50%" v-lazy ="bgImage[5]" alt="bg">
                 </div>
             </div>
-            <div class="building-box">
+            <div class="building-box" style="z-index:10">
                 <div v-for="(item,index) in buildImage" :key="index" :style="item.style">
-                    <img v-lazy="item.src" alt="1" style="height:100%;width:100%" />
+                    <img v-lazy="item.src" alt="1" style="height:100%;width:100%;touch-action: manipulation" />
                 </div>
             </div>
             <div class="building-box">
@@ -32,14 +32,16 @@
         <div id="mask" class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width:100%; height: 100%; opacity: 0; background: rgb(0, 0, 0); transition: opacity 0.6s;"></div>
     </div>
     <div v-bind:style="{'width':smallWidth+'rem',height: smallHeight + 'rem'}" class="map-small-box absolute">
-      <div class="small-box-bg absolute event-none" v-bind:style="{'top':smallMapTop+'px',left: smallMapLeft + 'px'}">
+      <div class="small-box-bg absolute event-none" v-bind:style="{'transform':'translate3d('+smallMapLeft+'px,'+ smallMapTop + 'px,0)'}">
         <div class="small-viewport absolute" v-bind:style="{width:viewportWhidth+'rem','height': viewportHeight + 'rem'}"></div>
       </div>
     </div>
     <div class="absolute contorl-left-top">
       <div v-tap="openClose" class="map-close map-icon"></div>
       <div v-tap="openGuide" class="map-guide map-icon"></div>
-      <div class="map-house map-icon"></div>
+      <div v-tap="goToHouse" class="map-house map-icon">
+          <div class="hand-letter-message"></div>
+      </div>
     </div>
     <div class="absolute contorl-bottom-center">
       <div class="map-go map-icon"></div>
@@ -49,6 +51,10 @@
     </vue-lazy-component> -->
     <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
     <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
+    <gong-alert :dataOjb="gongnengDialogIsShow"> </gong-alert>
+    <list-alert :dataOjb="goCityListDialogIsShow"> </list-alert>
+    <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
+    <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
   </div>
 </template>
 <script>
@@ -56,9 +62,16 @@
   import {buildJson,flageJson} from '@/utils/build.js'
   import oneAlert from '@/views/home/oneAlert.vue'
   import guideAlert from '@/views/home/guideAlert.vue'
+  import gongAlert from '@/views/home/gongAlert.vue'
+  import listAlert from '@/views/home/listAlert.vue'
+  import drawAlert from '@/views/home/drawAlert.vue'
+  import xuAlert from '@/views/home/xuAlert.vue'
   export default {
     data(){
       return {
+          p:0,//手信数量,
+          t:0,//剩余旅行次数,
+          c:0,//c=1，未去过记c=0
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],
@@ -70,6 +83,22 @@
             isShow : false,
             isMash:true
           },
+          gongnengDialogIsShow:{
+             isShow : false,
+             isMash:true
+          },
+           goCityListDialogIsShow:{
+             isShow : false,
+             isMash:true
+          },
+            goDrawDialogIsShow:{
+             isShow : false,
+             isMash:true
+          },
+            goXuxiDialogIsShow:{
+             isShow : false,
+             isMash:true
+          },
           flageImageSrc:'static/map_image_icon.png',
           screenWidth:document.body.clientWidth,
           screenHeight:document.body.clientHeight,
@@ -79,6 +108,8 @@
           bigMapHeight:48.853,
           bigMapWidthr:0,
           bigMapHeightr:0,
+          lastTwoPointBigX:[0,0],
+          lastTwoPointBigY:[0,0],
           viewportHeight:0,
           viewportWhidth:1.2,
           smallWidth:5.866667,//与大地图比例相同
@@ -89,6 +120,8 @@
           smallMapLeft:0,
           smallBigSCaleLeft:1,
           smallBigSCaleTop:1,
+          lastTwoPointSmallX:[0,0],
+          lastTwoPointSmallY:[0,0],
           smallTouchData:{
             startPageX:0,
             startPageY:0,
@@ -105,7 +138,11 @@
     },
    components:{
      oneAlert:oneAlert,
-     guideAlert
+     guideAlert,
+     gongAlert,
+     listAlert,
+     drawAlert,
+     xuAlert
    },
    watch: {
           screenWidth (val) {
@@ -139,16 +176,20 @@
     });
     
   },
+    destroyed(){
+         document.querySelector('.contain-box').removeEventListener('touchmove', this.scrollTouch,false);
+    },
     computed:{
 
     },
     mounted(){
+       document.querySelector('.contain-box').addEventListener('touchmove', this.scrollTouch,false);
       document.querySelector('.map-small-box').addEventListener('touchstart',this.touchSmall, false);  
-      document.querySelector('.map-small-box').addEventListener('touchmove',this.touchSmall, false);  
-      document.querySelector('.map-small-box').addEventListener('touchend',this.touchSmall, false); 
+    //  document.querySelector('.map-small-box').addEventListener('touchmove',this.touchSmall, false);  
+    //  document.querySelector('.map-small-box').addEventListener('touchend',this.touchSmall, false); 
       document.querySelector('#mask').addEventListener('touchstart',this.touchBig, false);  
-      document.querySelector('#mask').addEventListener('touchmove',this.touchBig, false);  
-      document.querySelector('#mask').addEventListener('touchend',this.touchBig, false);  
+     // document.querySelector('#mask').addEventListener('touchmove',this.touchBig, false);  
+    //  document.querySelector('#mask').addEventListener('touchend',this.touchBig, false);  
       window.onresize = () => {
             return (() => {
                 window.screenWidth = document.body.clientWidth
@@ -157,10 +198,18 @@
                 this.screenHeight = window.screenHeight
             })()
         }
+        this.smallDom=document.querySelector(".small-box-bg");
+        this.bigDom=document.querySelector(".map-flex");
         this.init();
         
     },
     methods:{
+       scrollTouch(evt){
+            if(!evt._isScroller) {
+                evt.preventDefault();
+                 evt.stopPropagation();
+            }
+        },
       //默认是根据大map，设置小map
       init(){
         //获取mapbox的大小比例，设置右上角的比例
@@ -233,27 +282,45 @@
         event = event || window.event;  
         switch(event.type){  
             case "touchstart": 
+             event.preventDefault();
+             this.smallDom.style.webkitTransition = 'none';
+             this.smallDom.style.transition = 'none';
               this.smallTouchData.startPageX = event.targetTouches[0].pageX; 
               this.smallTouchData.startPageY = event.targetTouches[0].pageY;
               this.smallTouchData.offsetTop =  event.targetTouches[0].target.offsetTop;//元素本身的位置
               this.smallTouchData.offsetLeft =  event.targetTouches[0].target.offsetLeft;
-              this.setSmallBoxSinglePosition(true);
+              document.querySelector('.map-small-box').addEventListener('touchmove',this.touchSmall, false);  
+              document.querySelector('.map-small-box').addEventListener('touchend',this.touchSmall, false); 
+            //  this.setSmallBoxSinglePosition(true);
                 break;
             case "touchmove":  
                  event.preventDefault();  
                 // console.log(event.targetTouches[0],'move') 
                 if((Math.abs(event.targetTouches[0].pageX - this.smallTouchData.startPageX) >  6) || (Math.abs(event.targetTouches[0].pageY -  this.smallTouchData.startPageY) > 6)){
                   //最小设置6
-                   this.smallTouchData.startPageX = event.targetTouches[0].pageX; 
-                   this.smallTouchData.startPageY = event.targetTouches[0].pageY;
-                   this.setSmallBoxSinglePosition(true);
+                   this.smallTouchData.startPageX = event.targetTouches[0].pageX + (event.targetTouches[0].pageX-this.smallTouchData.startPageX)*2; 
+                   this.smallTouchData.startPageY = event.targetTouches[0].pageY + (event.targetTouches[0].pageY-this.smallTouchData.startPageY)*2;
+                   //记录最后两点的x值
+                  this.lastTwoPointSmallX.shift();
+                   this.lastTwoPointSmallX.push(event.targetTouches[0].pageX);
+                   this.lastTwoPointSmallY.shift();
+                  this.lastTwoPointSmallY.push(event.targetTouches[0].pageY);
+                   this.setSmallBoxSinglePosition(true)
+                  // raf=requestAnimationFrame(this.setSmallBoxSinglePosition(true));
                 }
                 break;    
             case "touchend":  
             //console.log(event.changedTouches[0],'end')
-                this.smallTouchData.startPageX = event.changedTouches[0].pageX; 
-                this.smallTouchData.startPageY = event.changedTouches[0].pageY; 
+                this.smallTouchData.startPageX = event.changedTouches[0].pageX + ((this.lastTwoPointSmallX[1] - this.lastTwoPointSmallX[0]) * 0.5); 
+                this.smallTouchData.startPageY = event.changedTouches[0].pageY + ((this.lastTwoPointSmallY[1] - this.lastTwoPointSmallY[0]) * 0.5); 
+                  //过渡时间
+                //非线性衰减
+                var t = 0.5;
+                this.smallDom.style.webkitTransition = "all " + t + "s cubic-bezier(0.1, 0.85, 0.25, 1) 0s"; 
+                this.smallDom.style.transition = "all " + t + "s cubic-bezier(0.1, 0.85, 0.25, 1) 0s"; 
                 this.setSmallBoxSinglePosition(true);
+                document.querySelector('.map-small-box').removeEventListener('touchmove',this.touchSmall, false);  
+                document.querySelector('.map-small-box').removeEventListener('touchend',this.touchSmall, false); 
                 break;  
             
         }  
@@ -265,30 +332,96 @@
         this.bigMapLeft = -left
         this.bigMapTop = -top
       },
+      getBounds(data){
+       if(data>500){
+         return 8/1,5;
+       }else if(data>300){
+         return 10/1.5;
+       }else if(data>200){
+         return 12/1.5;
+       }else if(data>150){
+         return 14/1.5;
+       }else if(data>100){
+         return 16/1.5;
+       }else{
+         return 18/1.5;
+       }
+
+      },
       touchBig(event){
          event = event || window.event;  
         switch(event.type){  
             case "touchstart": 
+             this.bigDom.style.webkitTransition = "all " + 0.3 + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
+             this.bigDom.style.transition = "all " + 0.3 + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
+            // this.bigDom.style.webkitTransition = 'none';
+             //this.bigDom.style.transition = 'none';
               this.bigTouchData.startPageX = event.targetTouches[0].pageX; 
               this.bigTouchData.startPageY = event.targetTouches[0].pageY;
+              document.querySelector('#mask').addEventListener('touchmove',this.touchBig, false);  
+              document.querySelector('#mask').addEventListener('touchend',this.touchBig, false);
+              this.isStart = false; 
+              this.nowTime =new Date();
               //this.setBigBoxSinglePosition(true);
                 break;
-            case "touchmove":  
+            case "touchmove":
                  event.preventDefault();  
-                if((Math.abs(event.targetTouches[0].pageX - this.bigTouchData.startPageX) >  6) || (Math.abs(event.targetTouches[0].pageY -  this.bigTouchData.startPageY) > 6)){
-                  //最小设置6
+                if(new Date() - this.nowTime  >50){
+                  this.nowTime = new Date();
+                  this.isStart = true; 
+                  this.bigDom.style.webkitTransition = "all " + 0.5 + "s cubic-bezier(0.3, 0.85, 0.35, 1) 0s"; 
+                  this.bigDom.style.transition = "all " + 0.5 + "s cubic-bezier(0.3, 0.85, 0.35, 1) 0s"; 
+                 //最小设置6
                    this.bigTouchData.disX = event.targetTouches[0].pageX - this.bigTouchData.startPageX; 
                    this.bigTouchData.disY = event.targetTouches[0].pageY - this.bigTouchData.startPageY;
                    //重置初始化位置，因为有可能移动了，停了下来
                    this.bigTouchData.startPageX = event.targetTouches[0].pageX; 
                    this.bigTouchData.startPageY = event.targetTouches[0].pageY; 
+                     //记录最后两点的x值
+                  this.lastTwoPointBigX.shift();
+                   this.lastTwoPointBigX.push(event.targetTouches[0].pageX);
+                   this.lastTwoPointBigY.shift();
+                  this.lastTwoPointBigY.push(event.targetTouches[0].pageY);
                    this.setBigBoxSinglePosition(true);
                 }
                 break;    
             case "touchend":
-                this.bigTouchData.disX = event.changedTouches[0].pageX - this.bigTouchData.startPageX; 
-                this.bigTouchData.disY = event.changedTouches[0].pageY - this.bigTouchData.startPageY;  
-                this.setBigBoxSinglePosition(true);
+                if(this.isStart) {
+                  let force = new Date() - this.nowTime;
+                  let distance = this.getBounds(force);
+                  let xdistanc = event.changedTouches[0].pageX - this.bigTouchData.startPageX;
+                  let ydistanc = event.changedTouches[0].pageY - this.bigTouchData.startPageY;
+                  if(0 < xdistanc && xdistanc<10){
+                    xdistanc = 15;
+                  }
+                  if(0 > xdistanc && xdistanc>-10){
+                    xdistanc = -15;
+                  }
+                  if(0 < ydistanc && ydistanc<10){
+                    ydistanc = 15;
+                  }
+                  if(0 > ydistanc && ydistanc>-10){
+                    ydistanc = -15;
+                  }
+                  //console.log(xdistanc,ydistanc,'end')
+                   this.bigTouchData.disX = event.changedTouches[0].pageX - this.bigTouchData.startPageX+ ((event.changedTouches[0].pageX - this.bigTouchData.startPageX) * distance); 
+                  this.bigTouchData.disY = event.changedTouches[0].pageY - this.bigTouchData.startPageY+ ((event.changedTouches[0].pageY - this.bigTouchData.startPageY) * distance);  
+                  var t = 1.0;
+                  this.bigDom.style.webkitTransition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
+                  this.bigDom.style.transition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
+                }else{
+                  this.buildEvent(event.changedTouches[0]);
+                  // document.querySelector('#mask').style.display = 'none';
+                  // window.setTimeout(()=>{
+                  //   document.querySelector('#mask').style.display = 'block';
+                  // })
+                   this.bigTouchData.disX = event.changedTouches[0].pageX - this.bigTouchData.startPageX; 
+                  this.bigTouchData.disY = event.changedTouches[0].pageY - this.bigTouchData.startPageY;  
+                }
+               
+               this.setBigBoxSinglePosition(true);
+                document.querySelector('#mask').removeEventListener('touchmove',this.touchBig, false);  
+                document.querySelector('#mask').removeEventListener('touchend',this.touchBig, false); 
                 break;  
             
         } 
@@ -335,6 +468,68 @@
           this.guideDialogIsShow.isShow = true;
         });
       },
+      goToHouse(){
+        this.$router.push({path:'house',query: {page:'house'}});
+      },
+      isInAerea(params){
+        debugger;
+        if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
+          return true;
+        }else{
+          return false;
+        }
+      },
+      buildEvent(touches){
+        let oHtml = document.querySelector("html");
+        let fontSize = oHtml.style.fontSize;
+        fontSize = parseFloat(fontSize);
+        let x = touches.pageX - this.bigMapLeft;
+        let y = touches.pageY - this.bigMapTop;
+        this.buildImage.forEach(element => {
+          let style = element.style;
+          let top = (parseFloat(style.top) || this.bigMapHeight - parseFloat(style.bottom) - parseFloat(style.height))*fontSize;
+          let left = (parseFloat(style.left) || this.bigMapWidth - parseFloat(style.right)- parseFloat(style.width))*fontSize;
+          let width = parseFloat(style.width)*fontSize;
+          let height = parseFloat(style.height)*fontSize;
+          let params = {
+            x,y,top,left,width,height
+          }
+          if(this.isInAerea(params)){
+            this.buildPage(element);
+             return false;
+          }
+        });
+        return ;
+      },
+      buildPage(item){
+         if(item.type == 1){
+            //是城市
+            this.c = 1;
+            if((this.c==1 && this.p<3) || (this.c==0 && this.p<3 && this.t>0)){
+              //确认前往
+                this.$nextTick(()=>{
+                  this.goCityListDialogIsShow.isShow = true;
+                });
+            }
+            if((this.c==1 && this.p==3) || (this.c==0 && this.p==3)){
+              //前往抽奖
+                this.$nextTick(()=>{
+                  this.goDrawDialogIsShow.isShow = true;
+                });
+            }
+            if(this.c==0 && this.p<3 && this.t==0){
+              //休息一下
+               this.$nextTick(()=>{
+                  this.goXuxiDialogIsShow.isShow = true;
+                });
+            }
+          }else if(item.type == 2){
+            //功能页面
+            this.$nextTick(()=>{
+              this.gongnengDialogIsShow.isShow = true;
+            });
+          }
+      },
       tapMap(){
         //点击map上面时候，判断是否有可点击点
       }
@@ -348,6 +543,10 @@
 .map_bg{
   display: flex;
   flex-direction:column;
+}
+.map-flex img{
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0);
 }
 .map_bg .one,.map_bg .two{
   flex-grow: 0;
@@ -398,7 +597,19 @@
   background-position-y: -1.98rem;
   background-position-x: -2.62rem;
   margin-top: 0.3rem;
+  position: relative;
+  left: -0.1rem;
 }
+ .hand-letter-message{
+    position:absolute;
+    top: -0.4rem;
+    right: -0.6rem;
+    height: 1.045333rem;
+    width: 1.493333rem;
+     background:url('../../assets/img/icon/icon_home_pop.png');
+    background-size: cover;
+  
+  }
 .map-go{
   height:3.6rem;
   width: 6.76rem;

@@ -9,10 +9,7 @@
               
             </div>
             <div class="alert-button">
-                <span v-tap="closeDailogAndDestory" class="btn-one">
-
-                </span>
-                <span v-tap="closeDailog" class="btn-two">
+                <span v-tap="goToCityList" class="btn-one">
 
                 </span>
             </div>
@@ -45,64 +42,18 @@
                 }
             }
         }
-        // icon:{
-        //     type:String,
-        //     default:function(){
-        //         return require('../../assets/img/icon/i_26.png');
-        //     }
-        // }
     },
     mounted(){
      
     },
-     computed: {
-    isShow() {
-    　　　　return this.dataOjb.isShow
-    　　}
-    },
-    watch:{
-        isShow(value){
-           if(value){
-                // document.querySelector('#app').removeEventListener('touchmove',scrollTouch,false);
-                // document.querySelector('.alertsd').addEventListener('touchmove', this.scrollTouch,false);
-           }else{
-               //  document.querySelector('.alertsd').removeEventListener('touchmove',this.scrollTouch,false);
-           }
-        }
-    },
-    methods:{
-          scrollTouch(evt){
-            if(!evt._isScroller) {
-                evt.preventDefault();
-                 evt.stopPropagation();
-            }
-        },
-        overscroll(el){
-                el.addEventListener('touchstart', function(){
-                    var top = el.scrollTop;
-                    var totalScroll = el.scrollHeight;
-                    var currentScroll = top + el.offsetHeight;
-                    if(top === 0) {
-                        el.scrollTop = 1;
-                    }else if(currentScroll === totalScroll){
-                        el.scrollTop = top - 1;
-                    }
-                });
-                el.addEventListener('touchmove', function(evt){
-                    if(el.offsetHeight < el.scrollHeight){
-                        evt._isScroller = true;
-                    }
-                });
 
-        },
-      closeDailogAndDestory(){
-          //关闭页面逻辑
-          this.dataOjb.isShow = false;
-          window.location.href="about:blank";
-          window.close();
-      },
+    methods:{
       closeDailog(){
           this.dataOjb.isShow = false;
+      },
+      goToCityList(){
+          this.dataOjb.isShow = false;
+          this.$router.push({path:'city',query: {page:'city'}});
       }
     }
   }
@@ -140,28 +91,18 @@
             .alert-button{
                 height: 2.432rem;
                 position: absolute;
-                bottom: 1.152rem;
+                bottom: 0.8rem;
                 z-index: 2001;
                 width: 100%;
             }
             .btn-one{
                 display: inline-block;
                 width: 4.202667rem;
-                 background-image: url('../../assets/img/guid/house_window_5_btn_1.png');
+                 background-image: url('../../assets/img/guid/house_window_4_btn.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
                  height: 100%;
-            }
-            .btn-two{
-                display: inline-block;
-                width: 4.202667rem;
-                 background-image: url('../../assets/img/guid/house_window_5_btn_2.png');
-                 background-repeat: no-repeat;
-                 background-size: contain;
-                 box-sizing: border-box;
-                  height: 100%;
-                  margin-left:.64rem;
             }
         }
         .flex{
@@ -172,7 +113,7 @@
             .flex-grid{
                 margin:0 auto;
                  width: 11.946667rem;
-                 background-image: url('../../assets/img/guid/house_window_5.png');
+                 background-image: url('../../assets/img/guid/house_window_4.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;

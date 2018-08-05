@@ -1,7 +1,7 @@
 
 const  store = {
   state:{
-  
+    viewDirection:''
   },
   getters: {},
   actions: {
@@ -13,6 +13,9 @@ const  store = {
    // OPEN_TAB(state, data){
    //    state.openTab = data;
    //  }
+   setviewDirection(state, data){
+     state.viewDirection = data;
+   }
   }
 }
 export default store;

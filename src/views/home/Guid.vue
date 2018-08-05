@@ -7,6 +7,12 @@
   </div>
 </template>
 <script>
+ function scrollTouch(evt){
+            if(!evt._isScroller) {
+                evt.preventDefault();
+                 evt.stopPropagation();
+            }
+        }
   export default {
     data(){
       return {
@@ -19,8 +25,11 @@
         this.setProgress();
         this.test();
     },
+    destroyed(){
+         document.querySelector('#app').removeEventListener('touchmove', scrollTouch,false);
+    },
     mounted(){
-     
+      document.querySelector('#app').addEventListener('touchmove', scrollTouch,false);
     },
     methods:{
      setProgress(){

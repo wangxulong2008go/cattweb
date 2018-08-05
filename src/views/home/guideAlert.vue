@@ -2,9 +2,9 @@
   <div class="alert-own" :class="dataOjb.className" v-show="dataOjb.isShow">
     <div class="alert-content flex">
         <div class="flex-grid">
-            <div class="alert-text">
+            <div class="alert-text scroll-guide">
                 <p>
-              旅行指南发送到法律上的纠纷了解了解历史看风景流量计回复即可很快开放时间里看风景路家乐福世纪东方浏览记录开始减肥会尽快哈反馈数据分类垃圾分类考试加分了垃圾死了就犯困了快速减肥链接了了坚实的法律框架风口浪尖十分看好分离设计费逻辑分离设计费逻辑分离设计费逻辑蓝色的积分绿色减肥
+              旅行指南发送到法律上的纠纷了解了解历史看风景流量计回复即可很快开放时间里看风景路家乐福世纪东方浏览记录开始减极乐空间了解过了科技馆了解到立刻感觉到冷风机管理会计了解过了垃圾分类是分类进坑了解放路快速减肥垃圾分类是会计法垃圾分类是宽带缴费链接付款了时间否肥会尽快哈反馈数据分类垃圾分类考试加分了垃圾死了就犯困了快速减肥链接了了坚实的法律框架风口浪尖十分看好分离设计费逻辑分离设计费逻辑分离设计费逻辑蓝色的积分绿色减肥
                 </p>
             </div>
             <div class="alert-button">
@@ -52,9 +52,48 @@
         // }
     },
     mounted(){
-     
+       this.overscroll(document.querySelector('.scroll-guide'));
+    },
+    computed: {
+    isShow() {
+    　　　　return this.dataOjb.isShow
+    　　}
+    },
+    watch:{
+        isShow(value){
+           if(value){
+             //   this.overscroll(document.querySelector('.scroll-guide'));
+              //   document.querySelector('.alert-own').addEventListener('touchmove', this.scrollTouch,false);
+           }else{
+               //  document.querySelector('.alert-own').removeEventListener('touchmove',this.scrollTouch,false);
+           }
+        }
     },
     methods:{
+        scrollTouch(evt){
+            if(!evt._isScroller) {
+                evt.preventDefault();
+                 evt.stopPropagation();
+            }
+        },
+        overscroll(el){
+                el.addEventListener('touchstart', function(){
+                    var top = el.scrollTop;
+                    var totalScroll = el.scrollHeight;
+                    var currentScroll = top + el.offsetHeight;
+                    if(top === 0) {
+                        el.scrollTop = 1;
+                    }else if(currentScroll === totalScroll){
+                        el.scrollTop = top - 1;
+                    }
+                });
+                el.addEventListener('touchmove', function(evt){
+                    if(el.offsetHeight < el.scrollHeight){
+                        evt._isScroller = true;
+                    }
+                });
+
+        },
       closeDailogAndDestory(){
           //关闭页面逻辑
           this.dataOjb.isShow = false;
@@ -68,6 +107,7 @@
 <style lang="scss" scoped>
     .alert-own{
         position: fixed;
+        -webkit-overflow-scroll:auto;
         z-index: 1999;
         bottom: 0;
         top: 0;
@@ -95,6 +135,7 @@
                margin-bottom: 0;
                padding-left: 1.536rem;
                margin-right: 0;
+               -webkit-overflow-scrolling:touch;
                p{
                    text-align: left;
                    font-size: 14px;
@@ -135,12 +176,15 @@
                  .close{
                      height: 1.92rem;
                      position: relative;
+                     top:3.6rem;
+                     left: 0.768rem;
                      span{
                      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAgVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9d3yJTAAAAKnRSTlMA4y8uCCcN3oLtxbuml0M7ECr42NabVxz0vpGJUE6F23DozKBZJBjNc86W928EAAAB40lEQVRIx51X25aCMAwMyq0CFhcQRQTvuv7/B27TslApCCfzoJYyZ6Zp0kYYgstfWZDWjNVpkJ24C7PglqH1/oAVltPcvPLeA/D8/Cst9s+tzGUfBPtLK37243FemaqXkujmNK/Fzi1K1NO0HKHZhZz/Cdd2b2Id/sipwh5c3UrSog0MYBNJ6iofmErkDIcR8JW06xg8GcyDDaOwDzK8PWaOerstfMV2h5ofbm30wdYwgTXD1eiuCtRD3hQTNYtufET3jc8Jt/jmsc3OGuMCs4ARql1Q8JXzKXTR8EHiwcS+c5gJLjKBPVrBCGYj+pd0LRHRu1YhVbbpJUdWaZVxF5KW24Q0hA6VeL7QeQsLJTqEGNjmW9/CKxbjshsvsSSv+maiknKa2Lox661rLuRQN28n0is3QrNomd3ACA+Hl0oak7mUPhXPTJ8TZOKzX2RLxex+fMIRDzMIxEwMg0zHGeRBLB4HIFb6VGPTrelT4SnKEkTl79XQ1FR6JvbiJACGsgNwvOakMIHLY2Qi2SopOL8YHOp2kBOAnHLkJCeXFb2QoSQdHeTDino8kg9k+hVAv3To1xz9YqVf5fTmgd6uIBxCg0RoyQhNIKXtPJIb3W/IfUJrTW7mOy4/ZUHqMeaN/334AweBb5s601/AAAAAAElFTkSuQmCC');
                      height: 1.194667rem;
                      width: 1.194667rem;   
                      display: inline-block;
                       background-size: cover;
+                      
                      }
                  }
             }

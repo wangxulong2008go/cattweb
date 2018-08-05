@@ -9,6 +9,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_hhht.png',
+        enName:'hhht',
+        chName:'呼和浩特',
+        type:1
     }, {
         style: {
             top: '11.690667rem',
@@ -19,6 +22,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_cd.png',
+        enName:'cd',
+        chName:'成都',
+        type:1
     }
     , {
         style: {
@@ -30,6 +36,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_cgjj.png',
+        enName:'cgjj',
+        chName:'查公积金',
+        type:2
     }, {
         style: {
             top: '9.28rem',
@@ -40,6 +49,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_zz.png',
+        enName:'zz',
+        chName:'郑州',
+        type:1
     }, {
         style: {
             top: '2.304rem',
@@ -50,6 +62,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_sy.png',
+        enName:'sy',
+        chName:'沈阳',
+        type:1
     }, {
         style: {
             top: '3.989333rem',
@@ -60,6 +75,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_jn.png',
+        enName:'jn',
+        chName:'济南',
+        type:1
     }, {
         style: {
             top: '1.28rem',
@@ -70,6 +88,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_yt.png',
+        enName:'yt',
+        chName:'烟台',
+        type:1
     }, {
         style: {
             top: '3.690667rem',
@@ -80,6 +101,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_nt.png',
+        enName:'nt',
+        chName:'南通',
+        type:1
     }, {
         style: {
             top: '14.058667rem',
@@ -90,6 +114,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_nj.png',
+        enName:'nj',
+        chName:'南京',
+        type:1
     }, {
         style: {
             top: '17.066667rem',
@@ -100,6 +127,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_sz.png',
+        enName:'sz',
+        chName:'苏州',
+        type:1
     }, {
         style: {
             top: '21.184rem',
@@ -110,6 +140,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_jsdf.png',
+        enName:'jsdf',
+        chName:'交水电费',
+        type:2
     }, {
         style: {
             bottom: '13.461333rem',
@@ -120,6 +153,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_sh.png',
+        enName:'sh',
+        chName:'上海',
+        type:1
     }, {
         style: {
             width: '5.184rem',
@@ -130,6 +166,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_dg.png',
+        enName:'dg',
+        chName:'东莞',
+        type:1
     }, {
         style: {
             width: '3.349333rem',
@@ -140,6 +179,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_wx.png',
+        enName:'wx',
+        chName:'无锡',
+        type:1
     }, {
         style: {
             width: '5.354667rem',
@@ -150,6 +192,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_hz.png',
+        enName:'hz',
+        chName:'杭州',
+        type:1
     }, {
         style: {
             top: '13.013333rem',
@@ -160,6 +205,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_rmms.png',
+        enName:'rmms',
+        chName:'热门美食',
+        type:2
     }, {
         style: {
             width: '8.874667rem',
@@ -170,6 +218,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_bj.png',
+        enName:'bj',
+        chName:'北京',
+        type:1
     }, {
         style: {
             top: '21.994667rem',
@@ -180,6 +231,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_hf.png',
+        enName:'hf',
+        chName:'合肥',
+        type:1
     }, {
         style: {
             top: '21.354667rem',
@@ -190,6 +244,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_tj.png',
+        enName:'tj',
+        chName:'天津',
+        type:1
     }, {
         style: {
             top: '16.064rem',
@@ -200,6 +257,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_mdyp.png',
+        enName:'mdyp',
+        chName:'买电影票',
+        type:2
     }, {
         style: {
             left: '19.584rem',
@@ -210,6 +270,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_wh.png',
+        enName:'wh',
+        chName:'武汉',
+        type:1
     }, {
         style: {
             top: '25.642667rem',
@@ -220,6 +283,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_cq.png',
+        enName:'cq',
+        chName:'重庆',
+        type:1
     }, {
         style: {
             left: '3.733333rem',
@@ -230,6 +296,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_km.png',
+        enName:'km',
+        chName:'昆明',
+        type:1
     }, {
         style: {
             left: '21.376rem',
@@ -240,6 +309,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_gz.png',
+        enName:'gz',
+        chName:'广州',
+        type:1
     }, {
         style: {
             left: '27.2rem',
@@ -250,6 +322,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_cs.png',
+        enName:'cs',
+        chName:'长沙',
+        type:1
     }, {
         style: {
             left: '37.504rem',
@@ -260,6 +335,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_nc.png',
+        enName:'nc',
+        chName:'南昌',
+        type:1
     }, {
         style: {
             left: '28.629333rem',
@@ -270,6 +348,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_fs.png',
+        enName:'fs',
+        chName:'佛山',
+        type:1
     }, {
         style: {
             right: '26.24rem',
@@ -280,6 +361,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_shenzhen.png',
+        enName:'shenzhen',
+        chName:'深圳',
+        type:1
     }, {
         style: {
             left: '39.765333rem',
@@ -290,6 +374,9 @@ let buildData = [
         },
         isShow: true,
         src: 'static/map_mlc.png',
+        enName:'mlc',
+        chName:'买理财',
+        type:2
     }, {
         style: {
             top: '14.378667rem',
