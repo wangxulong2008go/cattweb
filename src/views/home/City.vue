@@ -1,6 +1,6 @@
 <template>
   <div class="contain-box">
-    我的小窝
+    城市列表
   </div>
 </template>
 <script>

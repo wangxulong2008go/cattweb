@@ -164,6 +164,7 @@
             height: 100%;
             text-align: center;
             .flex-grid{
+                    top: -2rem;
                 margin:0 auto;
                  width: 10.986667rem;
                  background-image: url('../../assets/img/guid/house_window_1.png');

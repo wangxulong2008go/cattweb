@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="absolute contorl-bottom-center">
-      <div class="map-go map-icon"></div>
+      <div v-tap="goToHouses" class="map-go map-icon"></div>
     </div>
     <!-- <vue-lazy-component :timeout="1000">
         
@@ -55,6 +55,7 @@
     <list-alert :dataOjb="goCityListDialogIsShow"> </list-alert>
     <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
     <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
+    <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
   </div>
 </template>
 <script>
@@ -66,6 +67,7 @@
   import listAlert from '@/views/home/listAlert.vue'
   import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
+  import cloudAlert from '@/views/home/cloudAlert.vue'
   export default {
     data(){
       return {
@@ -75,6 +77,11 @@
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],
+          cloundXuxiDialogIsShow:{
+            isShow : false,
+            isMash:true,
+            isClound:false 
+          },
           closeDialogIsShow:{
             isShow : false,
             isMash:true
@@ -142,7 +149,8 @@
      gongAlert,
      listAlert,
      drawAlert,
-     xuAlert
+     xuAlert,
+     cloudAlert
    },
    watch: {
           screenWidth (val) {
@@ -158,8 +166,22 @@
                     //this.$nextTick(this.setSmallBoxSize);
                     setTimeout(()=>{this.timer = false}, 400)
                 }
+          },
+          ps(val){
+            this.p = val;
+          }
+          ,
+          ts(val){
+            this.t = val;
+          }
+          ,
+          cs(val){
+            this.c = val;
           }
       },
+  actived(){
+    this.cloundXuxiDialogIsShow.isClound = false;
+  },
   created() {
     // this.$Indicator.open({
     //         text: '正在努力加载中...',
@@ -180,7 +202,15 @@
          document.querySelector('.contain-box').removeEventListener('touchmove', this.scrollTouch,false);
     },
     computed:{
-
+        ps() {
+        　　　　return this.$store.state.p
+        　　},
+        ts() {
+        　　　　return this.$store.state.t
+        　　},
+        cs() {
+        　　　　return this.$store.state.c
+        　　},
     },
     mounted(){
        document.querySelector('.contain-box').addEventListener('touchmove', this.scrollTouch,false);
@@ -471,8 +501,11 @@
       goToHouse(){
         this.$router.push({path:'house',query: {page:'house'}});
       },
+      goToHouses(){
+        this.clound('city');
+       
+      },
       isInAerea(params){
-        debugger;
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
           return true;
         }else{
@@ -504,7 +537,9 @@
       buildPage(item){
          if(item.type == 1){
             //是城市
-            this.c = 1;
+            this.p = parseInt(4*Math.random());
+            this.c = parseInt(1*Math.random());
+            this.t = parseInt(4*Math.random());
             if((this.c==1 && this.p<3) || (this.c==0 && this.p<3 && this.t>0)){
               //确认前往
                 this.$nextTick(()=>{
@@ -529,6 +564,15 @@
               this.gongnengDialogIsShow.isShow = true;
             });
           }
+      },
+      clound(page){
+        this.cloundXuxiDialogIsShow.isShow = true;
+        this.cloundXuxiDialogIsShow.isClound = true;
+        window.setTimeout(()=>{
+          this.cloundXuxiDialogIsShow.isShow = false;
+         this.cloundXuxiDialogIsShow.isClound = false;
+          this.$router.push({path:page,query: {page:page}});
+        },5000)
       },
       tapMap(){
         //点击map上面时候，判断是否有可点击点

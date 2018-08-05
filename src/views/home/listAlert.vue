@@ -53,6 +53,9 @@
       },
       goToCityList(){
           this.dataOjb.isShow = false;
+          this.$store.commit('setp',this.$store.state.p +1);
+          this.$store.commit('setc',1);
+          this.$store.commit('sett',this.$store.state.t -1);
           this.$router.push({path:'city',query: {page:'city'}});
       }
     }
@@ -111,6 +114,7 @@
             height: 100%;
             text-align: center;
             .flex-grid{
+                    top: -2rem;
                 margin:0 auto;
                  width: 11.946667rem;
                  background-image: url('../../assets/img/guid/house_window_4.png');
