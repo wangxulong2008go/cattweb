@@ -83,8 +83,8 @@ import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad,{
   attempt: 1
 })
-//import FastClick from 'fastclick';
-//FastClick.attach(document.body);
+import FastClick from 'fastclick';
+FastClick.attach(document.body);
  //Vue.prototype.$echarts = echarts; //全局引入echarts
 import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
 import  Velocity from 'velocity-animate'

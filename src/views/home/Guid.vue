@@ -63,7 +63,7 @@
     .contain-box{
         background-image: url('../../assets/img/guid/guid_BG.png');
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: 100% 100%;
         .progress-box{
             position:absolute;
             left: 2.2rem;
