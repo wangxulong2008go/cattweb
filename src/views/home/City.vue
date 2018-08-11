@@ -167,8 +167,6 @@
             if(!this.btnnone){
                 //可点击状态
                 let c = this.selected.isExe ?1:0;
-                this.p = 3;
-                this.t = 0;
                 if(c==1 && this.p<3){
                     //城市专区
                    window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
