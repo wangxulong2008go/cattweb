@@ -13,206 +13,99 @@
                 </div>
             </div>
        </div>
-       <div>
+       <!-- <div>
          <input type="range" class="range">
-       </div>
+       </div> -->
     </div>
     <div class="body-footer">
-      <span v-tap="gototavel" class="btn-one-go">
+      <span v-tap="gototavel" class="btn-one-go" :class="btnnone?'btnnone':''">
       </span>
     </div>
     <div v-tap="goBack" class="goback">
 
     </div>
+    <div style="display:none">
+        {{isnum}}
+    </div>
+     <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
+    <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
+    <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
   </div>
 </template>
 <script>
+    var compare = function (prop) {
+        return function (obj1, obj2) {
+            var val1 = obj1[prop] ? 0:1;
+            var val2 = obj2[prop]? 0:1;
+            if (val1 > val2 ) {
+                return -1;
+            }else if(val1 < val2 ){
+                return 1; 
+            } else {
+                return 0;//不变
+            }            
+        } 
+    }
+  import {cityListJson} from '@/utils/build.js'
+  import cloudAlert from '@/views/home/cloudAlert.vue'
+    import drawAlert from '@/views/home/drawAlert.vue'
+  import xuAlert from '@/views/home/xuAlert.vue'
   export default {
     data(){
       return {
-         cityList:[
-            {
-                isShow: true, //是否选中
-                isExe:false,//是否去过
-                src: 'static/list/image_bj_2.png',
-                enName:'bj',
-                chName:'北京',
-                type:1,
-                code:13
-            },
-            {
-                isShow: false,isExe:true,
-                src: 'static/list/image_sh_2.png',
-                enName:'sh',
-                chName:'上海',
-                type:1,
-                code:14
-            },
-             {
-                isShow: false,isExe:true,
-                src: 'static/list/image_shenzhen_2.png',
-                enName:'shenzhen',
-                chName:'深圳',
-                type:1,
-                code:15
-            },
-             {
-                isShow: false,isExe:true,
-                src: 'static/list/image_gz_2.png',
-                enName:'gz',
-                chName:'广州',
-                type:1,
-                code:16
-            },
-             {
-                isShow: false,isExe:true,
-                src: 'static/list/image_jn_2.png',
-                enName:'jn',
-                chName:'济南',
-                type:1,
-                code:17
-            },
-             {
-                isShow: false,isExe:true,
-                src: 'static/list/image_wh_2.png',
-                enName:'wh',
-                chName:'武汉',
-                type:1,
-                code:18
-            },
-             {
-                isShow: false,isExe:true,
-                src: 'static/list/image_cs_2.png',
-                enName:'cs',
-                chName:'长沙',
-                type:1,
-                code:19
-            },
-            {
-                isShow: false,isExe:true,
-                src: 'static/list/image_hhht_2.png',
-                enName:'hhht',
-                chName:'呼和浩特',
-                type:1,
-                code:20
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_cd_2.png',
-                enName:'cd',
-                chName:'成都',
-                type:1,
-                code:12
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_zz_2.png',
-                enName:'zz',
-                chName:'郑州',
-                type:1,
-                code:4
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_sy_2.png',
-                enName:'sy',
-                chName:'沈阳',
-                type:1,
-                code:9
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_yt_2.png',
-                enName:'yt',
-                chName:'烟台',
-                type:1,
-                code:6
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_nt_2.png',
-                enName:'nt',
-                chName:'南通',
-                type:1,
-                code:1
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_nj_2.png',
-                enName:'nj',
-                chName:'南京',
-                type:1,
-                code:7
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_sz_2.png',
-                enName:'sz',
-                chName:'苏州',
-                type:1,
-                code:23
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_dg_2.png',
-                enName:'dg',
-                chName:'东莞',
-                type:1,
-                code:22
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_wx_2.png',
-                enName:'wx',
-                chName:'无锡',
-                type:1,
-                code:24
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_hz_2.png',
-                enName:'hz',
-                chName:'杭州',
-                type:1,
-                code:21
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_hf_2.png',
-                enName:'hf',
-                chName:'合肥',
-                type:1,
-                code:11
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_tj_2.png',
-                enName:'tj',
-                chName:'天津',
-                type:1,
-                code:5
-            },  {
-                isShow: false,isExe:true,
-                src: 'static/list/image_cq_2.png',
-                enName:'cq',
-                chName:'重庆',
-                type:1,
-                code:8
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_km_2.png',
-                enName:'km',
-                chName:'昆明',
-                type:1,
-                code:10
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_nc_2.png',
-                enName:'nc',
-                chName:'南昌',
-                type:1,
-                code:3
-            }, {
-                isShow: false,isExe:true,
-                src: 'static/list/image_fs_2.png',
-                enName:'fs',
-                chName:'佛山',
-                type:1,
-                code:2
-            }
-        ]
+         isnum:0,
+         btnnone:true,
+         t:0,
+         p:0,
+         selected:null,
+        goDrawDialogIsShow:{
+            isShow : false,
+            isMash:true,
+            id:23,
+            t:0,
+            p:0
+        },
+         cloundXuxiDialogIsShow:{
+            isShow : false,
+            isMash:true,
+            isClound:false 
+          },
+        goXuxiDialogIsShow:{
+            isShow : false,
+            isMash:true
+        }
       }
     },
+    components:{
+    drawAlert,
+     xuAlert,
+     cloudAlert
+   },
+    computed:{
+      pss(){
+        this.p = this.$store.state.p;
+        return this.$store.state.p
+      },
+      tss(){
+         this.t = this.$store.state.t;
+        return this.$store.state.t;
+      }
+    },
+       watch: {
+          pss(val,newvlue){
+            this.p = newvlue;
+          },
+          tss(val,newvalue){
+            this.t = newvalue;
+          }
+         
+      },
     created() {
-   
+        this.cityList = cityListJson();
+    },
+    activated(){
+        this.cityList.sort(compare("isExe"));
+         this.isnum = this.isnum+1;
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -250,18 +143,79 @@
           this.$router.back()
         },
         selectedCity(item){
+         this.btnnone = false;
           this.cityList.forEach(element => {
             element.isShow = false;
             if(element.code == item.code){
-              this.$nextTick(()=>{
+             // this.$nextTick(()=>{
                 element.isShow = true;
-              })
+                this.selected = item;
+             // })
             }
           });
+          this.isnum = this.isnum+1;
         },
+        clound(page){
+        this.cloundXuxiDialogIsShow.isShow = true;
+        window.setTimeout(()=>{
+          this.cloundXuxiDialogIsShow.isShow = false;
+          //location.href = page;
+         // this.$router.push({path:page,query: {page:page}});
+        },5000)
+      },
         gototavel(){
-
-        }
+            if(!this.btnnone){
+                //可点击状态
+                let c = this.selected.isExe ?1:0;
+                this.p = 3;
+                this.t = 0;
+                if(c==1 && this.p<3){
+                    //城市专区
+                   window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
+                   this.clound('page');
+                }
+                 if(c==0 && this.p<3 && this.t>0){
+                    //城市专区
+                    this.$store.commit('setp',this.$store.state.p +1);
+                    this.$store.commit('sett',this.$store.state.t -1);
+                    this.setCitySelect(this.selected.code);
+                   window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
+                   this.clound('page');
+                }
+                if(c==0 && this.p<3 && this.t==0){
+                     this.goXuxiDialogIsShow.isShow = true;
+                     window.$post([{id:12,times:1},{id:24,times:1}]);//休息
+                }
+                if(this.p>=3){
+                    //抽奖
+                     window.$post([{id:11,times:1},{id:24,times:1}]);
+                    this.goDrawDialogIsShow.isShow = true;
+                    this.goDrawDialogIsShow.t = this.t;
+                    this.goDrawDialogIsShow.p = this.p;
+                }
+            }
+        },
+     setCitySelect(code){
+          //旗子
+          window.flageImage.forEach(element => {
+              if(element.code == code){
+                element.isShow = true;
+              }
+          });
+          //地图城市
+           window.buildImage.forEach(element => {
+              if(element.code == code){
+                element.isShow = true;
+              }
+          });
+          //城市列表
+           window.cityListJson.forEach(element => {
+              if(element.code == code){
+                element.isExe = true;
+              }
+          });
+           this.isnum = this.isnum+1;
+      }
     }
   }
 </script>
@@ -274,7 +228,7 @@
          height: calc(100% - 8.8rem);
           position: absolute;
           top: 3.84rem;
-          z-index: 2001;
+          z-index: 1991;
           width: 100%;
           box-sizing: border-box;
           padding-left: 1.6rem;
@@ -353,7 +307,7 @@
          height: 4rem;
           position: absolute;
           bottom: 0;
-          z-index: 2001;
+          z-index: 1991;
           width: 100%;
           text-align: center
        }
@@ -367,6 +321,9 @@
                  height: 3.605333rem;
                  top:0.2rem;
                  position: relative;
+       }
+       .btnnone{
+           -webkit-filter:grayscale(1)
        }
     }
     .body-scorll::-webkit-scrollbar {

@@ -1,6 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-var url = location.search; //获取url中"?"符后的字串   
+var url = location.search; //获取url中"?"符后的字串  
+window.userId = 12; 
+window.rootUrl = 'http://119.23.29.43:12333/';
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
    var str = url.substr(1);   
@@ -47,7 +49,26 @@ if (!!u.match(/AppleWebKit.*Mobile.*/)) {//判断是否是移动设备打开。�
 } else {
    window.isBrowserMobile = 'pc'
 }
-
+window.$post= function (data) {
+  console.log(data,'埋点');
+  var params = {
+      values:data
+  }
+  params = JSON.stringify(params);
+  var url = window.rootUrl+'?ae=3&ci=1&ui='+window.userId + '&params='+params //埋点
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  // 添加http头，发送信息至服务器时内容编码类型
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+     // fn.call(this, );
+    // console.log(xhr.responseText);
+    }
+  };
+ // xhr.send(params);
+  xhr.send();
+}
 //pushHistory();  暂时不处理,微信中进入页面就触发了popstate事件
 // let Historybool=false;
 // setTimeout(()=>{
@@ -91,11 +112,21 @@ import  Velocity from 'velocity-animate'
 import { Indicator } from 'mint-ui';
 Vue.prototype.$Velocity = Velocity;
 Vue.prototype.$Indicator = Indicator;
+// 坑位埋点指令
+Vue.directive('stat', {
+  bind(el, binding) {
+    el.addEventListener('click', () => {
+      const data = binding.value;
+      window.$post([data]);
+    }, false);
+  }
+});
 //Vue.component('icon', Icon)
 Vue.use(Mint);
 Vue.use(Vuex);
 //Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false;
+window.Bus = new Vue();
 const store = new Vuex.Store(Store)
 /* eslint-disable no-new */
 new Vue({

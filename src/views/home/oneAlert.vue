@@ -9,7 +9,7 @@
               
             </div>
             <div class="alert-button">
-                <span v-tap="closeDailogAndDestory" class="btn-one">
+                <span v-stat="{id:18,times:1}" v-tap="closeDailogAndDestory" class="btn-one">
 
                 </span>
                 <span v-tap="closeDailog" class="btn-two">
@@ -98,6 +98,7 @@
       closeDailogAndDestory(){
           //关闭页面逻辑
           this.dataOjb.isShow = false;
+          //跳转到招商app;
           window.location.href="about:blank";
           window.close();
       },

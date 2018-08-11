@@ -4,7 +4,7 @@
         <div style="background:#999" v-bind:style="{'transform':'translate3d('+bigMapLeft + 'px,'+bigMapTop+'px,0)','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
             <div class="map_bg" style="height:100%;width:100%;line-height:0;">
                 <div class="one" style="display:flex">
-                    <img width="100px" v-lazy ="bgImage[0]" alt="bg">
+                    <img width="100px" :src ="bgImage[0]" alt="bg">
                     <img width="100px" v-lazy ="bgImage[1]" alt="bg">
                 </div>
                  <div class="two" style="display:flex">
@@ -21,7 +21,7 @@
                     <img v-lazy="item.src" alt="1" style="height:100%;width:100%;touch-action: manipulation" />
                 </div>
             </div>
-            <div class="building-box">
+            <div class="building-box" style="z-index:11">
               <div v-for="(item,index) in flageImage" v-if="item.isShow" class="flage-image" :key="index" :style="item.style">
                     <img v-lazy="flageImageSrc" alt="1" style="height:100%;width:100%" />
                 </div>
@@ -37,10 +37,10 @@
       </div>
     </div>
     <div class="absolute contorl-left-top">
-      <div v-tap="openClose" class="map-close map-icon"></div>
-      <div v-tap="openGuide" class="map-guide map-icon"></div>
+      <div v-stat="{id:5,times:1}" v-tap="openClose" class="map-close map-icon"></div>
+      <div v-stat="{id:6,times:1}" v-tap="openGuide" class="map-guide map-icon"></div>
       <div v-tap="goToHouse" class="map-house map-icon">
-          <div class="hand-letter-message"></div>
+          <div v-if="showMessageDialogIsShow.isShow" class="hand-letter-message"></div>
       </div>
     </div>
     <div class="absolute contorl-bottom-center">
@@ -53,6 +53,7 @@
     <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
     <gong-alert :dataOjb="gongnengDialogIsShow"> </gong-alert>
     <list-alert :dataOjb="goCityListDialogIsShow"> </list-alert>
+    <message-alert :dataOjb="showMessageDialogIsShow"> </message-alert>
     <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
     <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
     <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
@@ -60,11 +61,13 @@
 </template>
 <script>
   import {setStore,getStore} from '@/utils/utils.js'
-  import {buildJson,flageJson} from '@/utils/build.js'
+  import {loginApi} from '@/api/index'
+  import {buildJson,flageJson,cityListJson} from '@/utils/build.js'
   import oneAlert from '@/views/home/oneAlert.vue'
   import guideAlert from '@/views/home/guideAlert.vue'
   import gongAlert from '@/views/home/gongAlert.vue'
   import listAlert from '@/views/home/listAlert.vue'
+  import messageAlert from '@/views/home/messageAlert.vue'
   import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
   import cloudAlert from '@/views/home/cloudAlert.vue'
@@ -77,6 +80,7 @@
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],
+          isShowShouxin:false,
           cloundXuxiDialogIsShow:{
             isShow : false,
             isMash:true,
@@ -96,11 +100,19 @@
           },
            goCityListDialogIsShow:{
              isShow : false,
+             isMash:true,
+             id:19
+          },
+          showMessageDialogIsShow:{
+             isShow : false,
              isMash:true
           },
             goDrawDialogIsShow:{
              isShow : false,
-             isMash:true
+             isMash:true,
+             t:0,
+             p:0,
+             id:20
           },
             goXuxiDialogIsShow:{
              isShow : false,
@@ -148,6 +160,7 @@
      guideAlert,
      gongAlert,
      listAlert,
+     messageAlert,
      drawAlert,
      xuAlert,
      cloudAlert
@@ -179,23 +192,40 @@
             this.c = val;
           }
       },
-  actived(){
+  activated(){
+    //showMessageDialogIsShow.isShow,是否显示手信，及是否有弹窗
+    //执行埋点
+    window.$post([{id:2,times:1}]);
     this.cloundXuxiDialogIsShow.isClound = false;
+    let isAuth = this.auth();
+    if(isAuth){
+      this.getCityShouxinTimeData();
+    }
+ 
   },
   created() {
+    let _that = this;
+     Bus.$on("cloud",data=> {
+         _that.openCloudAndGoCity(data);
+        })
     // this.$Indicator.open({
     //         text: '正在努力加载中...',
     //         spinnerType: 'triple-bounce'
     //       });
-    let needGuid = getStore('needGuid');
-    if(!needGuid){
-      setStore('needGuid',true);
-      this.$router.push({path:'guid',query: {page:'guid'}});
-    }
-    this.$nextTick(()=>{
+     this.$nextTick(()=>{
       this.buildImage = buildJson();
       this.flageImage = flageJson();
+      this.cityListJson = cityListJson();
+      window.buildImage = this.buildImage;
+      window.flageImage = this.flageImage;
+      window.cityListJson = this.cityListJson;
     });
+   // let needGuid = getStore('needGuid');
+    //if(!needGuid){
+      //setStore('needGuid',true);
+    //  this.$router.push({path:'guid',query: {page:'guid'}});
+    //}
+   
     
   },
     destroyed(){
@@ -240,6 +270,122 @@
                  evt.stopPropagation();
             }
         },
+      getCityShouxinTimeData(){
+        //只执行一次
+        if(!this.isGetAllData){
+           this.isGetAllData = true;
+           this.getCityAll();
+           this.getShouxin();
+           this.getreTimes();
+        }
+      },
+      getCityAll(isLoading){
+           //获取所有列表
+        if(isLoading){
+           this.$Indicator.open({
+            text: '正在努力加载中...',
+            spinnerType: 'triple-bounce'
+          });
+        }
+         var url = window.rootUrl+'?ae=2&ci=6&ui='+window.userId;//去过所有城市
+          loginApi(url,{},'GET').then((res)=>{
+            if(isLoading){
+              this.$Indicator.close();
+            }
+            if(res.status == 200){
+                 if(res.data.rc==1){
+                   let reData = res.data.hadTripCityCode || [];
+                   //旗子
+                   this.flageImage.forEach(element => {
+                      reData.forEach(grid => {
+                        if(element.code == grid){
+                          element.isShow = true;
+                        }
+                      });
+                   });
+                   //地图城市
+                    this.buildImage.forEach(element => {
+                      reData.forEach(grid => {
+                        if(element.code == grid){
+                          element.isShow = true;
+                        }
+                      });
+                   });
+                   //城市列表
+                   this.cityListJson.forEach(element => {
+                      reData.forEach(grid => {
+                        if(element.code == grid){
+                          element.isExe = true;
+                        }
+                      });
+                   });
+                }
+            }
+          });
+      },
+      getShouxin(isLoading){
+       //获取手信
+       if(isLoading){
+           this.$Indicator.open({
+            text: '正在努力加载中...',
+            spinnerType: 'triple-bounce'
+          });
+        }
+         var url = window.rootUrl+'?ae=2&ci=1&ui='+window.userId;//手信个数
+          loginApi(url,{},'GET').then((res)=>{
+            if(isLoading){
+              this.$Indicator.close();
+            }
+            if(res.status == 200){
+                 if(res.data.rc==1){
+                   let reData = res.data.giftNum || 0;
+                   this.p = reData;
+                   this.$store.commit('setp',reData);
+                }
+            }
+          })
+      },
+       getreTimes(isLoading){
+         //获取剩余次数
+        if(isLoading){
+            this.$Indicator.open({
+              text: '正在努力加载中...',
+              spinnerType: 'triple-bounce'
+            });
+          }
+         var url = window.rootUrl+'?ae=2&ci=3&ui='+window.userId;//剩余次数
+          loginApi(url,{},'GET').then((res)=>{
+            if(isLoading){
+              this.$Indicator.close();
+            }
+            if(res.status == 200){
+                 if(res.data.rc==1){
+                   let reData = res.data.surplusTripTime || 0;
+                   this.t = reData>3?3:reData;
+                   this.$store.commit('sett',reData);
+                }
+            }
+          })
+      },
+      auth(){
+           //跳转guid页面则不验证
+        if(window.isNeedGuid){
+              if(!window.UrlParams.userid || window.UrlParams.userid == ''){
+              //唤起app
+              return false;
+              var url = 'http://119.23.29.43:12333/?ae=2&ci=3&ui=12';//连接
+              loginApi(url,{}).then((res)=>{
+                location.href = 'http://www.baidu.com';
+                if(res.code>0){
+                  location.href = res.data;
+                }
+              });
+            }else{
+              window.userId = window.UrlParams.userid;
+            }
+        }
+        return true;
+      },
       //默认是根据大map，设置小map
       init(){
         //获取mapbox的大小比例，设置右上角的比例
@@ -499,11 +645,13 @@
         });
       },
       goToHouse(){
+        //只要在这里做埋点
+        window.$post([{id:13,times:1}]);
         this.$router.push({path:'house',query: {page:'house'}});
       },
       goToHouses(){
-        this.clound('city');
-       
+      window.$post([{id:10,times:1},{id:22,times:1}]);
+        this.$router.push({path:'city',query: {page:'city'}});
       },
       isInAerea(params){
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
@@ -537,41 +685,87 @@
       buildPage(item){
          if(item.type == 1){
             //是城市
-            this.p = parseInt(4*Math.random());
-            this.c = parseInt(1*Math.random());
-            this.t = parseInt(4*Math.random());
-            if((this.c==1 && this.p<3) || (this.c==0 && this.p<3 && this.t>0)){
+            let c = item.isShow?1:0;
+            if((c==1 && this.p<3) || (c==0 && this.p<3 && this.t>0)){
               //确认前往
+               window.$post([{id:7,times:1},{id:21,times:1}]);//埋点
                 this.$nextTick(()=>{
                   this.goCityListDialogIsShow.isShow = true;
+                  this.goCityListDialogIsShow.item = item;
                 });
             }
-            if((this.c==1 && this.p==3) || (this.c==0 && this.p==3)){
+            if((c==1 && this.p>=3) || (c==0 && this.p>=3)){
               //前往抽奖
+               window.$post([{id:8,times:1},{id:21,times:1}]);//埋点
                 this.$nextTick(()=>{
                   this.goDrawDialogIsShow.isShow = true;
+                  this.goDrawDialogIsShow.t = this.t;
+                  this.goDrawDialogIsShow.p = this.p;
                 });
             }
-            if(this.c==0 && this.p<3 && this.t==0){
+            if(c==0 && this.p<3 && this.t==0){
               //休息一下
                this.$nextTick(()=>{
+                  window.$post([{id:9,times:1},{id:21,times:1}]);//埋点
                   this.goXuxiDialogIsShow.isShow = true;
                 });
             }
           }else if(item.type == 2){
             //功能页面
+            window.$post([{id:3,times:1}]);//按钮埋点
             this.$nextTick(()=>{
               this.gongnengDialogIsShow.isShow = true;
             });
           }
       },
+      openCloudAndGoCity(data){
+          if(data.type == 1){
+            //地图城市
+              this.$store.commit('setp',this.$store.state.p +1);
+              this.$store.commit('sett',this.$store.state.t -1);
+              this.setCitySelect(data.code);
+              this.clound('page');//url
+               window.$post([{id:16,times:1}]);//埋点
+               var url = window.rootUrl+'?ae=2&ci=2&ui='+window.userId;//设置去过改城市
+                loginApi(url,{params:JSON.stringify({cityCode:data.code})},'GET').then((res)=>{
+                  if(res.status == 200){
+                      if(res.data.rc==1){
+                        
+                      }
+                  }
+                })
+          }else{
+            console.log('type',data.type,data)
+          }
+          
+          //this.$router.push({path:'city',query: {page:'city'}});
+      },
+      setCitySelect(code){
+          //旗子
+          this.flageImage.forEach(element => {
+              if(element.code == code){
+                element.isShow = true;
+              }
+          });
+          //地图城市
+          this.buildImage.forEach(element => {
+              if(element.code == code){
+                element.isShow = true;
+              }
+          });
+          //城市列表
+          this.cityListJson.forEach(element => {
+              if(element.code == code){
+                element.isExe = true;
+              }
+          });
+      },
       clound(page){
         this.cloundXuxiDialogIsShow.isShow = true;
-        this.cloundXuxiDialogIsShow.isClound = true;
         window.setTimeout(()=>{
           this.cloundXuxiDialogIsShow.isShow = false;
-         this.cloundXuxiDialogIsShow.isClound = false;
-          this.$router.push({path:page,query: {page:page}});
+          location.href = page;
+         // this.$router.push({path:page,query: {page:page}});
         },5000)
       },
       tapMap(){

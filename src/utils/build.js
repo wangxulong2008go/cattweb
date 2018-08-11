@@ -7,7 +7,7 @@ let buildData = [
             width: '9.3rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_hhht.png',
         enName:'hhht',
         chName:'呼和浩特',
@@ -21,7 +21,7 @@ let buildData = [
             height: '7.274667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_cd.png',
         enName:'cd',
         chName:'成都',
@@ -36,7 +36,7 @@ let buildData = [
             height: '3.584rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_cgjj.png',
         enName:'cgjj',
         chName:'查公积金',
@@ -49,7 +49,7 @@ let buildData = [
             height: '6.805333rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_zz.png',
         enName:'zz',
         chName:'郑州',
@@ -63,7 +63,7 @@ let buildData = [
             height: '5.482667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_sy.png',
         enName:'sy',
         chName:'沈阳',
@@ -77,7 +77,7 @@ let buildData = [
             height: ' 6.336rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_jn.png',
         enName:'jn',
         chName:'济南',
@@ -91,7 +91,7 @@ let buildData = [
             height: '5.504rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_yt.png',
         enName:'yt',
         chName:'烟台',
@@ -105,7 +105,7 @@ let buildData = [
             height: '7.104rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_nt.png',
         enName:'nt',
         chName:'南通',
@@ -119,7 +119,7 @@ let buildData = [
             height: '5.056rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_nj.png',
         enName:'nj',
         chName:'南京',
@@ -133,7 +133,7 @@ let buildData = [
             height: '6.506667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_sz.png',
         enName:'sz',
         chName:'苏州',
@@ -147,7 +147,7 @@ let buildData = [
             height: '3.946667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_jsdf.png',
         enName:'jsdf',
         chName:'交水电费',
@@ -160,7 +160,7 @@ let buildData = [
             height: '7.232rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_sh.png',
         enName:'sh',
         chName:'上海',
@@ -174,7 +174,7 @@ let buildData = [
             bottom: '3.52rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_dg.png',
         enName:'dg',
         chName:'东莞',
@@ -188,7 +188,7 @@ let buildData = [
             bottom: '12.437333rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_wx.png',
         enName:'wx',
         chName:'无锡',
@@ -202,7 +202,7 @@ let buildData = [
             bottom: '14.336rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_hz.png',
         enName:'hz',
         chName:'杭州',
@@ -216,7 +216,7 @@ let buildData = [
             height: '4.970667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_rmms.png',
         enName:'rmms',
         chName:'热门美食',
@@ -229,7 +229,7 @@ let buildData = [
             left: '35.712rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_bj.png',
         enName:'bj',
         chName:'北京',
@@ -243,7 +243,7 @@ let buildData = [
             height: '6.208rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_hf.png',
         enName:'hf',
         chName:'合肥',
@@ -257,7 +257,7 @@ let buildData = [
             height: '5.269333rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_tj.png',
         enName:'tj',
         chName:'天津',
@@ -271,7 +271,7 @@ let buildData = [
             height: '4.586667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_mdyp.png',
         enName:'mdyp',
         chName:'买电影票',
@@ -284,7 +284,7 @@ let buildData = [
             height: '5.568rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_wh.png',
         enName:'wh',
         chName:'武汉',
@@ -298,7 +298,7 @@ let buildData = [
             height: '6.016rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_cq.png',
         enName:'cq',
         chName:'重庆',
@@ -312,7 +312,7 @@ let buildData = [
             height: '6.144rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_km.png',
         enName:'km',
         chName:'昆明',
@@ -326,7 +326,7 @@ let buildData = [
             height: '7.893333rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_gz.png',
         enName:'gz',
         chName:'广州',
@@ -340,7 +340,7 @@ let buildData = [
             height: '5.418667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_cs.png',
         enName:'cs',
         chName:'长沙',
@@ -354,7 +354,7 @@ let buildData = [
             height: '7.146667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_nc.png',
         enName:'nc',
         chName:'南昌',
@@ -368,7 +368,7 @@ let buildData = [
             height: '4.970667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_fs.png',
         enName:'fs',
         chName:'佛山',
@@ -382,7 +382,7 @@ let buildData = [
             height: '8.042667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_shenzhen.png',
         enName:'shenzhen',
         chName:'深圳',
@@ -396,7 +396,7 @@ let buildData = [
             height: '4.266667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_mlc.png',
         enName:'mlc',
         chName:'买理财',
@@ -409,7 +409,7 @@ let buildData = [
             height: '3.797333rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_image_2.png',
     }, {
         style: {
@@ -419,7 +419,7 @@ let buildData = [
             height: '3.136rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_image_3.png',
     }, {
         style: {
@@ -429,7 +429,7 @@ let buildData = [
             height: '2.048rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_image_1.png',
     }, {
         style: {
@@ -439,7 +439,7 @@ let buildData = [
             height: '2.026667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_image_4.png',
     }, {
         style: {
@@ -449,7 +449,7 @@ let buildData = [
             width: '2.154667rem',
             position: 'absolute'
         },
-        isShow: true,
+        isShow: false,
         src: 'static/map_image_5.png',
     }
 ];
@@ -460,6 +460,7 @@ let flageData = [
     {
         isShow: false,
         id: 'cd',
+        code:12,
         style: {
             top: '17.664rem',
             left: '6.677333rem'
@@ -467,6 +468,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'cq',
+        code:8,
         style: {
             top: '29.44rem',
             left: '11.904rem'
@@ -474,13 +476,24 @@ let flageData = [
     }, {
         isShow: false,
         id: 'km',
+        code:10,
         style: {
             bottom: '9.92rem',
             left: '6.272rem'
         }
+    },
+    {
+        isShow: false,
+        id: 'hf',
+        code:11,
+        style: {
+            top: '26.474667rem',
+            left: '46.165333rem'
+        }
     }, {
         isShow: false,
         id: 'hhht',
+        code:20,
         style: {
             top: '7.082667rem',
             left: '22.464rem'
@@ -488,6 +501,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'zz',
+        code:4,
         style: {
             top: '14.186667rem',
             left: '23.296rem'
@@ -495,6 +509,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'wh',
+        code:18,
         style: {
             left: '22.293333rem',
             bottom: '24.661333rem'
@@ -502,6 +517,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'gz',
+        code:16,
         style: {
             left: '20.778667rem',
             bottom: '10.986667rem'
@@ -509,6 +525,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'sy',
+        code:9,
         style: {
             left: '40.064rem',
             top: '5.44rem'
@@ -516,6 +533,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'jn',
+        code:17,
         style: {
             left: '50.944rem',
             top: '8.768rem'
@@ -523,6 +541,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'yt',
+        code:6,
         style: {
             top: '5.141333rem',
             right: '14.250667rem'
@@ -530,6 +549,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'nt',
+        code:1,
         style: {
             top: '9.344rem',
             right: '6.72rem'
@@ -537,6 +557,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'bj',
+        code:13,
         style: {
             top: '14.613333rem',
             left: '36.416rem'
@@ -544,6 +565,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'nj',
+        code:7,
         style: {
             top: '16.298667rem',
             right: '20.928rem'
@@ -551,6 +573,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'tj',
+        code:5,
         style: {
             left: '38.741333rem',
             top: '24.448rem'
@@ -565,6 +588,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'sz',
+        code:23,
         style: {
             right: '6.528rem',
             top: '22.208rem'
@@ -572,6 +596,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'nc',
+        code:3,
         style: {
             left: '38.485333rem',
             bottom: '11.434667rem'
@@ -579,6 +604,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'fs',
+        code:2,
         style: {
             left: '31.914667rem',
             bottom: '3.968rem'
@@ -586,6 +612,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'shenzhen',
+        code:15,
         style: {
             right: '29.162667rem',
             bottom: '3.648rem'
@@ -593,6 +620,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'hz',
+        code:21,
         style: {
             right: '22.101333rem',
             bottom: '15.594667rem'
@@ -600,6 +628,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'wx',
+        code:24,
         style: {
             right: '16.874667rem',
             bottom: '12.650667rem'
@@ -607,6 +636,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'dg',
+        code:22,
         style: {
             right: '14.698667rem',
             bottom: '4.032rem'
@@ -614,6 +644,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'sh',
+        code:14,
         style: {
             right: '6.08rem',
             bottom: '13.76rem'
@@ -621,6 +652,7 @@ let flageData = [
     }, {
         isShow: false,
         id: 'cs',
+        code:19,
         style: {
             left: '32rem',
             bottom: '19.093333rem'
@@ -630,5 +662,186 @@ let flageData = [
 export const flageJson = () => {
     return flageData;
 };
-
+let cityList = [
+    {
+        isShow: false, //是否选中
+        isExe:false,//是否去过
+        src: 'static/list/image_bj_2.png',
+        enName:'bj',
+        chName:'北京',
+        type:3,
+        code:13
+    },
+    {
+        isShow: false,isExe:false,
+        src: 'static/list/image_sh_2.png',
+        enName:'sh',
+        chName:'上海',
+        type:3,
+        code:14
+    },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_shenzhen_2.png',
+        enName:'shenzhen',
+        chName:'深圳',
+        type:3,
+        code:15
+    },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_gz_2.png',
+        enName:'gz',
+        chName:'广州',
+        type:3,
+        code:16
+    },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_jn_2.png',
+        enName:'jn',
+        chName:'济南',
+        type:3,
+        code:17
+    },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_wh_2.png',
+        enName:'wh',
+        chName:'武汉',
+        type:3,
+        code:18
+    },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_cs_2.png',
+        enName:'cs',
+        chName:'长沙',
+        type:3,
+        code:19
+    },
+    {
+        isShow: false,isExe:false,
+        src: 'static/list/image_hhht_2.png',
+        enName:'hhht',
+        chName:'呼和浩特',
+        type:3,
+        code:20
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_cd_2.png',
+        enName:'cd',
+        chName:'成都',
+        type:3,
+        code:12
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_zz_2.png',
+        enName:'zz',
+        chName:'郑州',
+        type:3,
+        code:4
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_sy_2.png',
+        enName:'sy',
+        chName:'沈阳',
+        type:3,
+        code:9
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_yt_2.png',
+        enName:'yt',
+        chName:'烟台',
+        type:3,
+        code:6
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_nt_2.png',
+        enName:'nt',
+        chName:'南通',
+        type:3,
+        code:1
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_nj_2.png',
+        enName:'nj',
+        chName:'南京',
+        type:3,
+        code:7
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_sz_2.png',
+        enName:'sz',
+        chName:'苏州',
+        type:3,
+        code:23
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_dg_2.png',
+        enName:'dg',
+        chName:'东莞',
+        type:3,
+        code:22
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_wx_2.png',
+        enName:'wx',
+        chName:'无锡',
+        type:3,
+        code:24
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_hz_2.png',
+        enName:'hz',
+        chName:'杭州',
+        type:3,
+        code:21
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_hf_2.png',
+        enName:'hf',
+        chName:'合肥',
+        type:3,
+        code:11
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_tj_2.png',
+        enName:'tj',
+        chName:'天津',
+        type:3,
+        code:5
+    },  {
+        isShow: false,isExe:false,
+        src: 'static/list/image_cq_2.png',
+        enName:'cq',
+        chName:'重庆',
+        type:3,
+        code:8
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_km_2.png',
+        enName:'km',
+        chName:'昆明',
+        type:3,
+        code:10
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_nc_2.png',
+        enName:'nc',
+        chName:'南昌',
+        type:3,
+        code:3
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_fs_2.png',
+        enName:'fs',
+        chName:'佛山',
+        type:3,
+        code:2
+    }
+]
+export const cityListJson = () => {
+    return cityList;
+};
 

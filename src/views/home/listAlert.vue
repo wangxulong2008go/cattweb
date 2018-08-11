@@ -9,7 +9,7 @@
               
             </div>
             <div class="alert-button">
-                <span v-tap="goToCityList" class="btn-one">
+                <span v-stat="{id:dataOjb.id,times:1}" v-tap="goToCityList" class="btn-one">
 
                 </span>
             </div>
@@ -53,10 +53,7 @@
       },
       goToCityList(){
           this.dataOjb.isShow = false;
-          this.$store.commit('setp',this.$store.state.p +1);
-          this.$store.commit('setc',1);
-          this.$store.commit('sett',this.$store.state.t -1);
-          this.$router.push({path:'city',query: {page:'city'}});
+          Bus.$emit("cloud", this.dataOjb.item);
       }
     }
   }

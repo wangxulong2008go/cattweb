@@ -19,15 +19,15 @@ Axios.interceptors.response.use( response => {
 },(error) => {
   return Promise.reject(error);
 });
-const basePromise = (param, url,method = 'post') => {
+const basePromise = (url,params,method = 'POST') => {
   return new Promise((resolve, reject) => {
     Axios({
       url: url,
       method: method,
-      data: method === 'POST' || method === 'PUT' ? params : null,,
+      data: method === 'POST' || method === 'PUT' ? params : null,
       transformRequest: [function (data) {
        // let ret = 'data=' + JSON.stringify(data);
-        return encodeURI(data);
+        return encodeURI(JSON.stringify(data));
       }],
       params:method === 'GET' || method === 'DELETE' ? params : null,
       paramsSerializer: function(params) {
@@ -35,7 +35,7 @@ const basePromise = (param, url,method = 'post') => {
         //params.SESSIONID = window.SESSION.sessionId;
        //}
          return Qs.stringify(params)
-    }
+    },
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
       }
@@ -51,10 +51,10 @@ const basePromise = (param, url,method = 'post') => {
          let status = error.response.status;
          if(status >= 500 ){//服务器错误
            //do something...
-           router.push({path:'/error',query:{type:2}});
+         //  router.push({path:'/error',query:{type:2}});
          }else if(status >= 400 &&  status < 500 ){ //资源请求错误
            //do something...
-           router.push({path:'/error',query:{type:1}});
+         //  router.push({path:'/error',query:{type:1}});
          }
 
       }else if(error.message.indexOf('timeout')!=-1){
@@ -68,7 +68,7 @@ const basePromise = (param, url,method = 'post') => {
   })
 };
 
-const uploadPromise = (param, url) => {
+const uploadPromise = (url,param) => {
   return new Promise((resolve, reject) => {
     Axios({
       url: url,

@@ -28,6 +28,12 @@
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', scrollTouch,false);
     },
+    activated(){
+     //执行埋点
+     this.progressValue = 0;
+     this.setProgress();
+    window.$post([{id:1,times:1}]);
+    },
     mounted(){
       document.querySelector('#app').addEventListener('touchmove', scrollTouch,false);
     },
@@ -41,6 +47,7 @@
                      that.setProgress();
                  }
              }else if(that.progressValue >=100){
+                 window.isNeedGuid = true;
                  that.$router.push({path:'home',query: {page:'home'}});
              }else{
                  that.setProgress();
@@ -54,7 +61,7 @@
          setTimeout(()=>{
              that.isDon = true;
              that.setProgress();
-         },20000)
+         },10000)
      }
     }
   }

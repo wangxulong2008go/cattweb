@@ -14,6 +14,7 @@ const Guid = resolve => require(['../views/home/Guid'],resolve);//引导页面
 const House = resolve => require(['../views/home/House'],resolve);//我的小窝
 const City = resolve => require(['../views/home/City'],resolve);//城市列表
 const router = new Router({
+  linkActiveClass:'list-active',
   routes: [
     {
       path: '/',
@@ -28,7 +29,7 @@ const router = new Router({
           path: '/guid',
           component: Guid,
           meta: {
-            keepAlive:false
+            keepAlive:true
           }
         },
         {

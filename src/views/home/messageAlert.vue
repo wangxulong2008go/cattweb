@@ -9,13 +9,13 @@
               
             </div>
             <div class="alert-button">
-                <span v-stat="{id:dataOjb.id,times:1}" v-tap="goToDraw" class="btn-one">
+                <span @click="goToHouse()" class="btn-one">
 
                 </span>
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog()"></span>
             </div>
         </div>
     </div>
@@ -38,10 +38,7 @@
                 return {
                     className:'defaulted',
                     isMash:true,
-                    isShow : false,
-                    id:0,
-                    t:0,
-                    p:0
+                    isShow : false
                 }
             }
         }
@@ -54,17 +51,9 @@
       closeDailog(){
           this.dataOjb.isShow = false;
       },
-      goToDraw(){
+      goToHouse(){
           this.dataOjb.isShow = false;
-            let url = '';
-            if(this.dataOjb.t<3){
-                url = '';//
-            }else{
-                //b页面
-                url = ''
-            }
-            this.$store.commit('setp',this.dataOjb.p - 3);
-           // window.location.href=url;//跳转抽奖页面
+          this.$router.push({path:'house',query: {page:'house'}});
       }
     }
   }
@@ -100,7 +89,7 @@
                }
             }
             .alert-button{
-                height: 2.432rem;
+                height: 2.496rem;
                 position: absolute;
                 bottom: 0.8rem;
                 z-index: 2001;
@@ -108,8 +97,8 @@
             }
             .btn-one{
                 display: inline-block;
-                width: 4.202667rem;
-                 background-image: url('../../assets/img/guid/window_2_btn.png');
+                width: 4.565333rem;
+                 background-image: url('../../assets/img/guid/house_window_3_btn.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
@@ -125,7 +114,7 @@
                     top: -2rem;
                 margin:0 auto;
                  width: 11.946667rem;
-                 background-image: url('../../assets/img/guid/window_2.png');
+                 background-image: url('../../assets/img/guid/house_window_3.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;

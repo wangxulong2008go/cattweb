@@ -2,15 +2,15 @@
   <div class="contain-box">
       <div class="body-box">
           <div class="wo-box flex-box">
-              <div :class="nowData>1?'hashouse':''" class="flex-item house">
-                <div v-show="nowData>1" class="house_one">
+              <div :class="nowData>0?'hashouse':''" class="flex-item house">
+                <div v-show="nowData>0" class="house_one">
                     <span class="xinxin1 xinxin"></span>
                     <span class="xinxin2 xinxin"></span>
                     <span class="xinxin3 xinxin"></span>
                 </div>
               </div>
-              <div :class="nowData>0?'hashouse':''" class="flex-item house">
-                <div v-show="nowData>0" class="house_one2">
+              <div :class="nowData>1?'hashouse':''" class="flex-item house">
+                <div v-show="nowData>1" class="house_one2">
                     <span class="xinxin1 xinxin"></span>
                     <span class="xinxin2 xinxin"></span>
                     <span class="xinxin3 xinxin"></span>
@@ -44,17 +44,41 @@
       <div class="myhouse-icon">
 
       </div>
+    <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
+    <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
   </div>
 </template>
 <script>
+  import drawAlert from '@/views/home/drawAlert.vue'
+  import xuAlert from '@/views/home/xuAlert.vue'
   export default {
     data(){
       return {
-         nowData:2,//总共有几个手信
+         nowData:0,//总共有几个手信
+         t:0,//剩余次数
+          goDrawDialogIsShow:{
+            isShow : false,
+            isMash:true,
+            id:27,
+            t:0,
+            p:0
+        },
+          goXuxiDialogIsShow:{
+            isShow : false,
+            isMash:true
+        }
       }
     },
+   components:{
+     drawAlert,
+     xuAlert
+   },
     created() {
    
+    },
+    activated(){
+     // console.log(this.$route.query,'ss')
+     
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -62,6 +86,25 @@
     mounted(){
       document.querySelector('#app').addEventListener('touchmove', this.scrollTouch,false);
     },
+    computed:{
+      pss(){
+        this.nowData = this.$store.state.p;
+        return this.$store.state.p
+      },
+      tss(){
+         this.t = this.$store.state.t;
+        return this.$store.state.t;
+      }
+    },
+       watch: {
+          pss(val,newvlue){
+            this.nowData = newvlue;
+          },
+          tss(val,newvalue){
+            this.t = newvalue;
+          }
+         
+      },
     methods:{
         scrollTouch(evt){
             if(!evt._isScroller) {
@@ -76,16 +119,45 @@
           if(this.nowData<3){
             return false;
           }
+          window.$post([{id:25,times:1}]);//按钮埋点
+          let url = '';
+          if(this.t<3){
+            url = '';//
+          }else{
+            //b页面
+            url = ''
+          }
+          this.$store.commit('setp',this.nowData - 3);
+          window.location.href=url;//跳转抽奖页面
         },
         gotpHouse(){
+          console.log(this.nowData,'p',this.t,'ttt');
           //去旅行
+          if(this.nowData>=3){
+             //前往抽奖
+            this.$nextTick(()=>{
+              window.$post([{id:14,times:1},{id:26,times:1}]);//按钮埋点
+              this.goDrawDialogIsShow.isShow = true;
+              this.goDrawDialogIsShow.t = this.t;
+              this.goDrawDialogIsShow.p = this.nowData;
+
+            });
+          }else if(this.t == 0){
+            //休息
+            this.goXuxiDialogIsShow.isShow = true;
+             window.$post([{id:15,times:1},{id:26,times:1}]);//按钮埋点
+          }else{
+            //前往城市列表
+             window.$post([{id:26,times:1}]);//按钮埋点
+             this.$router.push({path:'city',query: {page:'city'}});
+          }
         }
     }
   }
 </script>
 <style scoped lang="scss">
     .contain-box{
-        background-image: url('../../assets/img/guid/home_bg.png');
+        background: url('../../assets/img/guid/home_bg.png') #999;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         .goback{
@@ -108,7 +180,7 @@
          left: calc(50% - 3.306667rem);
          height: 7.573333rem;
          width: 6.592rem;
-         background-image: url('../../assets/img/guid/house__08.png');
+         background: url('../../assets/img/guid/house__08.png') #999;
          background-repeat: no-repeat;
          background-size: contain;
        }

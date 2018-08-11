@@ -1,6 +1,6 @@
 import {basePromise,uploadPromise} from './api.js'
-const  loginApi = (data,url) => basePromise(data,url);
-const fileUploadApi = (data,url) => uploadPromise(data,url);
+const  loginApi = (url,data,method) => basePromise(url,data,method);
+const fileUploadApi = (url,data) => uploadPromise(url,data);
 export{
   loginApi,
   fileUploadApi

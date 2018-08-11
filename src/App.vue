@@ -64,7 +64,7 @@ export default {
       }    
   },
   beforeRouteUpdate (to, from, next) {
-    Indicator.close();//全局关闭loading
+    //Indicator.close();//全局关闭loading
     let isBack = this.$router.isBack;
     if (window.historyisHistory || isBack) {
       this.transitionName = 'slide-right'
