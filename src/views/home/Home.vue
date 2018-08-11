@@ -474,8 +474,8 @@
                 // console.log(event.targetTouches[0],'move') 
                 if((Math.abs(event.targetTouches[0].pageX - this.smallTouchData.startPageX) >  6) || (Math.abs(event.targetTouches[0].pageY -  this.smallTouchData.startPageY) > 6)){
                   //最小设置6
-                   this.smallTouchData.startPageX = event.targetTouches[0].pageX + (event.targetTouches[0].pageX-this.smallTouchData.startPageX)*2; 
-                   this.smallTouchData.startPageY = event.targetTouches[0].pageY + (event.targetTouches[0].pageY-this.smallTouchData.startPageY)*2;
+                   this.smallTouchData.startPageX = event.targetTouches[0].pageX //+ (event.targetTouches[0].pageX-this.smallTouchData.startPageX)*2; 
+                   this.smallTouchData.startPageY = event.targetTouches[0].pageY// + (event.targetTouches[0].pageY-this.smallTouchData.startPageY)*2;
                    //记录最后两点的x值
                   this.lastTwoPointSmallX.shift();
                    this.lastTwoPointSmallX.push(event.targetTouches[0].pageX);
@@ -503,6 +503,8 @@
       },
       setMapBoxPosition(isTrue){
         //是否需要根据小地图设置位置，或者是初始化
+         this.bigDom.style.webkitTransition = 'none';
+        this.bigDom.style.transition = 'none';
         let left = this.smallBigSCaleLeft * this.smallMapLeft
         let top = this.smallBigSCaleTop * this.smallMapTop
         this.bigMapLeft = -left
