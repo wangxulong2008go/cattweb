@@ -229,7 +229,7 @@
    // let needGuid = getStore('needGuid');
     //if(!needGuid){
       //setStore('needGuid',true);
-    //  this.$router.push({path:'guid',query: {page:'guid'}});
+      this.$router.push({path:'guid',query: {page:'guid'}});
     //}
    
     
@@ -375,7 +375,7 @@
       },
       auth(){
            //跳转guid页面则不验证
-     //   if(window.isNeedGuid){
+        if(window.isNeedGuid){
               if(!window.UrlParams.userid || window.UrlParams.userid == ''){
               //唤起app
               var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
@@ -390,7 +390,7 @@
             }else{
               window.userId = window.UrlParams.userid;
             }
-       // }
+        }
         return true;
       },
       //默认是根据大map，设置小map
