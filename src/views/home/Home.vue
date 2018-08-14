@@ -46,17 +46,17 @@
     <div class="absolute contorl-bottom-center">
       <div v-tap="goToHouses" class="map-go map-icon"></div>
     </div>
-    <!-- <vue-lazy-component :timeout="1000">
-        
-    </vue-lazy-component> -->
-    <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
-    <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
-    <gong-alert :dataOjb="gongnengDialogIsShow"> </gong-alert>
-    <list-alert :dataOjb="goCityListDialogIsShow"> </list-alert>
-    <message-alert :dataOjb="showMessageDialogIsShow"> </message-alert>
-    <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
-    <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
-    <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
+     <vue-lazy-component :timeout="1000">
+      <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
+      <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
+      <gong-alert :dataOjb="gongnengDialogIsShow"> </gong-alert>
+      <list-alert :dataOjb="goCityListDialogIsShow"> </list-alert>
+      <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
+      <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
+      <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
+     </vue-lazy-component>
+     <message-alert :dataOjb="showMessageDialogIsShow"> </message-alert>
+      <close-alert :dataOjb="gocloseDialogIsShow"> </close-alert>
   </div>
 </template>
 <script>
@@ -64,6 +64,7 @@
   import {loginApi} from '@/api/index'
   import {buildJson,flageJson,cityListJson} from '@/utils/build.js'
   import oneAlert from '@/views/home/oneAlert.vue'
+  import closeAlert from '@/views/home/closeAlert.vue'
   import guideAlert from '@/views/home/guideAlert.vue'
   import gongAlert from '@/views/home/gongAlert.vue'
   import listAlert from '@/views/home/listAlert.vue'
@@ -87,6 +88,10 @@
             isClound:false 
           },
           closeDialogIsShow:{
+            isShow : false,
+            isMash:true
+          },
+          gocloseDialogIsShow:{
             isShow : false,
             isMash:true
           },
@@ -163,7 +168,8 @@
      messageAlert,
      drawAlert,
      xuAlert,
-     cloudAlert
+     cloudAlert,
+     closeAlert
    },
    watch: {
           screenWidth (val) {
@@ -369,21 +375,22 @@
       },
       auth(){
            //跳转guid页面则不验证
-        if(window.isNeedGuid){
+     //   if(window.isNeedGuid){
               if(!window.UrlParams.userid || window.UrlParams.userid == ''){
               //唤起app
-              return false;
-              var url = 'http://119.23.29.43:12333/?ae=2&ci=3&ui=12';//连接
-              loginApi(url,{}).then((res)=>{
-                location.href = 'http://www.baidu.com';
-                if(res.code>0){
-                  location.href = res.data;
+              var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
+              loginApi(url,{},'GET').then((res)=>{
+                if(res.status>0 && res.data && res.data.url){
+                  location.href = res.data.url;
+                }else{
+                   this.gocloseDialogIsShow.isShow = true;
+                   window.$post([{id:4,times:1}]);//按钮埋点
                 }
               });
             }else{
               window.userId = window.UrlParams.userid;
             }
-        }
+       // }
         return true;
       },
       //默认是根据大map，设置小map

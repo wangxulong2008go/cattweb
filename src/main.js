@@ -57,7 +57,7 @@ window.$post= function (data) {
   params = JSON.stringify(params);
   var url = window.rootUrl+'?ae=3&ci=1&ui='+window.userId + '&params='+params //埋点
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("GET", url, true);
   // 添加http头，发送信息至服务器时内容编码类型
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
   xhr.onreadystatechange = function() {
@@ -110,6 +110,8 @@ FastClick.attach(document.body);
 import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
 import  Velocity from 'velocity-animate'
 import { Indicator } from 'mint-ui';
+import VueLazyComponent from '@xunlei/vue-lazy-component'
+Vue.use(VueLazyComponent)
 Vue.prototype.$Velocity = Velocity;
 Vue.prototype.$Indicator = Indicator;
 // 坑位埋点指令

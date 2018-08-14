@@ -9,9 +9,10 @@
               
             </div>
             <div class="alert-button">
-                <span v-stat="{id:dataOjb.id,times:1}" v-tap="goToDraw" class="btn-one">
+                <span v-stat="{id:17,times:1}" v-tap="closeDailogAndDestory" class="btn-one">
 
                 </span>
+               
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
@@ -38,45 +39,70 @@
                 return {
                     className:'defaulted',
                     isMash:true,
-                    isShow : false,
-                    id:0,
-                    t:0,
-                    p:0
+                    isShow : false
                 }
             }
         }
+        // icon:{
+        //     type:String,
+        //     default:function(){
+        //         return require('../../assets/img/icon/i_26.png');
+        //     }
+        // }
     },
     mounted(){
      
     },
-
+     computed: {
+    isShow() {
+    　　　　return this.dataOjb.isShow
+    　　}
+    },
+    watch:{
+        isShow(value){
+           if(value){
+                // document.querySelector('#app').removeEventListener('touchmove',scrollTouch,false);
+                // document.querySelector('.alertsd').addEventListener('touchmove', this.scrollTouch,false);
+           }else{
+               //  document.querySelector('.alertsd').removeEventListener('touchmove',this.scrollTouch,false);
+           }
+        }
+    },
     methods:{
+          scrollTouch(evt){
+            if(!evt._isScroller) {
+                evt.preventDefault();
+                 evt.stopPropagation();
+            }
+        },
+        overscroll(el){
+                el.addEventListener('touchstart', function(){
+                    var top = el.scrollTop;
+                    var totalScroll = el.scrollHeight;
+                    var currentScroll = top + el.offsetHeight;
+                    if(top === 0) {
+                        el.scrollTop = 1;
+                    }else if(currentScroll === totalScroll){
+                        el.scrollTop = top - 1;
+                    }
+                });
+                el.addEventListener('touchmove', function(evt){
+                    if(el.offsetHeight < el.scrollHeight){
+                        evt._isScroller = true;
+                    }
+                });
+
+        },
+      closeDailogAndDestory(){
+         var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
+         loginApi(url,{},'GET').then((res)=>{
+                if(res.status>0 && res.data && res.data.url){
+                  location.href = res.data.url;
+                }
+              });
+      },
       closeDailog(){
           this.dataOjb.isShow = false;
-      },
-      goToDraw(){
-          this.dataOjb.isShow = false;
-            // let url = '';
-            // if(this.dataOjb.t<3){
-            //     url = '';//
-            // }else{
-            //     //b页面
-            //     url = ''
-            // }
-            this.$store.commit('setp',this.dataOjb.p - 3);
-           // window.location.href=url;//跳转抽奖页面
-           var url = window.rootUrl+'?ae=2&ci=4&ui='+window.userId;
-          loginApi(url,{},'GET').then((res)=>{
-            if(res.status == 200){
-                 if(res.data.rc==1){
-                     if(res.data.urlIndex == 1){
-                         //a页面
-                     }else{
-                         //b页面
-                     }
-                }
-            }
-          })
       }
     }
   }
@@ -112,21 +138,22 @@
                }
             }
             .alert-button{
-                height: 2.432rem;
+                height: 2.581333rem;
                 position: absolute;
-                bottom: 0.8rem;
+                bottom: 0.852rem;
                 z-index: 2001;
                 width: 100%;
             }
             .btn-one{
                 display: inline-block;
-                width: 4.202667rem;
-                 background-image: url('../../assets/img/guid/window_2_btn.png');
+                width: 4.48rem;
+                 background-image: url('../../assets/img/guid/login.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
                  height: 100%;
             }
+           
         }
         .flex{
             display: flex;
@@ -136,12 +163,12 @@
             .flex-grid{
                     top: -2rem;
                 margin:0 auto;
-                 width: 11.946667rem;
-                 background-image: url('../../assets/img/guid/window_2.png');
+                 width: 11.925333rem;
+                 background-image: url('../../assets/img/guid/login_03.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
-                 height: 11.776rem;
+                 height: 11.264rem;
                  position: relative;
                  .close{
                      height: 1.92rem;

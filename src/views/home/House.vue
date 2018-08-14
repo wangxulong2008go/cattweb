@@ -120,15 +120,27 @@
             return false;
           }
           window.$post([{id:25,times:1}]);//按钮埋点
-          let url = '';
-          if(this.t<3){
-            url = '';//
-          }else{
-            //b页面
-            url = ''
-          }
+          // let url = '';
+          // if(this.t<3){
+          //   url = '';//
+          // }else{
+          //   //b页面
+          //   url = ''
+          // }
           this.$store.commit('setp',this.nowData - 3);
-          window.location.href=url;//跳转抽奖页面
+          //window.location.href=url;//跳转抽奖页面
+           var url = window.rootUrl+'?ae=2&ci=4&ui='+window.userId;
+          loginApi(url,{},'GET').then((res)=>{
+            if(res.status == 200){
+                 if(res.data.rc==1){
+                     if(res.data.urlIndex == 1){
+                         //a页面
+                     }else{
+                         //b页面
+                     }
+                }
+            }
+          })
         },
         gotpHouse(){
           console.log(this.nowData,'p',this.t,'ttt');
