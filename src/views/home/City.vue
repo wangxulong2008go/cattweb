@@ -1,6 +1,6 @@
 <template>
   <div class="contain-box">
-    <div class="body-box">
+    <div class="body-box" style="position:relative">
        <div class="body-scorll">
             <div class="flex-box">
                 <div @click="selectedCity(item)" style="touch-action: none;" :class="item.isShow?'execit':''" class="flex-item" v-for="(item,index) in cityList" :key="index">
@@ -12,10 +12,11 @@
                     </div>
                 </div>
             </div>
+            
        </div>
-       <!-- <div>
-         <input type="range" class="range">
-       </div> -->
+      <div class="scorllBar">
+          <vue-slider @drag-start="dragStart" @drag-end="dragEnd" :width="12" @callback="setScrollCity" :tooltip="false" :processStyle="range.processStyle" :sliderStyle="range.sliderStyle" :bgStyle="range.bgStyle" :speed="range.speed" v-model="rangeValue" :direction="range.vertical" :height="range.height"></vue-slider>
+      </div>
     </div>
     <div class="body-footer">
       <span v-tap="gototavel" class="btn-one-go" :class="btnnone?'btnnone':''">
@@ -46,6 +47,7 @@
             }            
         } 
     }
+  import vueSlider from 'vue-slider-component';
   import {cityListJson} from '@/utils/build.js'
   import cloudAlert from '@/views/home/cloudAlert.vue'
     import drawAlert from '@/views/home/drawAlert.vue'
@@ -53,13 +55,36 @@
   export default {
     data(){
       return {
+         rangeValue:100,
+        range:{
+          vertical:'vertical',
+          height:'100%',
+          speed:0.2,
+          bgStyle:{          //背景样式
+            background:'url(static/list/list_slider_bar.png) no-repeat',
+            backgroundSize:'100% 100%'
+          },
+          sliderStyle:{      //滑块样式
+            width:'26px',
+            height:'26px',
+            left:'-6px',
+            borderRadius:'0',
+            background:'url(static/list/list_slider.png) no-repeat',
+            backgroundSize:'26px 26px',
+            bottom:'-6px',
+            boxShadow:'none'
+          },
+          processStyle:{ //进度条样式
+            background:'transparent'     
+          }
+        },
          isnum:0,
          btnnone:true,
          t:0,
          p:0,
          selected:null,
         goDrawDialogIsShow:{
-            isShow : false,
+            isShow : true,
             isMash:true,
             id:23,
             t:0,
@@ -79,7 +104,8 @@
     components:{
     drawAlert,
      xuAlert,
-     cloudAlert
+     cloudAlert,
+     vueSlider
    },
     computed:{
       pss(){
@@ -97,7 +123,10 @@
           },
           tss(val,newvalue){
             this.t = newvalue;
-          }
+          },
+          // rangeValue(value){
+          //   this.setScrollCity(value);
+          // }
          
       },
     created() {
@@ -106,19 +135,43 @@
     activated(){
         this.cityList.sort(compare("isExe"));
          this.isnum = this.isnum+1;
+         this.sDom =  document.querySelector('.body-scorll');
+         this.scrollHeight = this.sDom.scrollHeight - this.sDom.offsetHeight;
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
     },
     mounted(){
+      let that = this;
       this.overscroll(document.querySelector('.body-scorll'));
       document.querySelector('#app').addEventListener('touchmove', this.scrollTouch,false);
+      // document.querySelector('.body-scorll').onscroll = function() {
+      //   let value =  (that.scrollHeight -  that.sDom.scrollTop)*100/that.scrollHeight;
+      //   that.$nextTick(function(){
+      //     that.rangeValue = parseInt(value);
+      //   })
+      // };
+      this.requestAnimationID = window.requestAnimationFrame(this.setRange);
     },
     methods:{
+      setRange(){
+         let that = this;
+         if(that.scrollHeight){
+           let value =  (that.scrollHeight -  that.sDom.scrollTop)*100/that.scrollHeight;
+           that.rangeValue = value//parseInt(value);
+         }
+         this.requestAnimationID = window.requestAnimationFrame(this.setRange);
+      },
+      dragStart(){
+         window.cancelAnimationFrame(this.requestAnimationID);
+      },
+      dragEnd(){
+         this.requestAnimationID = window.requestAnimationFrame(this.setRange);
+      },
         scrollTouch(evt){
             if(!evt._isScroller) {
                 evt.preventDefault();
-                 evt.stopPropagation();
+                // evt.stopPropagation();
             }
         },
            overscroll(el){
@@ -138,6 +191,10 @@
                     }
                 });
 
+        },
+        setScrollCity(value){
+          let scrollHeight = this.scrollHeight;
+          this.sDom.scrollTop = scrollHeight - scrollHeight*value/100;
         },
         goBack(){
           this.$router.back()
@@ -218,8 +275,15 @@
   }
 </script>
 <style scoped lang="scss">
+.scorllBar{
+  position: fixed;
+  top:3.8rem;
+  right: 1.8rem;
+  width: 14px;
+  bottom:5rem;
+}
     .contain-box{
-        background-image: url('../../assets/img/guid/list_bg2.png');
+        background: url('../../assets/img/guid/list_bg2.png') #999;
         background-repeat: no-repeat;
         background-size: 100% 100%;
        .body-box{
@@ -236,6 +300,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            position: relative;
           }
        }
        .goback{
@@ -320,14 +385,23 @@
                  top:0.2rem;
                  position: relative;
        }
+      .btn-one-go:active{
+        animation: active .2s linear;
+      }
        .btnnone{
            -webkit-filter:grayscale(1)
+       }
+       .btnnone:active{
+          animation: none;
        }
     }
     .body-scorll::-webkit-scrollbar {
         display: none;
     }
-  
+    @keyframes active {
+      0% {transform: scale(1,1);opacity: 0.8;}
+      50%,100% {transform: scale(1.1,1.1);opacity: 1;}
+  }
 </style>
 <style lang="scss">
    

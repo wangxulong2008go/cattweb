@@ -139,6 +139,10 @@ export default {
        transform: translateY(0%);
     }
   }
+   @keyframes active {
+      0% {transform: scale(1,1);opacity: 0.8;}
+      50%,100% {transform: scale(1.1,1.1);opacity: 1;}
+  }
   @import "assets/css/normalize.css";
   @import "assets/css/weui.min.css";
   @import "assets/css/animate.css";

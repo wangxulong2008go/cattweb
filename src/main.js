@@ -110,8 +110,8 @@ FastClick.attach(document.body);
 import {tap,swipeleft,swiperight,press,panstart,panmove,panend} from './assets/js/touchvue.js' 
 import  Velocity from 'velocity-animate'
 import { Indicator } from 'mint-ui';
-import VueLazyComponent from '@xunlei/vue-lazy-component'
-Vue.use(VueLazyComponent)
+//import VueLazyComponent from '@xunlei/vue-lazy-component'
+//Vue.use(VueLazyComponent)
 Vue.prototype.$Velocity = Velocity;
 Vue.prototype.$Indicator = Indicator;
 // 坑位埋点指令

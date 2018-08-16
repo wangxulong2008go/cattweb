@@ -46,7 +46,7 @@
     <div class="absolute contorl-bottom-center">
       <div v-tap="goToHouses" class="map-go map-icon"></div>
     </div>
-     <vue-lazy-component :timeout="1000">
+     <!-- <vue-lazy-component :timeout="1000"> -->
       <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
       <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
       <gong-alert :dataOjb="gongnengDialogIsShow"> </gong-alert>
@@ -54,7 +54,7 @@
       <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
       <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
       <cloud-alert :dataOjb="cloundXuxiDialogIsShow"> </cloud-alert>
-     </vue-lazy-component>
+     <!-- </vue-lazy-component> -->
      <message-alert :dataOjb="showMessageDialogIsShow"> </message-alert>
       <close-alert :dataOjb="gocloseDialogIsShow"> </close-alert>
   </div>
@@ -865,6 +865,9 @@
   background-position-y: -10.1rem;
   margin-top: 0.3rem;
 }
+ .map-go:active{
+      animation: active .2s linear;
+    }
 .map-icon{
   background-repeat: no-repeat;
 }
