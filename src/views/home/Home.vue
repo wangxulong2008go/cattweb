@@ -381,6 +381,7 @@
               var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
               loginApi(url,{},'GET').then((res)=>{
                 if(res.status>0 && res.data && res.data.url){
+                   console.log(res.data.url);
                   location.href = res.data.url;
                 }else{
                    this.gocloseDialogIsShow.isShow = true;

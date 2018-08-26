@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 var url = location.search; //获取url中"?"符后的字串  
 window.userId = 12; 
-window.rootUrl = 'http://119.23.29.43:12333/';
+window.rootUrl = 'http://47.107.50.56:12333/';
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
    var str = url.substr(1);   
