@@ -9,16 +9,16 @@
               
             </div>
             <div class="alert-button">
-                <span v-stat="{id:18,times:1}" v-tap="closeDailogAndDestory" class="btn-one">
+                <span v-stat="{id:18,times:1}" @click="closeDailogAndDestory" class="btn-one">
 
                 </span>
-                <span v-tap="closeDailog" class="btn-two">
+                <span @click="closeDailog" class="btn-two">
 
                 </span>
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog"></span>
             </div>
         </div>
     </div>

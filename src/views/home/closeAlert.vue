@@ -9,14 +9,14 @@
               
             </div>
             <div class="alert-button">
-                <span v-stat="{id:17,times:1}" v-tap="closeDailogAndDestory" class="btn-one">
+                <span v-stat="{id:17,times:1}" @click="closeDailogAndDestory" class="btn-one">
 
                 </span>
                
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog"></span>
             </div>
         </div>
     </div>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+ import {loginApi} from '@/api/index'
   export default {
     data(){
       return {
@@ -94,7 +95,7 @@
 
         },
       closeDailogAndDestory(){
-         var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
+         var url =  window.rootUrl+'?ae=1&ci=2&ui=-1'//+window.userId;//连接
          loginApi(url,{},'GET').then((res)=>{
                 if(res.status>0 && res.data && res.data.url){
                   location.href = res.data.url;

@@ -12,7 +12,8 @@ let buildData = [
         enName:'hhht',
         chName:'呼和浩特',
         type:1,
-        code:20
+        code:20,
+        url:'https://ai.cmbchina.com/mb5web/0471.html?popup=ture'
     }, {
         style: {
             top: '11.690667rem',
@@ -26,7 +27,8 @@ let buildData = [
         enName:'cd',
         chName:'成都',
         type:1,
-        code:12
+        code:12,
+        url:'https://ai.cmbchina.com/mb5web/0028.html?popup=ture'
     }
     , {
         style: {
@@ -40,6 +42,7 @@ let buildData = [
         src: 'static/map_cgjj.png',
         enName:'cgjj',
         chName:'查公积金',
+        content:'线下查询跑断腿，线上查询轻松又快捷，还能省去不少繁琐手续。',
         type:2
     }, {
         style: {
@@ -54,7 +57,8 @@ let buildData = [
         enName:'zz',
         chName:'郑州',
         type:1,
-        code:4
+        code:4,
+        url:'https://ai.cmbchina.com/mb5web/0371.html?popup=ture'
     }, {
         style: {
             top: '2.304rem',
@@ -68,7 +72,8 @@ let buildData = [
         enName:'sy',
         chName:'沈阳',
         type:1,
-        code:9
+        code:9,
+        url:'https://ai.cmbchina.com/mb5web/0024.html?popup=ture'
     }, {
         style: {
             top: '3.989333rem',
@@ -82,7 +87,8 @@ let buildData = [
         enName:'jn',
         chName:'济南',
         type:1,
-        code:17
+        code:17,
+        url:'https://ai.cmbchina.com/mb5web/0531.html?popup=ture'
     }, {
         style: {
             top: '1.28rem',
@@ -96,7 +102,8 @@ let buildData = [
         enName:'yt',
         chName:'烟台',
         type:1,
-        code:6
+        code:6,
+        url:'https://ai.cmbchina.com/mb5web/0535.html?popup=ture'
     }, {
         style: {
             top: '3.690667rem',
@@ -110,7 +117,8 @@ let buildData = [
         enName:'nt',
         chName:'南通',
         type:1,
-        code:1
+        code:1,
+        url:'https://ai.cmbchina.com/mb5web/0513.html?popup=ture'
     }, {
         style: {
             top: '14.058667rem',
@@ -124,7 +132,8 @@ let buildData = [
         enName:'nj',
         chName:'南京',
         type:1,
-        code:7
+        code:7,
+        url:'https://ai.cmbchina.com/mb5web/0025.html?popup=ture'
     }, {
         style: {
             top: '17.066667rem',
@@ -138,7 +147,8 @@ let buildData = [
         enName:'sz',
         chName:'苏州',
         type:1,
-        code:23
+        code:23,
+        url:'https://ai.cmbchina.com/mb5web/0512.html?popup=ture'
     }, {
         style: {
             top: '21.184rem',
@@ -151,6 +161,7 @@ let buildData = [
         src: 'static/map_jsdf.png',
         enName:'jsdf',
         chName:'交水电费',
+        content:'7*24小时无间断服务，无需排队，随时可缴。',
         type:2
     }, {
         style: {
@@ -165,7 +176,8 @@ let buildData = [
         enName:'sh',
         chName:'上海',
         type:1,
-        code:14
+        code:14,
+        url:'https://ai.cmbchina.com/mb5web/0021.html?popup=ture'
     }, {
         style: {
             width: '5.184rem',
@@ -179,7 +191,8 @@ let buildData = [
         enName:'dg',
         chName:'东莞',
         type:1,
-        code:22
+        code:22,
+        url:'https://ai.cmbchina.com/mb5web/0769.html?popup=ture'
     }, {
         style: {
             width: '3.349333rem',
@@ -193,7 +206,8 @@ let buildData = [
         enName:'wx',
         chName:'无锡',
         type:1,
-        code:24
+        code:24,
+        url:'https://ai.cmbchina.com/mb5web/0510.html?popup=ture'
     }, {
         style: {
             width: '5.354667rem',
@@ -207,7 +221,8 @@ let buildData = [
         enName:'hz',
         chName:'杭州',
         type:1,
-        code:21
+        code:21,
+        url:'https://ai.cmbchina.com/mb5web/0571.html?popup=ture'
     }, {
         style: {
             top: '13.013333rem',
@@ -220,6 +235,7 @@ let buildData = [
         src: 'static/map_rmms.png',
         enName:'rmms',
         chName:'热门美食',
+        content:'想不到吃什么？想随便吃点？来招商APP，尽享天下美食。',
         type:2
     }, {
         style: {
@@ -234,7 +250,8 @@ let buildData = [
         enName:'bj',
         chName:'北京',
         type:1,
-        code:13
+        code:13,
+        url:'https://ai.cmbchina.com/mb5web/0010.html?popup=ture'
     }, {
         style: {
             top: '21.994667rem',
@@ -248,7 +265,8 @@ let buildData = [
         enName:'hf',
         chName:'合肥',
         type:1,
-        code:11
+        code:11,
+        url:'https://ai.cmbchina.com/mb5web/0551.html?popup=ture'
     }, {
         style: {
             top: '21.354667rem',
@@ -262,7 +280,8 @@ let buildData = [
         enName:'tj',
         chName:'天津',
         type:1,
-        code:5
+        code:5,
+        url:'https://ai.cmbchina.com/mb5web/0022.html?popup=ture'
     }, {
         style: {
             top: '16.064rem',
@@ -275,6 +294,7 @@ let buildData = [
         src: 'static/map_mdyp.png',
         enName:'mdyp',
         chName:'买电影票',
+        content:'想要看大片？随时随地都可以买票，还能领取海量优惠券，便宜快人一步。',
         type:2
     }, {
         style: {
@@ -289,7 +309,8 @@ let buildData = [
         enName:'wh',
         chName:'武汉',
         type:1,
-        code:18
+        code:18,
+        url:'https://ai.cmbchina.com/mb5web/0027.html?popup=ture'
     }, {
         style: {
             top: '25.642667rem',
@@ -303,7 +324,8 @@ let buildData = [
         enName:'cq',
         chName:'重庆',
         type:1,
-        code:8
+        code:8,
+        url:'https://ai.cmbchina.com/mb5web/0023.html?popup=ture'
     }, {
         style: {
             left: '3.733333rem',
@@ -317,7 +339,8 @@ let buildData = [
         enName:'km',
         chName:'昆明',
         type:1,
-        code:10
+        code:10,
+        url:'https://ai.cmbchina.com/mb5web/0871.html?popup=ture'
     }, {
         style: {
             left: '21.376rem',
@@ -331,7 +354,8 @@ let buildData = [
         enName:'gz',
         chName:'广州',
         type:1,
-        code:16
+        code:16,
+        url:'https://ai.cmbchina.com/mb5web/0020.html?popup=ture'
     }, {
         style: {
             left: '27.2rem',
@@ -345,7 +369,8 @@ let buildData = [
         enName:'cs',
         chName:'长沙',
         type:1,
-        code:19
+        code:19,
+        url:'https://ai.cmbchina.com/mb5web/0731.html?popup=ture'
     }, {
         style: {
             left: '37.504rem',
@@ -359,7 +384,8 @@ let buildData = [
         enName:'nc',
         chName:'南昌',
         type:1,
-        code:3
+        code:3,
+        url:'https://ai.cmbchina.com/mb5web/0791.html?popup=ture'
     }, {
         style: {
             left: '28.629333rem',
@@ -373,7 +399,8 @@ let buildData = [
         enName:'fs',
         chName:'佛山',
         type:1,
-        code:2
+        code:2,
+        url:'https://ai.cmbchina.com/mb5web/0757.html?popup=ture'
     }, {
         style: {
             right: '26.24rem',
@@ -387,7 +414,8 @@ let buildData = [
         enName:'shenzhen',
         chName:'深圳',
         type:1,
-        code:15
+        code:15,
+        url:'https://ai.cmbchina.com/mb5web/0755.html?popup=ture'
     }, {
         style: {
             left: '39.765333rem',
@@ -400,6 +428,7 @@ let buildData = [
         src: 'static/map_mlc.png',
         enName:'mlc',
         chName:'买理财',
+        content:'智能理财，贴心服务，钱生钱的诀窍都在这里。',
         type:2
     }, {
         style: {

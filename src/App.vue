@@ -64,6 +64,7 @@ export default {
       }    
   },
   beforeRouteUpdate (to, from, next) {
+    window.fromRouter = from;
     //Indicator.close();//全局关闭loading
     let isBack = this.$router.isBack;
     if (window.historyisHistory || isBack) {

@@ -1,27 +1,15 @@
 <template>
-  <div class="alert-own" :class="dataOjb.className" v-show="dataOjb.isShow">
+  <div class="alert-own alertsd" :class="dataOjb.className" v-show="dataOjb.isShow">
     <div class="alert-content flex">
         <div class="flex-grid">
-            <div class="alert-text scroll-guide">
-                <p class="content">
-                    欢迎大家来到招喵小麦的世界，动动手指，小麦就可以环游世界，不仅能带回手信，还能让主人获得抽奖机会哦！
-                    <span class="title">活动时间：</span>即日起至9月30日
-                    <span class="title">活动对象：</span>招商银行App所有客户均可参加活动
-                    <span class="title">参与方式：</span>
-                    1、用户登录之后，拖动地图，点击任意城市，或者点击页面下方的“去旅行”，进入城市列表，点击任意一座城市，都可以让小麦来到对应的城市旅游。
-                    2、小麦旅游回来，会为主人带来手信。小麦每天可以去旅游的城市不限，但最多只能带回三个手信，主人可以在“我的小窝”查看自己拥有的手信及数量。
-                    3、每集齐三个手信，就可参与一次抽奖，每天最多只能拥有一次抽奖机会哦。
-                    4、当小麦完成了所有城市的旅游之后，主人还可以获得惊喜彩蛋，可以额外参与一次抽奖，有机会获得实物奖品哦。
-                    <span class="title">注意事项：</span>
-                    1、“我的小窝”容量有限，主人拥有的手信第二天就会被清空，如果已经集满三个手信，请主人尽快参与抽奖哦。
-                    2、如有问题请联系招商银行客服：95555。
-                </p>
+            <div class="alert-icon">
+                
+            </div>
+            <div class="alert-text">
+              
             </div>
             <div class="alert-button">
-                <span @click="closeDailogAndDestory" class="btn-one">
-
-                </span>
-                <span @click="closeDailog" class="btn-two">
+                <span @click="closeDailogAndDestory" class="btn-one" :class="dataOjb.isAll?'btn-none':''">
 
                 </span>
             </div>
@@ -62,9 +50,9 @@
         // }
     },
     mounted(){
-       this.overscroll(document.querySelector('.scroll-guide'));
+     
     },
-    computed: {
+     computed: {
     isShow() {
     　　　　return this.dataOjb.isShow
     　　}
@@ -72,15 +60,15 @@
     watch:{
         isShow(value){
            if(value){
-             //   this.overscroll(document.querySelector('.scroll-guide'));
-              //   document.querySelector('.alert-own').addEventListener('touchmove', this.scrollTouch,false);
+                // document.querySelector('#app').removeEventListener('touchmove',scrollTouch,false);
+                // document.querySelector('.alertsd').addEventListener('touchmove', this.scrollTouch,false);
            }else{
-               //  document.querySelector('.alert-own').removeEventListener('touchmove',this.scrollTouch,false);
+               //  document.querySelector('.alertsd').removeEventListener('touchmove',this.scrollTouch,false);
            }
         }
     },
     methods:{
-        scrollTouch(evt){
+          scrollTouch(evt){
             if(!evt._isScroller) {
                 evt.preventDefault();
                  evt.stopPropagation();
@@ -106,7 +94,9 @@
         },
       closeDailogAndDestory(){
           //关闭页面逻辑
+          if(this.dataOjb.isAll)return;
           this.dataOjb.isShow = false;
+         //抽大奖
       },
       closeDailog(){
           this.dataOjb.isShow = false;
@@ -133,43 +123,19 @@
             left: 0;
             right: 0;
         }
-        .content{
-            font-size: 13px;
-                font-family:'zhonghei';
-            color: #b47436;
-            display: block;
-            text-align: left;
-            margin-top: .426667rem;
-            
-        }
-            .title{
-            font-size: 14px;
-                font-family:'zhonghei';
-            color: #532e00;
-            display: block;
-            text-align: left;
-            margin-top: 0.2rem;
-        }
         .alert-content{
             position: relative;
             z-index: 2000;
-            .alert-text{
-               width: 100%;
-               height: calc(100% - 3.904rem - 3.304rem);
-               overflow-x: hidden;
-               overflow-y: auto;
-               margin-top: 3.304rem;
-               margin-bottom: 0;
-               padding-left: 1.536rem;
-               margin-right: 0;
-               -webkit-overflow-scrolling:touch;
-               p{
-                   text-align: left;
-                   font-size: 14px;
+            .alert-icon{
+               width: 5.034667rem;
+               height: 100%;
+               
+               img{
+                   height: 100%;
                }
             }
             .alert-button{
-                height: 2.517333rem;
+                height: 2.794667rem;
                 position: absolute;
                 bottom: 1.152rem;
                 z-index: 2001;
@@ -177,12 +143,15 @@
             }
             .btn-one{
                 display: inline-block;
-                width:6.122667rem;
-                 background-image: url('../../assets/img/guid/zhinan_win_btn.png');
+                width: 10.218667rem;
+                 background-image: url('../../assets/img/guid/window_btn.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
                  height: 100%;
+            }
+            .btn-none{
+                 background-image: url('../../assets/img/guid/window_btn2.png');
             }
         }
         .flex{
@@ -193,26 +162,22 @@
             .flex-grid{
                     top: -2rem;
                 margin:0 auto;
-                 width: 13.653333rem;
-                 background-image: url('../../assets/img/guid/zhinan_window.png');
+                 width: 13.376rem;
+                 background-image: url('../../assets/img/guid/window_03.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
-                 height: 18.666667rem;
+                 height: 13.589333rem;
                  position: relative;
-                 padding-right: 1.536rem;
                  .close{
                      height: 1.92rem;
                      position: relative;
-                     top:2.6rem;
-                     left: 0.768rem;
                      span{
                      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAgVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9d3yJTAAAAKnRSTlMA4y8uCCcN3oLtxbuml0M7ECr42NabVxz0vpGJUE6F23DozKBZJBjNc86W928EAAAB40lEQVRIx51X25aCMAwMyq0CFhcQRQTvuv7/B27TslApCCfzoJYyZ6Zp0kYYgstfWZDWjNVpkJ24C7PglqH1/oAVltPcvPLeA/D8/Cst9s+tzGUfBPtLK37243FemaqXkujmNK/Fzi1K1NO0HKHZhZz/Cdd2b2Id/sipwh5c3UrSog0MYBNJ6iofmErkDIcR8JW06xg8GcyDDaOwDzK8PWaOerstfMV2h5ofbm30wdYwgTXD1eiuCtRD3hQTNYtufET3jc8Jt/jmsc3OGuMCs4ARql1Q8JXzKXTR8EHiwcS+c5gJLjKBPVrBCGYj+pd0LRHRu1YhVbbpJUdWaZVxF5KW24Q0hA6VeL7QeQsLJTqEGNjmW9/CKxbjshsvsSSv+maiknKa2Lox661rLuRQN28n0is3QrNomd3ACA+Hl0oak7mUPhXPTJ8TZOKzX2RLxex+fMIRDzMIxEwMg0zHGeRBLB4HIFb6VGPTrelT4SnKEkTl79XQ1FR6JvbiJACGsgNwvOakMIHLY2Qi2SopOL8YHOp2kBOAnHLkJCeXFb2QoSQdHeTDino8kg9k+hVAv3To1xz9YqVf5fTmgd6uIBxCg0RoyQhNIKXtPJIb3W/IfUJrTW7mOy4/ZUHqMeaN/334AweBb5s601/AAAAAAElFTkSuQmCC');
                      height: 1.194667rem;
                      width: 1.194667rem;   
                      display: inline-block;
                       background-size: cover;
-                      
                      }
                  }
             }

@@ -9,13 +9,13 @@
               
             </div>
             <div class="alert-button">
-                <span v-stat="{id:dataOjb.id,times:1}" v-tap="goToCityList" class="btn-one">
+                <span v-stat="{id:dataOjb.id,times:1}" @click="goToCityList" class="btn-one">
 
                 </span>
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog"></span>
             </div>
         </div>
     </div>

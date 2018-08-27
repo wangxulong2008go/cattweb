@@ -19,10 +19,10 @@
       </div>
     </div>
     <div class="body-footer">
-      <span v-tap="gototavel" class="btn-one-go" :class="btnnone?'btnnone':''">
+      <span @click="gototavel" class="btn-one-go" :class="btnnone?'btnnone':''">
       </span>
     </div>
-    <div v-tap="goBack" class="goback">
+    <div @click="goBack" class="goback">
 
     </div>
     <div style="display:none">
@@ -52,6 +52,7 @@
   import cloudAlert from '@/views/home/cloudAlert.vue'
     import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
+   import {loginApi} from '@/api/index'
   export default {
     data(){
       return {
@@ -214,9 +215,19 @@
         },
         clound(page){
         this.cloundXuxiDialogIsShow.isShow = true;
+          //需要调用去往城市接口
+          var url = window.rootUrl+'?ae=2&ci=2&ui='+window.userId;//设置去过改城市
+                loginApi(url,{params:JSON.stringify({cityCode:this.selected.code})},'GET').then((res)=>{
+                  if(res.status == 200){
+                      if(res.data.rc==1){
+                        
+                      }
+                  }
+                })
         window.setTimeout(()=>{
           this.cloundXuxiDialogIsShow.isShow = false;
-          //location.href = page;
+           setStore('gotopage','zhuanqu');
+          location.href = this.selected.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
       },
@@ -235,6 +246,7 @@
                     this.$store.commit('sett',this.$store.state.t -1);
                     this.setCitySelect(this.selected.code);
                    window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
+                 
                    this.clound('page');
                 }
                 if(c==0 && this.p<3 && this.t==0){

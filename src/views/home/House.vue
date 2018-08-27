@@ -30,27 +30,33 @@
               </div>
           </div>
           <div class="btn">
-               <span v-tap="gotoDraw" class="btn-one" :class="nowData<3?'btn-none':''">
+               <span @click="gotoDraw" class="btn-one" :class="nowData<3?'btn-none':''">
 
                 </span>
-                <span v-tap="gotpHouse" class="btn-two">
+                <span @click="gotpHouse" class="btn-two">
 
                 </span>
           </div>
+          <div class="btn-big">
+            <span @click="gotoBigDraw" class="btn-egg"></span>
+          </div>
       </div>
-      <div v-tap="goBack" class="goback">
+      <div @click="goBack" class="goback">
 
       </div>
-      <div class="myhouse-icon">
+      <div class="">
 
       </div>
     <draw-alert :dataOjb="goDrawDialogIsShow"> </draw-alert>
     <xu-alert :dataOjb="goXuxiDialogIsShow"> </xu-alert>
+    <big-alert :dataOjb="goBigDialogIsShow"> </big-alert>
   </div>
 </template>
 <script>
   import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
+  import bigAlert from '@/views/home/bigAlert.vue'
+  import {loginApi} from '@/api/index'
   export default {
     data(){
       return {
@@ -66,19 +72,23 @@
           goXuxiDialogIsShow:{
             isShow : false,
             isMash:true
+        },
+          goBigDialogIsShow:{
+            isShow : false,
+            isMash:true
         }
       }
     },
    components:{
      drawAlert,
-     xuAlert
+     xuAlert,
+     bigAlert
    },
     created() {
    
     },
     activated(){
      // console.log(this.$route.query,'ss')
-     
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -163,7 +173,24 @@
              window.$post([{id:26,times:1}]);//按钮埋点
              this.$router.push({path:'city',query: {page:'city'}});
           }
-        }
+        },
+        gotoBigDraw(){
+          //抽大奖
+          //判断是否满足24
+           //城市列表
+           let lengthCity = 0;
+          window.cityListJson.forEach(element => {
+              if(element.isShow){
+                ++lengthCity;
+              }
+          });
+          if(lengthCity == window.cityListJson.length && lengthCity>0){
+             this.goBigDialogIsShow.isAll = false;
+          }else{
+             this.goBigDialogIsShow.isAll = true;
+          }
+          this.goBigDialogIsShow.isShow = true;
+        },
     }
   }
 </script>
@@ -359,7 +386,8 @@
         height: 3.392rem;
         width: 100%;
         position: fixed;
-        bottom:1.4rem;
+        bottom:3.84rem;
+        text-align: center;
         .btn-one{
              display: inline-block;
               width: 6.357333rem;
@@ -368,7 +396,6 @@
               background-size: contain;
               box-sizing: border-box;
               height: 100%;
-              margin-left:.64rem;
         }
          .btn-two{
              display: inline-block;
@@ -384,6 +411,25 @@
            background-image: url('../../assets/img/guid/home_btn_3.png');
         }
       }
+    }
+    .btn-big{
+        height: 3.392rem;
+        width: 100%;
+        position: fixed;
+        bottom: 0.4rem;
+        text-align: center;
+        .btn-egg{
+           display: inline-block;
+            width: 3.541333rem;
+            background-image: url('../../assets/img/guid/home_image11.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            box-sizing: border-box;
+            height: 100%;
+            -webkit-transform-origin: 70% 100%;
+            transform-origin: 70% 100%;
+             animation: leftright .5s linear infinite;
+        }
     }
     @keyframes rotate {
         0% {
@@ -406,6 +452,11 @@
     @keyframes shadow {
       0%, 100% {transform: scaleX(1);}
       50% {transform: scaleX(1.2);}
+  }
+   @keyframes leftright {
+      0% {transform: rotate(-5deg);}
+      50% {transform: rotate(5deg);}
+      100% {transform: rotate(-5deg);}
   }
     @keyframes xinxin {
       0%, 100% {transform: scale(1,1);opacity: 0;}

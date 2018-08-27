@@ -3,21 +3,24 @@
     <div class="alert-content flex">
         <div class="flex-grid">
             <div class="alert-text scroll-gong">
-                <p>
-                    功能页面内容
+                <p style="padding-top:0.4rem;padding-left: 0.2rem;padding-right: 0.2rem;">
+                    <span class="title">{{dataOjb.title}}</span>
+                   <span class="content">
+                        {{dataOjb.content}}
+                   </span>
                 </p>
             </div>
             <div class="alert-button">
-                <span v-tap="closeDailogAndDestory" class="btn-one">
+                <span @click="closeDailogAndDestory" class="btn-one">
 
                 </span>
-                <span v-tap="closeDailog" class="btn-two">
+                <span @click="closeDailog" class="btn-two">
 
                 </span>
             </div>
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog"></span>
             </div>
         </div>
     </div>
@@ -142,7 +145,7 @@
                }
             }
             .alert-button{
-                height: 2.645333rem;
+                height: 2.282667rem;
                 position: absolute;
                 bottom: 1.152rem;
                 z-index: 2001;
@@ -150,8 +153,8 @@
             }
             .btn-one{
                 display: inline-block;
-                width: 4.821333rem;
-                 background-image: url('../../assets/img/guid/house_window_1_btn.png');
+                width:5.056rem;
+                 background-image: url('../../assets/img/guid/zhinan_win_btn.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
@@ -163,6 +166,22 @@
             align-items: center;
             height: 100%;
             text-align: center;
+            .title{
+                font-size: 16px;
+                 font-family:'zhonghei';
+                color: #532e00;
+                display: block;
+                text-align: center;
+                margin-top: 1rem;
+            }
+            .content{
+                font-size: 14px;
+                 font-family:'zhonghei';
+                color: #b47436;
+                display: block;
+                text-align: left;
+                margin-top: .426667rem;
+            }
             .flex-grid{
                     top: -2rem;
                 margin:0 auto;
@@ -171,7 +190,7 @@
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
-                 height: 14.997333rem;
+                 height: 13.290667rem;
                  position: relative;
                  padding-right: 1.536rem;
                  .close{

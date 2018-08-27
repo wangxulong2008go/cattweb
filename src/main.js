@@ -1,7 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 var url = location.search; //获取url中"?"符后的字串  
-window.userId = 12; 
+//window.userId = 12; 
 window.rootUrl = 'http://47.107.50.56:12333/';
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   

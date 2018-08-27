@@ -37,14 +37,14 @@
       </div>
     </div>
     <div class="absolute contorl-left-top">
-      <div v-stat="{id:5,times:1}" v-tap="openClose" class="map-close map-icon"></div>
-      <div v-stat="{id:6,times:1}" v-tap="openGuide" class="map-guide map-icon"></div>
-      <div v-tap="goToHouse" class="map-house map-icon">
-          <div v-if="showMessageDialogIsShow.isShow" class="hand-letter-message"></div>
+      <div v-stat="{id:5,times:1}" @click="openClose" class="map-close map-icon"></div>
+      <div v-stat="{id:6,times:1}" @click="openGuide" class="map-guide map-icon"></div>
+      <div @click="goToHouse" class="map-house map-icon">
+          <div v-if="thisShouxin" class="hand-letter-message"></div>
       </div>
     </div>
     <div class="absolute contorl-bottom-center">
-      <div v-tap="goToHouses" class="map-go map-icon"></div>
+      <div @click="goToHouses" class="map-go map-icon"></div>
     </div>
      <!-- <vue-lazy-component :timeout="1000"> -->
       <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
@@ -57,6 +57,16 @@
      <!-- </vue-lazy-component> -->
      <message-alert :dataOjb="showMessageDialogIsShow"> </message-alert>
       <close-alert :dataOjb="gocloseDialogIsShow"> </close-alert>
+      <div v-if="isFirstLogin">
+          <div class="img-div" @click="isFirstLogin = false">
+             <img :src="isFirstImage" alt="1">
+             <div class="p-div">
+               <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信就能参与抽奖，50元话费券、自拍杆、商城券等你来拿，百分百中奖哟！</p>
+               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone X、 200元话费券、耳机、商城券等豪礼，百分百中奖哟！</p>
+             </div>
+          </div>
+          <div class="alert-mash" @click="isFirstLogin = false"></div>
+      </div>
   </div>
 </template>
 <script>
@@ -75,9 +85,13 @@
   export default {
     data(){
       return {
+          isFirstLogin:false,
+          thisShouxin:false,
+          isLogin:false,
           p:0,//手信数量,
           t:0,//剩余旅行次数,
           c:0,//c=1，未去过记c=0
+          isFirstImage:'static/win_lucky.png',
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],
@@ -101,7 +115,9 @@
           },
           gongnengDialogIsShow:{
              isShow : false,
-             isMash:true
+             isMash:true,
+             title:'',
+             content:''
           },
            goCityListDialogIsShow:{
              isShow : false,
@@ -199,14 +215,16 @@
           }
       },
   activated(){
-    //showMessageDialogIsShow.isShow,是否显示手信，及是否有弹窗
+    if(window.fromRouter && window.fromRouter.path == '/house'){
+      this.thisShouxin = false;
+    }
     //执行埋点
     window.$post([{id:2,times:1}]);
     this.cloundXuxiDialogIsShow.isClound = false;
     let isAuth = this.auth();
-    if(isAuth){
-      this.getCityShouxinTimeData();
-    }
+    // if(isAuth){
+    //   this.getCityShouxinTimeData();
+    // }
  
   },
   created() {
@@ -229,7 +247,20 @@
    // let needGuid = getStore('needGuid');
     //if(!needGuid){
       //setStore('needGuid',true);
-      this.$router.push({path:'guid',query: {page:'guid'}});
+       let pages = getStore('isGotoZhuanqu');
+        if(pages == true){
+        this.thisShouxin = true;
+        //手信显示判断
+        if(this.p<3){
+          this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
+        }else if(this.p == 3){
+          this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
+        }
+      }else{
+        this.$router.push({path:'guid',query: {page:'guid'}});//手信返回则不需要引导页面
+      }
+      setStore('isGotoZhuanqu',false);
+      
     //}
    
     
@@ -344,7 +375,7 @@
             }
             if(res.status == 200){
                  if(res.data.rc==1){
-                   let reData = res.data.giftNum || 0;
+                   let reData =res.data.giftNum || 0;
                    this.p = reData;
                    this.$store.commit('setp',reData);
                 }
@@ -375,24 +406,57 @@
       },
       auth(){
            //跳转guid页面则不验证
-        if(window.isNeedGuid){
+           //不是引导页，和未登录走这个逻辑
+        if(window.isNeedGuid && !this.isLogin){
               if(!window.UrlParams.userid || window.UrlParams.userid == ''){
-              //唤起app
-              var url =  window.rootUrl+'?ae=1&ci=2&ui=1'//+window.userId;//连接
-              loginApi(url,{},'GET').then((res)=>{
-                if(res.status>0 && res.data && res.data.url){
-                   console.log(res.data.url);
-                  location.href = res.data.url;
-                }else{
-                   this.gocloseDialogIsShow.isShow = true;
-                   window.$post([{id:4,times:1}]);//按钮埋点
-                }
-              });
+                this.goToApp();
             }else{
               window.userId = window.UrlParams.userid;
+              //验证登录
+              var url =  window.rootUrl+'?ae=1&ci=3&ui='+window.userId;//连接
+              loginApi(url,{},'GET').then((res)=>{
+                  if(res.status>0 && res.data){
+                     if(res.data.rc == 1){
+                       //登录则请求数据
+                       this.isLogin = true;
+                       this.isGetAllData = false;
+                       //登录成功，则判断是否是第一次登录
+                       this.showIsfirstDialog();
+                       this.getCityShouxinTimeData();
+                     }
+                  }else{
+                    // this.gocloseDialogIsShow.isShow = true;//引导登录页面不需要
+                    // window.$post([{id:4,times:1}]);//按钮埋点
+                    this.goToApp();
+                  }
+                });
             }
+            
         }
-        return true;
+        if(this.isLogin){
+           return true;
+        }else{
+          return false;
+        }
+       
+      },
+      goToApp(){
+          //唤起app
+          var url =  window.rootUrl+'?ae=1&ci=2&ui=-1'//+window.userId;//连接
+          loginApi(url,{},'GET').then((res)=>{
+            if(res.status>0 && res.data && res.data.url){
+                console.log(res.data.url);
+              location.href = res.data.url;
+            }
+          });
+      },
+      showIsfirstDialog(){
+          let isFirstLogin = getStore('isFirstLogin');
+          if(!isFirstLogin){
+             //显示首次登录
+            this.isFirstLogin = true;
+            setStore('isFirstLogin',true);
+          }
       },
       //默认是根据大map，设置小map
       init(){
@@ -656,6 +720,7 @@
       },
       goToHouse(){
         //只要在这里做埋点
+        this.thisShouxin = false;
         window.$post([{id:13,times:1}]);
         this.$router.push({path:'house',query: {page:'house'}});
       },
@@ -725,6 +790,8 @@
             window.$post([{id:3,times:1}]);//按钮埋点
             this.$nextTick(()=>{
               this.gongnengDialogIsShow.isShow = true;
+              this.gongnengDialogIsShow.title = item.chName;
+              this.gongnengDialogIsShow.content = item.content;
             });
           }
       },
@@ -734,7 +801,7 @@
               this.$store.commit('setp',this.$store.state.p +1);
               this.$store.commit('sett',this.$store.state.t -1);
               this.setCitySelect(data.code);
-              this.clound('page');//url
+              this.clound('page',data);//url
                window.$post([{id:16,times:1}]);//埋点
                var url = window.rootUrl+'?ae=2&ci=2&ui='+window.userId;//设置去过改城市
                 loginApi(url,{params:JSON.stringify({cityCode:data.code})},'GET').then((res)=>{
@@ -770,11 +837,12 @@
               }
           });
       },
-      clound(page){
+      clound(page,data){
         this.cloundXuxiDialogIsShow.isShow = true;
         window.setTimeout(()=>{
           this.cloundXuxiDialogIsShow.isShow = false;
-          location.href = page;
+          setStore('isGotoZhuanqu',true);
+          location.href = data.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
       },
@@ -836,6 +904,45 @@
   background-size: 2.39rem 2.688rem;
   background-position-y: 0rem;
   margin-top: 0.4rem;
+}
+ .alert-mash{
+      position: absolute;
+      background: rgba(0, 0, 0, 0.6);
+      height: 100%;
+      width: 100%;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1909
+  }
+.img-div{
+  position: absolute;
+    bottom: 4.608rem;
+    left: 1.6rem;
+    z-index: 2098;
+    width: 14.421333rem;
+    height: 21.952rem;
+}
+.img-div img{
+      height: 100%;
+      width: 100%;
+    }
+.p-div{
+  position: absolute;
+  bottom: 3.8rem;
+  font-size: 13px;
+  letter-spacing: 0px;
+  left: 1.066667rem;
+  right: 2.346667rem;
+  color: rgba(255,255,255,.8);
+  line-height: 18px;
+}
+.p-div p{
+  height: 2.4rem;
+}
+.p-div .p2{
+  margin-top: 1.4rem;
 }
 .map-house{
   height:2.8rem;

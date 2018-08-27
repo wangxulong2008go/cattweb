@@ -11,7 +11,7 @@
          
             <div class="close">
                 <div style="height:1.28rem"></div>
-                <span v-tap="closeDailog"></span>
+                <span @click="closeDailog"></span>
             </div>
         </div>
     </div>
