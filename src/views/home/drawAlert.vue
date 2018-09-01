@@ -70,6 +70,7 @@
           loginApi(url,{},'GET').then((res)=>{
             if(res.status == 200){
                  if(res.data.rc==1){
+                     //需要设置，本地存储isGotochoujiang
                      if(res.data.urlIndex == 1){
                          //a页面
                      }else{

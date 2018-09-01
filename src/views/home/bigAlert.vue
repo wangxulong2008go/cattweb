@@ -96,7 +96,7 @@
           //关闭页面逻辑
           if(this.dataOjb.isAll)return;
           this.dataOjb.isShow = false;
-         //抽大奖
+         //抽大奖,设置本地
       },
       closeDailog(){
           this.dataOjb.isShow = false;

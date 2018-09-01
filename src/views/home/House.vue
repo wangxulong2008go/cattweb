@@ -24,11 +24,7 @@
                   </div>
               </div>
           </div>
-          <div class="tip">
-              <div class="tip-img" :class="nowData==3?'all-img':''">
-
-              </div>
-          </div>
+         
           <div class="btn">
                <span @click="gotoDraw" class="btn-one" :class="nowData<3?'btn-none':''">
 
@@ -41,6 +37,11 @@
             <span @click="gotoBigDraw" class="btn-egg"></span>
           </div>
       </div>
+       <div class="tip">
+              <div class="tip-img" :class="nowData==3?'all-img':''">
+
+              </div>
+          </div>
       <div @click="goBack" class="goback">
 
       </div>
@@ -60,6 +61,7 @@
   export default {
     data(){
       return {
+        isLotteryFinalAward:true,//默认进行过了
          nowData:0,//总共有几个手信
          t:0,//剩余次数
           goDrawDialogIsShow:{
@@ -89,6 +91,12 @@
     },
     activated(){
      // console.log(this.$route.query,'ss')
+     //判断是否是从抽奖页面回来
+    if(typeof window.cats_p == 'undefined'){
+        this.$router.push({path:'home',query: {page:'home'}});//前往首页
+      }
+    this.nowData =  window.cats_p;
+    this.getdajiang();
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -108,7 +116,7 @@
     },
        watch: {
           pss(val,newvlue){
-            this.nowData = newvlue;
+           // this.nowData = newvlue;
           },
           tss(val,newvalue){
             this.t = newvalue;
@@ -143,6 +151,7 @@
           loginApi(url,{},'GET').then((res)=>{
             if(res.status == 200){
                  if(res.data.rc==1){
+                   //需要设置存储isGotochoujiang
                      if(res.data.urlIndex == 1){
                          //a页面
                      }else{
@@ -153,18 +162,17 @@
           })
         },
         gotpHouse(){
-          console.log(this.nowData,'p',this.t,'ttt');
           //去旅行
           if(this.nowData>=3){
              //前往抽奖
             this.$nextTick(()=>{
               window.$post([{id:14,times:1},{id:26,times:1}]);//按钮埋点
               this.goDrawDialogIsShow.isShow = true;
-              this.goDrawDialogIsShow.t = this.t;
+              this.goDrawDialogIsShow.t = window.cats_t;
               this.goDrawDialogIsShow.p = this.nowData;
 
             });
-          }else if(this.t == 0){
+          }else if(window.cats_t == 0){
             //休息
             this.goXuxiDialogIsShow.isShow = true;
              window.$post([{id:15,times:1},{id:26,times:1}]);//按钮埋点
@@ -184,13 +192,23 @@
                 ++lengthCity;
               }
           });
-          if(lengthCity == window.cityListJson.length && lengthCity>0){
+          if(lengthCity == window.cityListJson.length && lengthCity>0 && !this.isLotteryFinalAward){
              this.goBigDialogIsShow.isAll = false;
           }else{
              this.goBigDialogIsShow.isAll = true;
           }
           this.goBigDialogIsShow.isShow = true;
         },
+        getdajiang(){
+            var url = window.rootUrl+'?ae=2&ci=10&ui='+window.userId;//获取是否可以抽大奖
+            loginApi(url,{},'GET').then((res)=>{
+              if(res.status == 200){
+                  if(res.data.rc==1){
+                     this.isLotteryFinalAward = res.data.isLotteryFinalAward;
+                  }
+              }
+            })
+        }
     }
   }
 </script>
@@ -211,7 +229,8 @@
        }
        .body-box{
             position: absolute;
-            top: 8.2rem;
+            top: calc(50% - 6rem);
+            width: 100%;
        }
        .myhouse-icon{
           position: absolute;
@@ -222,6 +241,10 @@
          background: url('../../assets/img/guid/house__08.png') #999;
          background-repeat: no-repeat;
          background-size: contain;
+       }
+      .wo-box {
+             width: 16rem;
+             margin: 0 auto;
        }
        .flex-box{
          display: flex;
@@ -370,6 +393,9 @@
        .tip{
           text-align: center;
           padding-top: 0.6rem;
+          position: absolute;
+          top: calc(50% - 6rem + 5.84rem);
+          left:calc(50% - 7.51rem);
           .tip-img{
              height: 4.842667rem;
               width: 15.104rem;
@@ -386,7 +412,7 @@
         height: 3.392rem;
         width: 100%;
         position: fixed;
-        bottom:3.84rem;
+        bottom:13%;
         text-align: center;
         .btn-one{
              display: inline-block;

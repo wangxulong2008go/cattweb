@@ -108,7 +108,7 @@
                     border-radius:50%;
                     background-image: url('../../assets/img/guid/logo.png');
                     background-repeat: no-repeat;
-                    background-size: cover;
+                    background-size: 100% 100%;
             }
         }
     }

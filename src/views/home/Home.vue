@@ -5,25 +5,25 @@
             <div class="map_bg" style="height:100%;width:100%;line-height:0;">
                 <div class="one" style="display:flex">
                     <img width="100px" :src ="bgImage[0]" alt="bg">
-                    <img width="100px" v-lazy ="bgImage[1]" alt="bg">
+                    <img width="100px" :src ="bgImage[1]" alt="bg">
                 </div>
                  <div class="two" style="display:flex">
                     <img width="50%" :src ="bgImage[2]" alt="bg">
-                    <img width="50%" v-lazy ="bgImage[3]" alt="bg">
+                    <img width="50%" :src ="bgImage[3]" alt="bg">
                 </div> 
                 <div class="three" style="display:flex">
                     <img width="50%" :src ="bgImage[4]" alt="bg">
-                    <img width="50%" v-lazy ="bgImage[5]" alt="bg">
+                    <img width="50%" :src ="bgImage[5]" alt="bg">
                 </div>
             </div>
             <div class="building-box" style="z-index:10">
                 <div v-for="(item,index) in buildImage" :key="index" :style="item.style">
-                    <img v-lazy="item.src" alt="1" style="height:100%;width:100%;touch-action: manipulation" />
+                    <img :src="item.src" :key="item.src" alt="1" style="height:100%;width:100%;touch-action: manipulation" />
                 </div>
             </div>
             <div class="building-box" style="z-index:11">
               <div v-for="(item,index) in flageImage" v-if="item.isShow" class="flage-image" :key="index" :style="item.style">
-                    <img v-lazy="flageImageSrc" alt="1" style="height:100%;width:100%" />
+                    <img :src="flageImageSrc" :key="index" alt="1" style="height:100%;width:100%" />
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
           <div class="img-div" @click="isFirstLogin = false">
              <img :src="isFirstImage" alt="1">
              <div class="p-div">
-               <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信就能参与抽奖，50元话费券、自拍杆、商城券等你来拿，百分百中奖哟！</p>
-               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone X、 200元话费券、耳机、商城券等豪礼，百分百中奖哟！</p>
+               <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信即可参与抽奖，50元话费券、自拍杆、商城券等你来拿哟！</p>
+               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone X、 200元话费券、耳机、商城券等豪礼哟！</p>
              </div>
           </div>
           <div class="alert-mash" @click="isFirstLogin = false"></div>
@@ -247,19 +247,17 @@
    // let needGuid = getStore('needGuid');
     //if(!needGuid){
       //setStore('needGuid',true);
-       let pages = getStore('isGotoZhuanqu');
-        if(pages == true){
-        this.thisShouxin = true;
-        //手信显示判断
-        if(this.p<3){
-          this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
-        }else if(this.p == 3){
-          this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
-        }
+       let pages = getStore('isGotoZhuanqu'); //专业，大奖，抽奖都要走这个，不需要去引导页面
+       let pageschoujiang = getStore('isGotochoujiang');
+       let pagesdajiang = getStore('isGotodajiang');
+      if(pages == true || pageschoujiang == true || pagesdajiang == true){
+        window.isNeedGuid = true;
+        setStore('isGotochoujiang',false);
+        setStore('isGotodajiang',false);
       }else{
         this.$router.push({path:'guid',query: {page:'guid'}});//手信返回则不需要引导页面
       }
-      setStore('isGotoZhuanqu',false);
+
       
     //}
    
@@ -309,12 +307,12 @@
         },
       getCityShouxinTimeData(){
         //只执行一次
-        if(!this.isGetAllData){
+       // if(!this.isGetAllData){
            this.isGetAllData = true;
            this.getCityAll();
            this.getShouxin();
            this.getreTimes();
-        }
+       // }
       },
       getCityAll(isLoading){
            //获取所有列表
@@ -378,6 +376,18 @@
                    let reData =res.data.giftNum || 0;
                    this.p = reData;
                    this.$store.commit('setp',reData);
+                   let pages = getStore('isGotoZhuanqu');
+                    if(pages == true){
+                    setStore('isGotoZhuanqu',false);
+                    //手信显示判断
+                    if(reData<3 && reData>0){
+                       this.thisShouxin = true;
+                      this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
+                    }else if(reData == 3){
+                       this.thisShouxin = true;
+                      this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
+                    }
+                  }
                 }
             }
           })
@@ -423,6 +433,11 @@
                        //登录成功，则判断是否是第一次登录
                        this.showIsfirstDialog();
                        this.getCityShouxinTimeData();
+                            //移动地图位置
+                        if(!window.cats_p){
+                          this.gotoMapPosition();
+                        }
+                       
                      }
                   }else{
                     // this.gocloseDialogIsShow.isShow = true;//引导登录页面不需要
@@ -451,12 +466,20 @@
           });
       },
       showIsfirstDialog(){
-          let isFirstLogin = getStore('isFirstLogin');
-          if(!isFirstLogin){
-             //显示首次登录
-            this.isFirstLogin = true;
-            setStore('isFirstLogin',true);
-          }
+          // let isFirstLogin = getStore('isFirstLogin');
+          // if(!isFirstLogin){
+          //    //显示首次登录
+          //   this.isFirstLogin = true;
+          //   setStore('isFirstLogin',true);
+          // }
+           var url =  window.rootUrl+'?ae=2&ci=9&ui='+window.userId;//连接
+          loginApi(url,{},'GET').then((res)=>{
+            if(res.status == 200){
+                 if(res.data.rc==1 && !res.data.isOlder){
+                   this.isFirstLogin = true;
+                }
+            }
+          });
       },
       //默认是根据大map，设置小map
       init(){
@@ -708,6 +731,43 @@
          this.setSmallBoxPosition()
         }
       },
+      gotoMapPosition(){
+        setTimeout(()=>{
+          //默认去北京
+          // this.screenWidth 
+           //this.screenHeight
+          let oHtml = document.querySelector("html");
+          let fontSize = oHtml.style.fontSize;
+          fontSize = parseFloat(fontSize);
+          this.buildImage.forEach((element,index)=>{
+                if(element.code == 13){
+                    let style = element.style;
+                    let top = (parseFloat(style.top) || this.bigMapHeight - parseFloat(style.bottom) - parseFloat(style.height))*fontSize;
+                    let left = (parseFloat(style.left) || this.bigMapWidth - parseFloat(style.right)- parseFloat(style.width))*fontSize;
+                    let width = parseFloat(style.width)*fontSize;
+                    let height = parseFloat(style.height)*fontSize;
+                    let bigMapTop = top + (height/2) -(this.screenHeight/2);
+                    let bigMapLeft = left + (width/2) -(this.screenWidth/2);
+                    bigMapTop = -bigMapTop;
+                    bigMapLeft = -bigMapLeft;
+                    let t = 1.0;
+                    this.bigDom.style.webkitTransition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
+                    this.bigDom.style.transition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s";
+                     if(bigMapLeft > 0){
+                      bigMapLeft = 0;
+                    }
+                    if(bigMapTop > 0){
+                      bigMapTop = 0;
+                    } 
+                    this.bigMapLeft = bigMapLeft
+                    this.bigMapTop = bigMapTop
+                    this.setSmallBoxPosition()
+                }
+               
+          })
+         
+        },100)
+      },
       openClose(){
         this.$nextTick(()=>{
           this.closeDialogIsShow.isShow = true;
@@ -761,7 +821,7 @@
          if(item.type == 1){
             //是城市
             let c = item.isShow?1:0;
-            if((c==1 && this.p<3) || (c==0 && this.p<3 && this.t>0)){
+            if((c==1 && window.cats_p<3) || (c==0 && window.cats_p<3 && window.cats_t>0)){
               //确认前往
                window.$post([{id:7,times:1},{id:21,times:1}]);//埋点
                 this.$nextTick(()=>{
@@ -769,16 +829,16 @@
                   this.goCityListDialogIsShow.item = item;
                 });
             }
-            if((c==1 && this.p>=3) || (c==0 && this.p>=3)){
+            if((c==1 && window.cats_p>=3) || (c==0 && window.cats_p>=3)){
               //前往抽奖
                window.$post([{id:8,times:1},{id:21,times:1}]);//埋点
                 this.$nextTick(()=>{
                   this.goDrawDialogIsShow.isShow = true;
-                  this.goDrawDialogIsShow.t = this.t;
-                  this.goDrawDialogIsShow.p = this.p;
+                  this.goDrawDialogIsShow.t = window.cats_t;
+                  this.goDrawDialogIsShow.p = window.cats_p;
                 });
             }
-            if(c==0 && this.p<3 && this.t==0){
+            if(c==0 && window.cats_p<3 && window.cats_t==0){
               //休息一下
                this.$nextTick(()=>{
                   window.$post([{id:9,times:1},{id:21,times:1}]);//埋点
@@ -798,8 +858,8 @@
       openCloudAndGoCity(data){
           if(data.type == 1){
             //地图城市
-              this.$store.commit('setp',this.$store.state.p +1);
-              this.$store.commit('sett',this.$store.state.t -1);
+              this.$store.commit('setp',window.cats_p +1);
+              this.$store.commit('sett',window.cats_t -1);
               this.setCitySelect(data.code);
               this.clound('page',data);//url
                window.$post([{id:16,times:1}]);//埋点
@@ -918,8 +978,8 @@
   }
 .img-div{
   position: absolute;
-    bottom: 4.608rem;
-    left: 1.6rem;
+    bottom: calc(50% - 10rem);
+    left: calc(50% - 6.4rem);
     z-index: 2098;
     width: 14.421333rem;
     height: 21.952rem;

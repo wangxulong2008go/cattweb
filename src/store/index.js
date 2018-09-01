@@ -20,12 +20,15 @@ const  store = {
      state.viewDirection = data;
    },
    setp(state, data){
+     window.cats_p = data;
      state.p = data;
    },
    setc(state, data){
+     window.cats_c = data;
      state.c = data;
    },
    sett(state, data){
+     window.cats_t = data;
      state.t = data;
    }
   }

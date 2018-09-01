@@ -53,6 +53,7 @@
     import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
    import {loginApi} from '@/api/index'
+    import {setStore,getStore} from '@/utils/utils.js'
   export default {
     data(){
       return {
@@ -85,7 +86,7 @@
          p:0,
          selected:null,
         goDrawDialogIsShow:{
-            isShow : true,
+            isShow : false,
             isMash:true,
             id:23,
             t:0,
@@ -134,6 +135,14 @@
         this.cityList = cityListJson();
     },
     activated(){
+      //判断是否是从专业回来,抽奖回来
+      //  let pages = getStore('isGotoZhuanqu');
+      //   if(pages == true){
+      //     this.$router.push({path:'home',query: {page:'home'}});//前往首页
+      //   }
+      if(typeof window.cats_p == 'undefined'){
+        this.$router.push({path:'home',query: {page:'home'}});//前往首页
+      }
         this.cityList.sort(compare("isExe"));
          this.isnum = this.isnum+1;
          this.sDom =  document.querySelector('.body-scorll');
@@ -214,10 +223,11 @@
           this.isnum = this.isnum+1;
         },
         clound(page){
-        this.cloundXuxiDialogIsShow.isShow = true;
+          let that = this;
+        that.cloundXuxiDialogIsShow.isShow = true;
           //需要调用去往城市接口
           var url = window.rootUrl+'?ae=2&ci=2&ui='+window.userId;//设置去过改城市
-                loginApi(url,{params:JSON.stringify({cityCode:this.selected.code})},'GET').then((res)=>{
+                loginApi(url,{params:JSON.stringify({cityCode:that.selected.code})},'GET').then((res)=>{
                   if(res.status == 200){
                       if(res.data.rc==1){
                         
@@ -225,9 +235,9 @@
                   }
                 })
         window.setTimeout(()=>{
-          this.cloundXuxiDialogIsShow.isShow = false;
-           setStore('gotopage','zhuanqu');
-          location.href = this.selected.url;
+          that.cloundXuxiDialogIsShow.isShow = false;
+           setStore('isGotoZhuanqu',true);
+          location.href = that.selected.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
       },
@@ -235,30 +245,30 @@
             if(!this.btnnone){
                 //可点击状态
                 let c = this.selected.isExe ?1:0;
-                if(c==1 && this.p<3){
+                if(c==1 && window.cats_p<3){
                     //城市专区
                    window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
                    this.clound('page');
                 }
-                 if(c==0 && this.p<3 && this.t>0){
+                 if(c==0 && window.cats_p<3 && window.cats_t>0){
                     //城市专区
-                    this.$store.commit('setp',this.$store.state.p +1);
-                    this.$store.commit('sett',this.$store.state.t -1);
+                    this.$store.commit('setp',window.cats_p +1);
+                    this.$store.commit('sett',window.cats_t -1);
                     this.setCitySelect(this.selected.code);
                    window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
                  
                    this.clound('page');
                 }
-                if(c==0 && this.p<3 && this.t==0){
+                if(c==0 && window.cats_p<3 && window.cats_t==0){
                      this.goXuxiDialogIsShow.isShow = true;
                      window.$post([{id:12,times:1},{id:24,times:1}]);//休息
                 }
-                if(this.p>=3){
+                if(window.cats_p>=3){
                     //抽奖
                      window.$post([{id:11,times:1},{id:24,times:1}]);
                     this.goDrawDialogIsShow.isShow = true;
-                    this.goDrawDialogIsShow.t = this.t;
-                    this.goDrawDialogIsShow.p = this.p;
+                    this.goDrawDialogIsShow.t = window.cats_t;
+                    this.goDrawDialogIsShow.p = window.cats_p;
                 }
             }
         },
@@ -292,14 +302,14 @@
   top:3.8rem;
   right: 1.8rem;
   width: 14px;
-  bottom:5rem;
+  bottom:5.8rem;
 }
     .contain-box{
         background: url('../../assets/img/guid/list_bg2.png') #999;
         background-repeat: no-repeat;
         background-size: 100% 100%;
        .body-box{
-         height: calc(100% - 8.8rem);
+         height: calc(100% - 9.4rem);
           position: absolute;
           top: 3.84rem;
           z-index: 1991;

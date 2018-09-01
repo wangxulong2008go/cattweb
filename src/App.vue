@@ -1,7 +1,7 @@
 <template>
   <div style="height:100%">
     <div class="audio">
-        <audio loop src="/static/bgm_CAT.mp3" id="audio" autoplay controls preload="auto">该浏览器不支持audio属性</audio>
+        <audio loop src="./static/bgm_CAT.mp3" id="audio" autoplay controls preload="auto">该浏览器不支持audio属性</audio>
     </div>
     <transition :name="transitionName">
       <div style="height:100%">
