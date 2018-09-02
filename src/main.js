@@ -1,6 +1,21 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-
+var fullUrl = window.location.href;
+var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
+var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
+var isGotodajiang = JSON.parse(window.localStorage.getItem('isGotodajiang'));
+if(isGotoZhuanqu || isGotochoujiang || isGotodajiang){
+  window.localStorage.setItem('isReflesh',true);
+  window.localStorage.setItem('isGotochoujiang',false);
+  window.localStorage.setItem('isGotodajiang',false);
+  window.localStorage.setItem('isGotoZhuanqu',false);
+  var origin = window.location.origin;
+  var pathname = window.location.pathname;
+  var search = window.location.search;
+  window.location.href = origin + pathname + search
+  //window.history.go(0);
+  //return;
+}
 var url = location.search; //获取url中"?"符后的字串  
 //window.userId = 12; 
 window.rootUrl = 'http://47.107.50.56:12333/';

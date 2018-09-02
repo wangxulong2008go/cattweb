@@ -251,13 +251,14 @@
    // let needGuid = getStore('needGuid');
     //if(!needGuid){
       //setStore('needGuid',true);
-       let pages = getStore('isGotoZhuanqu'); //专业，大奖，抽奖都要走这个，不需要去引导页面
-       let pageschoujiang = getStore('isGotochoujiang');
-       let pagesdajiang = getStore('isGotodajiang');
-      if(pages == true || pageschoujiang == true || pagesdajiang == true){
+      //  let pages = getStore('isGotoZhuanqu'); //专业，大奖，抽奖都要走这个，不需要去引导页面
+      //  let pageschoujiang = getStore('isGotochoujiang');
+      //  let pagesdajiang = getStore('isGotodajiang');
+        let isReflesh = getStore('isReflesh');
+      if(isReflesh == true){
         window.isNeedGuid = true;
-        setStore('isGotochoujiang',false);
-        setStore('isGotodajiang',false);
+        setStore('isReflesh',false);
+         _that.audioAutoPlay('audio');
       }else{
         this.$router.push({path:'guid',query: {page:'guid'}});//手信返回则不需要引导页面
       }
@@ -305,15 +306,16 @@
     methods:{
        audioAutoPlay(id){  
         var audio = document.getElementById(id);  
-        audio.play();  
+        audio && audio.play();  
         document.addEventListener("WeixinJSBridgeReady", function () {  
-            audio.play();  
+            audio && audio.play();  
         }, false);  
         document.addEventListener('YixinJSBridgeReady', function() {  
-            audio.play();  
+            audio && audio.play();  
         }, false);  
     },
        scrollTouch(evt){
+          this.audioAutoPlay('audio');
             if(!evt._isScroller) {
                 evt.preventDefault();
                  evt.stopPropagation();
@@ -390,9 +392,9 @@
                    let reData =res.data.giftNum || 0;
                    this.p = reData;
                    this.$store.commit('setp',reData);
-                   let pages = getStore('isGotoZhuanqu');
-                    if(pages == true){
-                    setStore('isGotoZhuanqu',false);
+                  // let pages = getStore('isGotoZhuanqu');
+                   // if(pages == true){
+                   // setStore('isGotoZhuanqu',false);
                     //手信显示判断
                     if(reData<3 && reData>0 && res.data.isFirstTimeAfterGiftNumChange){
                        this.thisShouxin = true;
@@ -401,7 +403,7 @@
                        this.thisShouxin = true;
                       this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
                     }
-                  }
+                //  }
                 }
             }
           })
@@ -836,14 +838,7 @@
          if(item.type == 1){
             //是城市
             let c = item.isShow?1:0;
-            if((c==1 && window.cats_p<3) || (c==0 && window.cats_p<3 && window.cats_t>0)){
-              //确认前往
-               window.$post([{id:7,times:1},{id:21,times:1}]);//埋点
-                this.$nextTick(()=>{
-                  this.goCityListDialogIsShow.isShow = true;
-                  this.goCityListDialogIsShow.item = item;
-                });
-            }
+           
             if((c==1 && window.cats_p>=3) || (c==0 && window.cats_p>=3)){
               //前往抽奖
                window.$post([{id:8,times:1},{id:21,times:1}]);//埋点
@@ -852,6 +847,17 @@
                   this.goDrawDialogIsShow.t = window.cats_t;
                   this.goDrawDialogIsShow.p = window.cats_p;
                 });
+                return ;
+            }
+           //  if((c==1 && window.cats_p<3) || (c==0 && window.cats_p<3 && window.cats_t>0)){
+             if(c==1 || (c==0 && window.cats_p<3 && window.cats_t>0)){
+              //确认前往
+               window.$post([{id:7,times:1},{id:21,times:1}]);//埋点
+                this.$nextTick(()=>{
+                  this.goCityListDialogIsShow.isShow = true;
+                  this.goCityListDialogIsShow.item = item;
+                });
+                return ;
             }
             if(c==0 && window.cats_p<3 && window.cats_t==0){
               //休息一下
@@ -859,6 +865,7 @@
                   window.$post([{id:9,times:1},{id:21,times:1}]);//埋点
                   this.goXuxiDialogIsShow.isShow = true;
                 });
+                return ;
             }
           }else if(item.type == 2){
             //功能页面

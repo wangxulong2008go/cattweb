@@ -31,17 +31,21 @@ export default {
   methods:{
     audioAutoPlay(id){  
         var audio = document.getElementById(id);  
-        audio.play();  
+        audio && audio.play();  
         document.addEventListener("WeixinJSBridgeReady", function () {  
-            audio.play();  
+            audio && audio.play();  
         }, false);  
         document.addEventListener('YixinJSBridgeReady', function() {  
-            audio.play();  
+            audio && audio.play();  
         }, false);  
     }
   },
   mounted(){
-   // this.audioAutoPlay('audio');
+    let that = this;
+    setTimeout(()=>{
+      that.audioAutoPlay('audio');
+    },12000)
+    
   },
   beforeRouteEnter(to, from, next){
     let that =this;

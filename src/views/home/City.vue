@@ -141,7 +141,7 @@
       //   if(pages == true){
       //     this.$router.push({path:'home',query: {page:'home'}});//前往首页
       //   }
-      if(typeof window.cats_p == 'undefined'){
+      if(typeof window.cats_p == 'undefined' || getStore('isGotoZhuanqu') || getStore('isGotochoujiang')){
         this.$router.push({path:'home',query: {page:'home'}});//前往首页
       }
         this.cityList.sort(compare("isExe"));

@@ -93,7 +93,7 @@
     activated(){
      // console.log(this.$route.query,'ss')
      //判断是否是从抽奖页面回来
-    if(typeof window.cats_p == 'undefined'){
+    if(typeof window.cats_p == 'undefined' || getStore('isGotochoujiang') || getStore('isGotodajiang')){
         this.$router.push({path:'home',query: {page:'home'}});//前往首页
       }
     this.nowData =  window.cats_p;
@@ -166,24 +166,24 @@
         },
         gotpHouse(){
           //去旅行
-          if(this.nowData>=3){
-             //前往抽奖
-            this.$nextTick(()=>{
-              window.$post([{id:14,times:1},{id:26,times:1}]);//按钮埋点
-              this.goDrawDialogIsShow.isShow = true;
-              this.goDrawDialogIsShow.t = window.cats_t;
-              this.goDrawDialogIsShow.p = this.nowData;
+          // if(this.nowData>=3){
+          //    //前往抽奖
+          //   this.$nextTick(()=>{
+          //     window.$post([{id:14,times:1},{id:26,times:1}]);//按钮埋点
+          //     this.goDrawDialogIsShow.isShow = true;
+          //     this.goDrawDialogIsShow.t = window.cats_t;
+          //     this.goDrawDialogIsShow.p = this.nowData;
 
-            });
-          }else if(window.cats_t == 0){
-            //休息
-            this.goXuxiDialogIsShow.isShow = true;
-             window.$post([{id:15,times:1},{id:26,times:1}]);//按钮埋点
-          }else{
+          //   });
+          // }else if(window.cats_t == 0){
+          //   //休息
+          //   this.goXuxiDialogIsShow.isShow = true;
+          //    window.$post([{id:15,times:1},{id:26,times:1}]);//按钮埋点
+          // }else{
             //前往城市列表
              window.$post([{id:26,times:1}]);//按钮埋点
              this.$router.push({path:'city',query: {page:'city'}});
-          }
+         // }
         },
         gotoBigDraw(){
           //抽大奖
@@ -289,7 +289,7 @@
             background-size: 100% 100%;
             margin: 0 auto;
             margin-top: 1.1rem;
-            animation: rotate .5s linear infinite;
+            animation: rotate 1s linear infinite;
             position: relative;
             z-index: 2;
             .xinxin{
@@ -302,7 +302,7 @@
                 top: 1rem;
                 position: absolute;
                 left: -0.5rem;
-                animation: xinxin .5s linear infinite;
+                animation: xinxin 1s linear infinite;
                 animation-delay: 0s;
             }
             .xinxin3{
@@ -326,7 +326,7 @@
             background-size: cover;
             margin: 0 auto;
             margin-top: 1.1rem;
-            animation: rotate .5s linear infinite;
+            animation: rotate 1s linear infinite;
             position: relative;
             z-index: 2;
             .xinxin{
@@ -363,7 +363,7 @@
             background-size: cover;
             margin: 0 auto;
             margin-top: 1.1rem;
-            animation: rotate .5s linear infinite;
+            animation: rotate 1s linear infinite;
             position: relative;
             z-index: 2;
             .xinxin{
@@ -376,7 +376,7 @@
                 top: 1rem;
                 position: absolute;
                 left: -0.5rem;
-                animation: xinxin .5s linear infinite;
+                animation: xinxin .8s linear infinite;
                 animation-delay: 0s;
             }
             .xinxin3{
