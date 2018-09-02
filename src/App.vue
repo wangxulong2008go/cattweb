@@ -1,7 +1,7 @@
 <template>
   <div style="height:100%">
     <div class="audio">
-        <audio loop src="./static/bgm_CAT.mp3" id="audio" autoplay controls preload="auto">该浏览器不支持audio属性</audio>
+        <audio loop src="/static/bgm_CAT.mp3" id="audio" controls preload="auto">该浏览器不支持audio属性</audio>
     </div>
     <transition :name="transitionName">
       <div style="height:100%">
@@ -11,6 +11,7 @@
         <router-view class="child-view" v-if="!$route.meta.keepAlive"></router-view>
       </div>
     </transition>
+  
   </div>
 </template>
 
@@ -40,7 +41,7 @@ export default {
     }
   },
   mounted(){
-    this.audioAutoPlay('audio');
+   // this.audioAutoPlay('audio');
   },
   beforeRouteEnter(to, from, next){
     let that =this;
@@ -117,6 +118,7 @@ export default {
   body .mint-indicator .mint-indicator-wrapper{
     z-index: 90001 !important;
   }
+ 
   @keyframes mint-spinner-triple-bounce {
     0%{
       transform: translateY(0);

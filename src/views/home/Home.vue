@@ -1,5 +1,9 @@
 <template>
   <div class="contain-box relative">
+      <div style="display:none">
+        <div class="home-house"></div>
+        <div class="home-city"></div>
+    </div>
     <div class="map-box absolute">
         <div style="background:#999" v-bind:style="{'transform':'translate3d('+bigMapLeft + 'px,'+bigMapTop+'px,0)','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
             <div class="map_bg" style="height:100%;width:100%;line-height:0;">
@@ -299,6 +303,16 @@
         
     },
     methods:{
+       audioAutoPlay(id){  
+        var audio = document.getElementById(id);  
+        audio.play();  
+        document.addEventListener("WeixinJSBridgeReady", function () {  
+            audio.play();  
+        }, false);  
+        document.addEventListener('YixinJSBridgeReady', function() {  
+            audio.play();  
+        }, false);  
+    },
        scrollTouch(evt){
             if(!evt._isScroller) {
                 evt.preventDefault();
@@ -380,10 +394,10 @@
                     if(pages == true){
                     setStore('isGotoZhuanqu',false);
                     //手信显示判断
-                    if(reData<3 && reData>0){
+                    if(reData<3 && reData>0 && res.data.isFirstTimeAfterGiftNumChange){
                        this.thisShouxin = true;
                       this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
-                    }else if(reData == 3){
+                    }else if(reData == 3 && res.data.isFirstTimeAfterGiftNumChange){
                        this.thisShouxin = true;
                       this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
                     }
@@ -418,6 +432,7 @@
            //跳转guid页面则不验证
            //不是引导页，和未登录走这个逻辑
         if(window.isNeedGuid && !this.isLogin){
+           this.audioAutoPlay('audio');
               if(!window.UrlParams.userid || window.UrlParams.userid == ''){
                 this.goToApp();
             }else{
@@ -863,7 +878,7 @@
               this.setCitySelect(data.code);
               this.clound('page',data);//url
                window.$post([{id:16,times:1}]);//埋点
-               var url = window.rootUrl+'?ae=2&ci=2&ui='+window.userId;//设置去过改城市
+               var url = window.rootUrl+'?ae=2&ci=5&ui='+window.userId;//设置去过改城市
                 loginApi(url,{params:JSON.stringify({cityCode:data.code})},'GET').then((res)=>{
                   if(res.status == 200){
                       if(res.data.rc==1){
@@ -902,6 +917,10 @@
         window.setTimeout(()=>{
           this.cloundXuxiDialogIsShow.isShow = false;
           setStore('isGotoZhuanqu',true);
+          this.$Indicator.open({
+                text: '正在努力加载中...',
+                spinnerType: 'triple-bounce'
+              });
           location.href = data.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
@@ -1050,4 +1069,10 @@
   background:url('../../assets/img/icon/map_little.png');
   background-size: cover;
 }
+ .home-house{
+    background: url('../../assets/img/guid/home_bg.png') #999;
+  }
+  .home-city{
+     background: url('../../assets/img/guid/list_bg2.png') #999;
+  }
 </style>

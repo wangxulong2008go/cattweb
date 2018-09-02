@@ -40,6 +40,24 @@ const basePromise = (url,params,method = 'POST') => {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
       }
     }).then((res) => {
+       if(res.data.rc == 10003){
+         //未登录
+         //唤起app
+          var url = window.rootUrl+'?ae=1&ci=2&ui=-1';
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url, true);
+          // 添加http头，发送信息至服务器时内容编码类型
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+                console.log(xhr.responseText);
+                let dataResult = JSON.parse(xhr.responseText);
+                location.href = dataResult.url;
+            }
+          };
+        // xhr.send(params);
+          xhr.send();
+       }
       //resolve(res);
       // if((res.data.ret == 10 && res.data.message.indexOf('session') > -1)){
       //   router.push('/errors');

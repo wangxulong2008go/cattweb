@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+ import {setStore,getStore} from '@/utils/utils.js'
   export default {
     data(){
       return {
@@ -97,6 +98,8 @@
           if(this.dataOjb.isAll)return;
           this.dataOjb.isShow = false;
          //抽大奖,设置本地
+         setStore('isGotodajiang',true);
+         window.location.href = 'http://www.baidu.com';
       },
       closeDailog(){
           this.dataOjb.isShow = false;

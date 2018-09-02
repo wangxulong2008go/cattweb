@@ -26,6 +26,7 @@
 </template>
 <script>
  import {loginApi} from '@/api/index'
+ import {setStore,getStore} from '@/utils/utils.js'
   export default {
     data(){
       return {
@@ -71,6 +72,8 @@
             if(res.status == 200){
                  if(res.data.rc==1){
                      //需要设置，本地存储isGotochoujiang
+                     setStore('isGotochoujiang',true);
+                     window.location.href = 'http://www.baidu.com';
                      if(res.data.urlIndex == 1){
                          //a页面
                      }else{
