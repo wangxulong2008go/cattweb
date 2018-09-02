@@ -5,6 +5,7 @@ var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
 var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
 var isGotodajiang = JSON.parse(window.localStorage.getItem('isGotodajiang'));
 if(isGotoZhuanqu || isGotochoujiang || isGotodajiang){
+  window.isReturn = true;
   window.localStorage.setItem('isReflesh',true);
   window.localStorage.setItem('isGotochoujiang',false);
   window.localStorage.setItem('isGotodajiang',false);
@@ -12,7 +13,7 @@ if(isGotoZhuanqu || isGotochoujiang || isGotodajiang){
   var origin = window.location.origin;
   var pathname = window.location.pathname;
   var search = window.location.search;
-  window.location.href = origin + pathname + search
+  window.location.href = origin + pathname + search;
   //window.history.go(0);
   //return;
 }

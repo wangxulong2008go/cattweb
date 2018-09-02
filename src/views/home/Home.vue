@@ -74,6 +74,20 @@
   </div>
 </template>
 <script>
+function autoPlayAudio1() {
+        wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        });
+        wx.ready(function() {
+            document.getElementById('audio').play();
+        });
+    }
   import {setStore,getStore} from '@/utils/utils.js'
   import {loginApi} from '@/api/index'
   import {buildJson,flageJson,cityListJson} from '@/utils/build.js'
@@ -225,6 +239,9 @@
     //执行埋点
     window.$post([{id:2,times:1}]);
     this.cloundXuxiDialogIsShow.isClound = false;
+    if(window.isReturn){
+      return;
+    }
     let isAuth = this.auth();
     // if(isAuth){
     //   this.getCityShouxinTimeData();
@@ -255,6 +272,9 @@
       //  let pageschoujiang = getStore('isGotochoujiang');
       //  let pagesdajiang = getStore('isGotodajiang');
         let isReflesh = getStore('isReflesh');
+      if(window.isReturn){
+        return;
+      }
       if(isReflesh == true){
         window.isNeedGuid = true;
         setStore('isReflesh',false);
@@ -307,6 +327,7 @@
        audioAutoPlay(id){  
         var audio = document.getElementById(id);  
         audio && audio.play();  
+        autoPlayAudio1();
         document.addEventListener("WeixinJSBridgeReady", function () {  
             audio && audio.play();  
         }, false);  

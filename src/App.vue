@@ -16,6 +16,20 @@
 </template>
 
 <script>
+function autoPlayAudio1() {
+        wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        });
+        wx.ready(function() {
+            document.getElementById('audio').play();
+        });
+    }
 import router from '@/router';
 import { Indicator } from 'mint-ui';
 
@@ -31,7 +45,8 @@ export default {
   methods:{
     audioAutoPlay(id){  
         var audio = document.getElementById(id);  
-        audio && audio.play();  
+        audio && audio.play();
+        autoPlayAudio1();  
         document.addEventListener("WeixinJSBridgeReady", function () {  
             audio && audio.play();  
         }, false);  
