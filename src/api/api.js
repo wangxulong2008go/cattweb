@@ -50,8 +50,9 @@ const basePromise = (url,params,method = 'POST') => {
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
           xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
-                console.log(xhr.responseText);
+               // console.log(xhr.responseText);
                 let dataResult = JSON.parse(xhr.responseText);
+                alert('未登录')
                 location.href = dataResult.url;
             }
           };

@@ -242,6 +242,7 @@
                 text: '正在努力加载中...',
                 spinnerType: 'triple-bounce'
               });
+          history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
           location.href = that.selected.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)

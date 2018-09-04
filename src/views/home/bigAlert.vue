@@ -99,6 +99,7 @@
           this.dataOjb.isShow = false;
          //抽大奖,设置本地
          setStore('isGotodajiang',true);
+         history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
          window.location.href = 'http://www.baidu.com';
       },
       closeDailog(){

@@ -240,7 +240,7 @@ function autoPlayAudio1() {
     window.$post([{id:2,times:1}]);
     this.cloundXuxiDialogIsShow.isClound = false;
     if(window.isReturn){
-      return;
+      return false;
     }
     let isAuth = this.auth();
     // if(isAuth){
@@ -272,8 +272,9 @@ function autoPlayAudio1() {
       //  let pageschoujiang = getStore('isGotochoujiang');
       //  let pagesdajiang = getStore('isGotodajiang');
         let isReflesh = getStore('isReflesh');
+        window.isReflesh = isReflesh;
       if(window.isReturn){
-        return;
+        return false;
       }
       if(isReflesh == true){
         window.isNeedGuid = true;
@@ -419,10 +420,18 @@ function autoPlayAudio1() {
                     //手信显示判断
                     if(reData<3 && reData>0 && res.data.isFirstTimeAfterGiftNumChange){
                        this.thisShouxin = true;
-                      this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
+                       if(window.isReflesh){
+                         window.isReflesh = false;
+                         this.showMessageDialogIsShow.isShow = true;//是否显示手信，及是否有弹窗
+                       }
+                      
                     }else if(reData == 3 && res.data.isFirstTimeAfterGiftNumChange){
                        this.thisShouxin = true;
-                      this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
+                       if(window.isReflesh){
+                         window.isReflesh = false;
+                         this.goDrawDialogIsShow.isShow = true;//是否显示抽奖
+                       }
+                      
                     }
                 //  }
                 }
@@ -462,9 +471,9 @@ function autoPlayAudio1() {
               window.userId = window.UrlParams.userid;
               //验证登录
               var url =  window.rootUrl+'?ae=1&ci=3&ui='+window.userId;//连接
-              loginApi(url,{},'GET').then((res)=>{
-                  if(res.status>0 && res.data){
-                     if(res.data.rc == 1){
+              //loginApi(url,{},'GET').then((res)=>{
+                 // if(res.status>0 && res.data){
+                  //   if(res.data.rc == 1){
                        //登录则请求数据
                        this.isLogin = true;
                        this.isGetAllData = false;
@@ -476,13 +485,13 @@ function autoPlayAudio1() {
                           this.gotoMapPosition();
                         }
                        
-                     }
-                  }else{
+                   //  }
+                 // }else{
                     // this.gocloseDialogIsShow.isShow = true;//引导登录页面不需要
                     // window.$post([{id:4,times:1}]);//按钮埋点
-                    this.goToApp();
-                  }
-                });
+                  //  this.goToApp();
+                 // }
+               // });
             }
             
         }
@@ -853,7 +862,7 @@ function autoPlayAudio1() {
              return false;
           }
         });
-        return ;
+        return false;
       },
       buildPage(item){
          if(item.type == 1){
@@ -868,7 +877,7 @@ function autoPlayAudio1() {
                   this.goDrawDialogIsShow.t = window.cats_t;
                   this.goDrawDialogIsShow.p = window.cats_p;
                 });
-                return ;
+                return false;
             }
            //  if((c==1 && window.cats_p<3) || (c==0 && window.cats_p<3 && window.cats_t>0)){
              if(c==1 || (c==0 && window.cats_p<3 && window.cats_t>0)){
@@ -878,7 +887,7 @@ function autoPlayAudio1() {
                   this.goCityListDialogIsShow.isShow = true;
                   this.goCityListDialogIsShow.item = item;
                 });
-                return ;
+                return false;
             }
             if(c==0 && window.cats_p<3 && window.cats_t==0){
               //休息一下
@@ -886,7 +895,7 @@ function autoPlayAudio1() {
                   window.$post([{id:9,times:1},{id:21,times:1}]);//埋点
                   this.goXuxiDialogIsShow.isShow = true;
                 });
-                return ;
+                return false;
             }
           }else if(item.type == 2){
             //功能页面
@@ -949,8 +958,11 @@ function autoPlayAudio1() {
                 text: '正在努力加载中...',
                 spinnerType: 'triple-bounce'
               });
-          location.href = data.url;
-         // this.$router.push({path:page,query: {page:page}});
+             // var origin = window.location.origin;
+             // var pathname = window.location.pathname;
+             // var search = window.location.search;
+            history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
+               location.href = data.url;
         },5000)
       },
       tapMap(){

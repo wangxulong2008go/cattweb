@@ -16,30 +16,46 @@ if (url.indexOf("?") != -1) {
       theRequest[strs[i].split("=")[0]]=unescape(value);   
    }   
 }
+document.referrer
+window.addEventListener('pageshow', function( e ){
+//   debugger
+//  alert(e.persisted);
+})
+
+// window.onpageshow=function(e){
+//   var a=e||window.event;
+//   if(a.persisted){
+      
+//   }
+// }
 window.UrlParams = theRequest; 
 window.userId = window.UrlParams.userid;
-var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
-var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
-var isGotodajiang = JSON.parse(window.localStorage.getItem('isGotodajiang'));
-if(isGotoZhuanqu || isGotochoujiang || isGotodajiang){
-  var userID = window.localStorage.getItem('userId');
-  if(window.userId && userID && userID != '' && userID != 'undefined' && userID == window.userId){
-    window.isReturn = true;
-    window.localStorage.setItem('isReflesh',true);
-  }else{
-    window.localStorage.setItem('isReflesh',false);
+function isgoback(){
+  var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
+  var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
+  var isGotodajiang = JSON.parse(window.localStorage.getItem('isGotodajiang'));
+  if(theRequest && theRequest.gotopage){
+    //var userID = window.localStorage.getItem('userId');
+    //if(window.userId && userID && userID != '' && userID != 'undefined' && userID == window.userId){
+      window.isReturn = true;
+      window.localStorage.setItem('isReflesh',true);
+   // }else{
+    //  window.localStorage.setItem('isReflesh',false);
+   // }
+    
+    window.localStorage.setItem('isGotochoujiang',false);
+    window.localStorage.setItem('isGotodajiang',false);
+    window.localStorage.setItem('isGotoZhuanqu',false);
+    var origin = window.location.origin;
+    var pathname = window.location.pathname;
+    var search = window.location.search;
+    window.location.href = origin + pathname + '?userid='+window.userId;
+    //window.history.go(0);
+    return false;
   }
-  
-  window.localStorage.setItem('isGotochoujiang',false);
-  window.localStorage.setItem('isGotodajiang',false);
-  window.localStorage.setItem('isGotoZhuanqu',false);
-  var origin = window.location.origin;
-  var pathname = window.location.pathname;
-  var search = window.location.search;
-  window.location.href = origin + pathname + search;
-  //window.history.go(0);
-  //return;
 }
+isgoback();
+
 window.localStorage.setItem('userId',window.UrlParams.userid);
 
 
@@ -77,7 +93,7 @@ if (!!u.match(/AppleWebKit.*Mobile.*/)) {//判断是否是移动设备打开。�
    window.isBrowserMobile = 'pc'
 }
 window.$post= function (data) {
-  console.log(data,'埋点');
+  //console.log(data,'埋点');
   var params = {
       values:data
   }
