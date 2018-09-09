@@ -93,9 +93,9 @@
     activated(){
      // console.log(this.$route.query,'ss')
      //判断是否是从抽奖页面回来
-    if(typeof window.cats_p == 'undefined' || getStore('isGotochoujiang') || getStore('isGotodajiang')){
-        this.$router.push({path:'home',query: {page:'home'}});//前往首页
-      }
+    // if(typeof window.cats_p == 'undefined' || getStore('isGotochoujiang') || getStore('isGotodajiang')){
+    //     this.$router.push({path:'home',query: {page:'home'}});//前往首页
+    //   }
     this.nowData =  window.cats_p;
     this.getdajiang();
     },
@@ -154,7 +154,7 @@
                  if(res.data.rc==1){
                    //需要设置存储isGotochoujiang
                      setStore('isGotochoujiang',true);
-                     history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
+                     history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
                      window.location.href = 'http://www.baidu.com';
                      if(res.data.urlIndex == 1){
                          //a页面

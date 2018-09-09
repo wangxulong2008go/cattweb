@@ -311,6 +311,15 @@ function autoPlayAudio1() {
       document.querySelector('#mask').addEventListener('touchstart',this.touchBig, false);  
      // document.querySelector('#mask').addEventListener('touchmove',this.touchBig, false);  
     //  document.querySelector('#mask').addEventListener('touchend',this.touchBig, false);  
+     function musicInBrowserHandler() {
+        var audio = document.getElementById('audio');
+        audio.play();
+          if (audio && audio.paused) {
+              audio.play();
+          }
+        document.body.removeEventListener('touchstart', musicInBrowserHandler);
+    }
+    document.body.addEventListener('touchstart', musicInBrowserHandler);
       window.onresize = () => {
             return (() => {
                 window.screenWidth = document.body.clientWidth
@@ -465,10 +474,10 @@ function autoPlayAudio1() {
            //不是引导页，和未登录走这个逻辑
         if(window.isNeedGuid && !this.isLogin){
            this.audioAutoPlay('audio');
-              if(!window.UrlParams.userid || window.UrlParams.userid == ''){
+              if(!window.userId || window.userId == ''){
                 this.goToApp();
             }else{
-              window.userId = window.UrlParams.userid;
+              //window.userId = window.UrlParams.userid;
               //验证登录
               var url =  window.rootUrl+'?ae=1&ci=3&ui='+window.userId;//连接
               //loginApi(url,{},'GET').then((res)=>{
@@ -832,8 +841,9 @@ function autoPlayAudio1() {
         this.$router.push({path:'house',query: {page:'house'}});
       },
       goToHouses(){
-      window.$post([{id:10,times:1},{id:22,times:1}]);
-        this.$router.push({path:'city',query: {page:'city'}});
+        let that = this;
+        window.$post([{id:10,times:1},{id:22,times:1}]);
+        that.$router.push({path:'city',query: {page:'city'}});
       },
       isInAerea(params){
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
@@ -961,7 +971,7 @@ function autoPlayAudio1() {
              // var origin = window.location.origin;
              // var pathname = window.location.pathname;
              // var search = window.location.search;
-            history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
+            history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
                location.href = data.url;
         },5000)
       },

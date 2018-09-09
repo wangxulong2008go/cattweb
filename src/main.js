@@ -3,7 +3,9 @@
 var fullUrl = window.location.href;
 var url = location.search; //获取url中"?"符后的字串  
 //window.userId = 12; 
-window.rootUrl = 'http://47.107.50.56:12333/';
+//window.rootUrl = 'https://47.107.50.56:12333/';
+window.rootUrl = 'https://test.withmedia.net:12333/';
+//window.location.href = "tplogin://47.107.50.56:12333/login?corpno=001156&auth=4531b80926b9ff2b35f6f32073c254ba"; 
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
    var str = url.substr(1);   
@@ -22,14 +24,45 @@ window.addEventListener('pageshow', function( e ){
 //  alert(e.persisted);
 })
 
-// window.onpageshow=function(e){
-//   var a=e||window.event;
-//   if(a.persisted){
-      
-//   }
-// }
+window.addEventListener('pageshow', function( e ){
+  if (e.persisted) {
+    window.location.reload()
+    }
+  })
+  window.addEventListener('pagehide', function(e) {
+  var $body = document.body;
+  var childs = $body.childNodes; 
+  for(var i = 0; i < childs.length; i++) { 
+    $body.removeChild(childs[i]); 
+  }
+  // 要等到回调函数完成，用户按返回才执行script标签的代码
+  setTimeout(function() {
+    var script = document.createElement("script");
+    script.type = "type/javascript";
+    var code = "window.location.reload()";
+    try {
+        script.appendChild(document.createTextNode(code));
+    } catch (ex) {
+        script.text = code;
+    }
+    document.body.appendChild(script)
+   //$body.append("<script type='text/javascript'>;<\/script>");
+  });
+  });
+  document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  function handleVisibilityChange() {
+    //暂停音乐
+    var audio = document.getElementById('audio');  
+    if (document.hidden) {
+      audio && audio.pause();
+    } else  {
+      audio && audio.play();  
+    }
+  }
+// resultMsg
 window.UrlParams = theRequest; 
-window.userId = window.UrlParams.userid;
+//window.userId = window.UrlParams.userid;
+window.userId = window.UrlParams.ui;
 function isgoback(){
   var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
   var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
@@ -49,7 +82,7 @@ function isgoback(){
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?userid='+window.userId;
+    window.location.href = origin + pathname + '?ui='+window.userId;
     //window.history.go(0);
     return false;
   }
@@ -57,7 +90,6 @@ function isgoback(){
 isgoback();
 
 window.localStorage.setItem('userId',window.UrlParams.userid);
-
 
 //动态适配
 window.autoSize=function (){

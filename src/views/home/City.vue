@@ -141,9 +141,9 @@
       //   if(pages == true){
       //     this.$router.push({path:'home',query: {page:'home'}});//前往首页
       //   }
-      if(typeof window.cats_p == 'undefined' || getStore('isGotoZhuanqu') || getStore('isGotochoujiang')){
-        this.$router.push({path:'home',query: {page:'home'}});//前往首页
-      }
+      // if(typeof window.cats_p == 'undefined' || getStore('isGotoZhuanqu') || getStore('isGotochoujiang')){
+      //   this.$router.push({path:'home',query: {page:'home'}});//前往首页
+      // }
         this.cityList.sort(compare("isExe"));
          this.isnum = this.isnum+1;
          this.sDom =  document.querySelector('.body-scorll');
@@ -242,7 +242,7 @@
                 text: '正在努力加载中...',
                 spinnerType: 'triple-bounce'
               });
-          history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
+          history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
           location.href = that.selected.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
