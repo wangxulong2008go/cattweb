@@ -18,7 +18,7 @@ if (url.indexOf("?") != -1) {
       theRequest[strs[i].split("=")[0]]=unescape(value);   
    }   
 }
-document.referrer
+/* document.referrer
 window.addEventListener('pageshow', function( e ){
 //   debugger
 //  alert(e.persisted);
@@ -48,7 +48,7 @@ window.addEventListener('pageshow', function( e ){
     document.body.appendChild(script)
    //$body.append("<script type='text/javascript'>;<\/script>");
   });
-  });
+  }); */
   document.addEventListener("visibilitychange", handleVisibilityChange, false);
   function handleVisibilityChange() {
     //暂停音乐
@@ -56,7 +56,23 @@ window.addEventListener('pageshow', function( e ){
     if (document.hidden) {
       audio && audio.pause();
     } else  {
-      audio && audio.play();  
+	  var url = location.search; //获取url中"?"符后的字串 
+	  var searchParmas = new Object();   
+		if (url.indexOf("?") != -1) {   
+		   var str = url.substr(1);   
+		   var strs = str.split("&");   
+		   for(var i = 0; i < strs.length; i ++) {
+			 var value = strs[i].split("=")[1];
+			if(value){
+			  value = value.split('#')[0];
+			}
+			  searchParmas[strs[i].split("=")[0]]=unescape(value);   
+		   }   
+		}
+	if(searchParmas.gotopage){
+		window.location.reload()
+	}
+      audio && audio.play();
     }
   }
 // resultMsg
