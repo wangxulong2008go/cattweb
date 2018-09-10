@@ -70,7 +70,15 @@ window.addEventListener('pageshow', function( e ){
 		   }   
 		}
 	if(searchParmas.gotopage){
-		window.location.reload()
+    window.isReturn = true;
+    window.localStorage.setItem('isReflesh',true);
+    window.localStorage.setItem('isGotochoujiang',false);
+    window.localStorage.setItem('isGotodajiang',false);
+    window.localStorage.setItem('isGotoZhuanqu',false);
+    var origin = window.location.origin;
+    var pathname = window.location.pathname;
+    var search = window.location.search;
+    window.location.href = origin + pathname + '?ui='+window.userId;
 	}
       audio && audio.play();
     }
@@ -105,7 +113,7 @@ function isgoback(){
 }
 isgoback();
 
-window.localStorage.setItem('userId',window.UrlParams.userid);
+window.localStorage.setItem('userId',window.UrlParams.ui);
 
 //动态适配
 window.autoSize=function (){

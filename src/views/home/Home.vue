@@ -516,7 +516,6 @@ function autoPlayAudio1() {
           var url =  window.rootUrl+'?ae=1&ci=2&ui=-1'//+window.userId;//连接
           loginApi(url,{},'GET').then((res)=>{
             if(res.status>0 && res.data && res.data.url){
-                console.log(res.data.url);
               location.href = res.data.url;
             }
           });
@@ -972,7 +971,7 @@ function autoPlayAudio1() {
              // var pathname = window.location.pathname;
              // var search = window.location.search;
             history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
-               location.href = data.url;
+              location.href = data.url+'&datatime='+(new Date().getTime());
         },5000)
       },
       tapMap(){
