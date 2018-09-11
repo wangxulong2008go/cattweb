@@ -40,7 +40,6 @@ const basePromise = (url,params,method = 'POST') => {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
       }
     }).then((res) => {
-      alert(res.data.rc);
        if(res.data.rc == 10003){
          //未登录
          //唤起app
