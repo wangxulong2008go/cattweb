@@ -3,7 +3,7 @@
     <div class="body-box" style="position:relative">
        <div class="body-scorll">
             <div class="flex-box">
-                <div @click="selectedCity(item)" style="touch-action: none;" :class="item.isShow?'execit':''" class="flex-item" v-for="(item,index) in cityList" :key="index">
+                <div @click="selectedCity(item)" :class="item.isShow?'execit':''" class="flex-item" v-for="(item,index) in cityList" :key="index">
                     <div :class="item.isExe?'execits':''" class="icon">
                         <img v-lazy =item.src alt="2">
                     </div>
@@ -182,7 +182,6 @@
         scrollTouch(evt){
             if(!evt._isScroller) {
                 evt.preventDefault();
-                // evt.stopPropagation();
             }
         },
            overscroll(el){

@@ -1,7 +1,9 @@
 <template>
   <div style="height:100%">
     <div class="audio">
-        <audio loop src="/static/bgm_CAT.mp3" id="audio" controls preload="auto">该浏览器不支持audio属性</audio>
+        <audio loop autoplay id="audio" controls preload="auto">
+        <source src="/static/bgm_CAT.mp3" type="audio/mp3">
+        该浏览器不支持audio属性</audio>
     </div>
     <transition :name="transitionName">
       <div style="height:100%">
@@ -16,6 +18,7 @@
 </template>
 
 <script>
+  import {setStore,getStore} from '@/utils/utils.js'
 function autoPlayAudio1() {
         wx.config({
             // 配置信息, 即使不正确也能使用 wx.ready
@@ -40,13 +43,13 @@ export default {
     }
   },
   created() {
-    
+     
   },
   methods:{
     audioAutoPlay(id){  
         var audio = document.getElementById(id);  
         audio && audio.play();
-        autoPlayAudio1();  
+      //  autoPlayAudio1();  
         document.addEventListener("WeixinJSBridgeReady", function () {  
             audio && audio.play();  
         }, false);  
@@ -64,24 +67,8 @@ export default {
   },
   beforeRouteEnter(to, from, next){
     let that =this;
-    if(to.path == '/error'){
-      //错误页面不需要验证
-      next();
-    }else{
-      getSession();
-    }
-    function getSession() {
-      //调取登录接口状态
-      // Indicator.open({
-      //   text:'加载中...',
-      //   spinnerType:'fading-circle'
-      // });
-      next();
-      //if(this.s){
-      // next();
-      //}else{
-      //  next({path:'/error'});
-      }    
+     next();
+    
   },
   beforeRouteUpdate (to, from, next) {
     window.fromRouter = from;

@@ -5,7 +5,7 @@
             <div class="alert-text scroll-guide">
                 <p class="content">
                     欢迎大家来到招喵小麦的世界，动动手指就能环游中国啦，还有机会获得精美奖品哦！iPhone X、百元话费券、商城券等你来拿！
-                    <span class="title">活动时间：</span>即日起至10月11日
+                    <span class="title">活动时间：</span>即日起至10月31日
                     <span class="title">活动对象：</span>招商银行App所有客户均可参加活动
                     <span class="title">参与方式：</span>
                     <span style="display:block">1、用户登录之后，拖动地图点击任意城市，或者点击页面下方的“去旅行”，进入城市列表，点击任意一座城市，都可以让小麦来到对应的城市旅行。</span>

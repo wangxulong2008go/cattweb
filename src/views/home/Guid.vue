@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+ import {loginApi} from '@/api/index'
  function scrollTouch(evt){
             if(!evt._isScroller) {
                 evt.preventDefault();
@@ -22,6 +23,9 @@
     },
     created() {
         // var id = this.$route.query.page;
+         if(!window.userId || window.userId == ''){
+            this.goToApp();
+        }
         this.setProgress();
         this.test();
     },
@@ -38,6 +42,15 @@
       document.querySelector('#app').addEventListener('touchmove', scrollTouch,false);
     },
     methods:{
+        goToApp(){
+          //唤起app
+          var url =  window.rootUrl+'?ae=1&ci=2&ui=-1'//+window.userId;//连接
+          loginApi(url,{},'GET').then((res)=>{
+            if(res.status>0 && res.data && res.data.url){
+              location.href = res.data.url;
+            }
+          });
+      },
      setProgress(){
          let that = this;
          setTimeout(()=>{

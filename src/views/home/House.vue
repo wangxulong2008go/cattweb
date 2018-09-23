@@ -155,12 +155,12 @@
                    //需要设置存储isGotochoujiang
                      setStore('isGotochoujiang',true);
                      history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
-                     window.location.href = 'http://www.baidu.com';
-                     if(res.data.urlIndex == 1){
-                         //a页面
-                     }else{
-                         //b页面
-                     }
+                     window.location.href = 'http://cmbt.cn/QQmnzR?AGP20180906184328HjLG8BER';
+                    //  if(res.data.urlIndex == 1){
+                    //      //a页面
+                    //  }else{
+                    //      //b页面
+                    //  }
                 }
             }
           })

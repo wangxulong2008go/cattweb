@@ -5,6 +5,7 @@ var url = location.search; //获取url中"?"符后的字串
 //window.userId = 12; 
 //window.rootUrl = 'https://47.107.50.56:12333/';
 window.rootUrl = 'https://test.withmedia.net:12333/';
+window.shareUrl = 'https://test.withmedia.net/project1/share.html'
 //window.location.href = "tplogin://47.107.50.56:12333/login?corpno=001156&auth=4531b80926b9ff2b35f6f32073c254ba"; 
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
@@ -18,6 +19,8 @@ if (url.indexOf("?") != -1) {
       theRequest[strs[i].split("=")[0]]=unescape(value);   
    }   
 }
+var CMBLS ={};
+window.CMBLS = CMBLS;
 /* document.referrer
 window.addEventListener('pageshow', function( e ){
 //   debugger
@@ -78,7 +81,7 @@ window.addEventListener('pageshow', function( e ){
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?ui='+window.userId;
+    window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1';
 	}
       audio && audio.play();
     }

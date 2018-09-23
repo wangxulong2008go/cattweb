@@ -46,6 +46,7 @@
       <div @click="goToHouse" class="map-house map-icon">
           <div v-if="thisShouxin" class="hand-letter-message"></div>
       </div>
+      <div @click="openShare" class="map-share map-icon"></div>
     </div>
     <div class="absolute contorl-bottom-center">
       <div @click="goToHouses" class="map-go map-icon"></div>
@@ -74,6 +75,50 @@
   </div>
 </template>
 <script>
+window.CMBLS.gps = {};
+function paramsXML(text){
+  try //Internet Explorer
+  {
+  var xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+  xmlDoc.async="false";
+  xmlDoc.loadXML(text);
+  var city = xmlDoc.getElementsByTagName('city');
+  return city[0].innerHTML;
+  }
+catch(e)
+  {
+  try //Firefox, Mozilla, Opera, etc.
+    {
+   var parser=new DOMParser();
+   var xmlDoc=parser.parseFromString(text,"text/xml");
+    var city = xmlDoc.getElementsByTagName('city');
+    return city[0].innerHTML;
+    }
+  catch(e) {}
+  }
+}
+window.CMBLS.gps.successCallback = function(id, message)
+{
+   var city = paramsXML(message)
+    Bus.$emit("positionsCity", city);
+};
+window.CMBLS.gps.failCallback = function(id, message)
+{
+    Bus.$emit("positionsCity", '');
+};
+function cmblsJSExecutor(cmblsCommand)
+{
+    if (window.cmblsExecutor) {
+        var cmblsExecutor = window.cmblsExecutor || {};
+        window.cmblsExecutor.executeCmbls("1.0", cmblsCommand);
+    } else {
+        document.addEventListener('CMBLSExecutorReady', function () {
+            var cmblsExecutor = window.cmblsExecutor || {};
+            window.cmblsExecutor.executeCmbls("1.0", cmblsCommand);
+        }, false);
+    }
+};
+
 function autoPlayAudio1() {
         wx.config({
             // 配置信息, 即使不正确也能使用 wx.ready
@@ -191,7 +236,16 @@ function autoPlayAudio1() {
             startPageY:0,
             disX:0,
             disY:0
-          }
+          },
+          changeCityDataArr:[
+            ['天津','滨海'],['武汉','襄阳','十堰','黄石','孝感','宜昌','黄冈','荆州'],['东莞'],
+            ['南京','泰州','扬州','常州','镇江','盐城','连云港','徐州'],['长沙','衡阳','湘潭','株洲','娄底'],
+            ['佛山','江门','中山'],['南通'],['呼和浩特','呼伦贝尔','鄂尔多斯','包头'],['重庆'],
+            ['南昌','上饶','九江','景德镇','赣州'],['烟台','咸海'],['苏州'],['北京'],['郑州','南阳','安阳','许昌','洛阳'],
+            ['杭州','绍兴','嘉兴','湖州','衢州','金华'],['上海'],['济南','滨州','聊城','临沂','淄博','济宁','东营'],
+            ['沈阳','丹东','盘锦','鞍山','抚顺'],['昆明','红河','曲靖','丽江'],['广州','湛江','清远'],['无锡'],
+            ['成都','乐山','泸州','绵阳'],['合肥','淮北','芜湖','六安','淮南','马鞍山','安庆'],['深圳','珠海','惠州']
+          ]
       }
     },
    components:{
@@ -253,6 +307,9 @@ function autoPlayAudio1() {
      Bus.$on("cloud",data=> {
          _that.openCloudAndGoCity(data);
         })
+    Bus.$on("positionsCity",data=> {
+      _that.gotoMapPosition(data);
+    })
     // this.$Indicator.open({
     //         text: '正在努力加载中...',
     //         spinnerType: 'triple-bounce'
@@ -281,7 +338,7 @@ function autoPlayAudio1() {
         setStore('isReflesh',false);
          _that.audioAutoPlay('audio');
       }else{
-        this.$router.push({path:'guid',query: {page:'guid'}});//手信返回则不需要引导页面
+       // this.$router.push({path:'guid',query: {page:'guid'}});//手信返回则不需要引导页面
       }
 
       
@@ -317,7 +374,10 @@ function autoPlayAudio1() {
           if (audio && audio.paused) {
               audio.play();
           }
-        document.body.removeEventListener('touchstart', musicInBrowserHandler);
+          if(audio){
+              document.body.removeEventListener('touchstart', musicInBrowserHandler);
+          }
+        
     }
     document.body.addEventListener('touchstart', musicInBrowserHandler);
       window.onresize = () => {
@@ -337,7 +397,7 @@ function autoPlayAudio1() {
        audioAutoPlay(id){  
         var audio = document.getElementById(id);  
         audio && audio.play();  
-        autoPlayAudio1();
+      //  autoPlayAudio1();
         document.addEventListener("WeixinJSBridgeReady", function () {  
             audio && audio.play();  
         }, false);  
@@ -354,12 +414,28 @@ function autoPlayAudio1() {
         },
       getCityShouxinTimeData(){
         //只执行一次
-       // if(!this.isGetAllData){
+        if(!this.isGetAllData && window.UrlParams.noneclear!=1){
+         var url = window.rootUrl+'?ae=2&ci=12&ui='+window.userId;//清楚数据
+          loginApi(url,{},'GET').then((res)=>{
+            if(res.status == 200){
+                 if(res.data.rc==1){
+                  this.isGetAllData = true;
+                  this.getCityAll();
+                  this.getShouxin();
+                  this.getreTimes();
+                }
+            }
+          })
+           this.isGetAllData = true;
+          //  this.getCityAll();
+          //  this.getShouxin();
+          //  this.getreTimes();
+        }else{
            this.isGetAllData = true;
            this.getCityAll();
            this.getShouxin();
            this.getreTimes();
-       // }
+        }
       },
       getCityAll(isLoading){
            //获取所有列表
@@ -485,13 +561,13 @@ function autoPlayAudio1() {
                   //   if(res.data.rc == 1){
                        //登录则请求数据
                        this.isLogin = true;
-                       this.isGetAllData = false;
                        //登录成功，则判断是否是第一次登录
                        this.showIsfirstDialog();
                        this.getCityShouxinTimeData();
                             //移动地图位置
                         if(!window.cats_p){
-                          this.gotoMapPosition();
+                          //this.gotoMapPosition();
+                          cmblsJSExecutor('https://cmbls/gps?id=catweb&needaddress=true');
                         }
                        
                    //  }
@@ -786,7 +862,26 @@ function autoPlayAudio1() {
          this.setSmallBoxPosition()
         }
       },
-      gotoMapPosition(){
+      changeCityData(city){
+        let cityName = city.replace(/市$/,'');
+        let nameCity = '';
+        this.changeCityDataArr.forEach(arr =>{
+          arr.forEach(item =>{
+            if(item == cityName){
+              nameCity =  arr[0];
+            }
+          })
+        })
+        return nameCity;
+      },
+      gotoMapPosition(citydata){
+        var cityName = '';
+        if(!citydata){
+          cityName = '北京';
+        }else{
+          cityName = this.changeCityData(citydata);
+        }
+        cityName = cityName || '北京';
         setTimeout(()=>{
           //默认去北京
           // this.screenWidth 
@@ -794,8 +889,12 @@ function autoPlayAudio1() {
           let oHtml = document.querySelector("html");
           let fontSize = oHtml.style.fontSize;
           fontSize = parseFloat(fontSize);
+          let mapWidthpx = this.bigMapWidthr;//获取真实大小
+          let mapHeightpx = this.bigMapHeightr;
+          let viewboxHeight = document.querySelector('#mask').offsetHeight;
+          let viewboxWidth = document.querySelector('#mask').offsetWidth;
           this.buildImage.forEach((element,index)=>{
-                if(element.code == 13){
+                if(element.chName == cityName){
                     let style = element.style;
                     let top = (parseFloat(style.top) || this.bigMapHeight - parseFloat(style.bottom) - parseFloat(style.height))*fontSize;
                     let left = (parseFloat(style.left) || this.bigMapWidth - parseFloat(style.right)- parseFloat(style.width))*fontSize;
@@ -808,6 +907,12 @@ function autoPlayAudio1() {
                     let t = 1.0;
                     this.bigDom.style.webkitTransition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s"; 
                     this.bigDom.style.transition = "all " + t + "s cubic-bezier(0.3, 0.7, 0.35, 1) 0s";
+                     if(-(mapWidthpx - viewboxWidth) > bigMapLeft){
+                          bigMapLeft = -(mapWidthpx - viewboxWidth) +10
+                        }
+                      if(-(mapHeightpx - viewboxHeight) >  bigMapTop){
+                        bigMapTop = -(mapHeightpx - viewboxHeight)+10
+                      }
                      if(bigMapLeft > 0){
                       bigMapLeft = 0;
                     }
@@ -843,6 +948,10 @@ function autoPlayAudio1() {
         let that = this;
         window.$post([{id:10,times:1},{id:22,times:1}]);
         that.$router.push({path:'city',query: {page:'city'}});
+      },
+      openShare(){
+        //去分享
+        location.href = window.shareUrl+'?datatime='+(new Date().getTime());
       },
       isInAerea(params){
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
@@ -1030,6 +1139,14 @@ function autoPlayAudio1() {
   width: 2.56rem;
   background:url('../../assets/img/icon/icon_rule.png');
   background-size: 2.39rem 2.688rem;
+  background-position-y: 0rem;
+  margin-top: 0.4rem;
+}
+.map-share{
+   height:2.6026rem;
+  width: 2.2613rem;
+  background:url('../../assets/img/icon/icon_share.png');
+  background-size: 100%;
   background-position-y: 0rem;
   margin-top: 0.4rem;
 }
