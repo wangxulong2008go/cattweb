@@ -99,8 +99,7 @@
           //关闭页面逻辑
           this.dataOjb.isShow = false;
           //跳转到招商app;
-          window.location.href="about:blank";
-          window.close();
+          window.location.href="http://cmbls/functionjump?action=gochannel&channelname=home";
       },
       closeDailog(){
           this.dataOjb.isShow = false;

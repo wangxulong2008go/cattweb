@@ -20,6 +20,7 @@ if (url.indexOf("?") != -1) {
    }   
 }
 var CMBLS ={};
+window.gobacks = -1;
 window.CMBLS = CMBLS;
 /* document.referrer
 window.addEventListener('pageshow', function( e ){
@@ -177,6 +178,7 @@ window.$post= function (data) {
 //   Historybool = true;
 // },1500) 
 window.addEventListener("popstate", function(evt) {
+  window.gobacks = -history.length || -1;
   if(history.state == null){
     //首次可能在刷新的时候会触发，但这里不需要处理，因为beforeRouteUpdate方法处理的时候肯定不会是第一次
     window.historyisHistory = true;

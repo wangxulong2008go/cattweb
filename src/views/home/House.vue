@@ -34,6 +34,7 @@
                 </span>
           </div>
           <div class="btn-big">
+            <div style="font-size:0.576rem;color:#532e00; font-family:'zhonghei';margin-bottom:.6rem">您已旅行{{i}}座城市，还差({{24-i}})座城市即可解锁彩蛋大奖。</div>
             <span @click="gotoBigDraw" class="btn-egg"></span>
           </div>
       </div>
@@ -65,6 +66,7 @@
         isLotteryFinalAward:true,//默认进行过了
          nowData:0,//总共有几个手信
          t:0,//剩余次数
+         i:0,
           goDrawDialogIsShow:{
             isShow : false,
             isMash:true,
@@ -98,6 +100,13 @@
     //   }
     this.nowData =  window.cats_p;
     this.getdajiang();
+      let lengthCity = 0;
+      window.cityListJson.forEach(element => {
+          if(element.isShow){
+            ++lengthCity;
+          }
+      });
+      this.i = lengthCity;
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -223,7 +232,7 @@
         background-size: 100% 100%;
         .goback{
          position: absolute;
-         top:.64rem;
+         top:.04rem;
          left: .64rem;
          height: 1.898667rem;
          width: 1.877333rem;
@@ -233,7 +242,7 @@
        }
        .body-box{
             position: absolute;
-            top: calc(50% - 6rem);
+            top: calc(50% - 7rem);
             width: 100%;
        }
        .myhouse-icon{
@@ -398,7 +407,7 @@
           text-align: center;
           padding-top: 0.6rem;
           position: absolute;
-          top: calc(50% - 6rem + 5.84rem);
+          top: calc(50% - 7.4rem + 5.84rem);
           left:calc(50% - 7.51rem);
           .tip-img{
              height: 4.842667rem;
@@ -416,7 +425,7 @@
         height: 3.392rem;
         width: 100%;
         position: fixed;
-        bottom:13%;
+        bottom:20%;
         text-align: center;
         .btn-one{
              display: inline-block;
@@ -443,7 +452,7 @@
       }
     }
     .btn-big{
-        height: 3.392rem;
+        height: 4.92rem;
         width: 100%;
         position: fixed;
         bottom: 0.4rem;
