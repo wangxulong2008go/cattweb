@@ -13,7 +13,7 @@ let buildData = [
         chName:'呼和浩特',
         type:1,
         code:20,
-        url:'https://ai.cmbchina.com/mb5web/0471.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0471.html?popup=true'
     }, {
         style: {
             top: '11.690667rem',
@@ -28,7 +28,7 @@ let buildData = [
         chName:'成都',
         type:1,
         code:12,
-        url:'https://ai.cmbchina.com/mb5web/0028.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0028.html?popup=true'
     }
     , {
         style: {
@@ -58,7 +58,7 @@ let buildData = [
         chName:'郑州',
         type:1,
         code:4,
-        url:'https://ai.cmbchina.com/mb5web/0371.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0371.html?popup=true'
     }, {
         style: {
             top: '2.304rem',
@@ -73,7 +73,7 @@ let buildData = [
         chName:'沈阳',
         type:1,
         code:9,
-        url:'https://ai.cmbchina.com/mb5web/0024.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0024.html?popup=true'
     }, {
         style: {
             top: '3.989333rem',
@@ -88,7 +88,7 @@ let buildData = [
         chName:'济南',
         type:1,
         code:17,
-        url:'https://ai.cmbchina.com/mb5web/0531.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0531.html?popup=true'
     }, {
         style: {
             top: '1.28rem',
@@ -103,7 +103,7 @@ let buildData = [
         chName:'烟台',
         type:1,
         code:6,
-        url:'https://ai.cmbchina.com/mb5web/0535.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0535.html?popup=true'
     }, {
         style: {
             top: '3.690667rem',
@@ -118,7 +118,7 @@ let buildData = [
         chName:'南通',
         type:1,
         code:1,
-        url:'https://ai.cmbchina.com/mb5web/0513.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0513.html?popup=true'
     }, {
         style: {
             top: '14.058667rem',
@@ -133,7 +133,7 @@ let buildData = [
         chName:'南京',
         type:1,
         code:7,
-        url:'https://ai.cmbchina.com/mb5web/0025.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0025.html?popup=true'
     }, {
         style: {
             top: '17.066667rem',
@@ -148,7 +148,7 @@ let buildData = [
         chName:'苏州',
         type:1,
         code:23,
-        url:'https://ai.cmbchina.com/mb5web/0512.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0512.html?popup=true'
     }, {
         style: {
             top: '21.184rem',
@@ -177,7 +177,7 @@ let buildData = [
         chName:'上海',
         type:1,
         code:14,
-        url:'https://ai.cmbchina.com/mb5web/0021.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0021.html?popup=true'
     }, {
         style: {
             width: '5.184rem',
@@ -192,7 +192,7 @@ let buildData = [
         chName:'东莞',
         type:1,
         code:22,
-        url:'https://ai.cmbchina.com/mb5web/0769.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0769.html?popup=true'
     }, {
         style: {
             width: '3.349333rem',
@@ -207,7 +207,7 @@ let buildData = [
         chName:'无锡',
         type:1,
         code:24,
-        url:'https://ai.cmbchina.com/mb5web/0510.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0510.html?popup=true'
     }, {
         style: {
             width: '5.354667rem',
@@ -222,7 +222,7 @@ let buildData = [
         chName:'杭州',
         type:1,
         code:21,
-        url:'https://ai.cmbchina.com/mb5web/0571.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0571.html?popup=true'
     }, {
         style: {
             top: '13.013333rem',
@@ -251,7 +251,7 @@ let buildData = [
         chName:'北京',
         type:1,
         code:13,
-        url:'https://ai.cmbchina.com/mb5web/0010.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0010.html?popup=true'
     }, {
         style: {
             top: '21.994667rem',
@@ -266,7 +266,7 @@ let buildData = [
         chName:'合肥',
         type:1,
         code:11,
-        url:'https://ai.cmbchina.com/mb5web/0551.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0551.html?popup=true'
     }, {
         style: {
             top: '21.354667rem',
@@ -281,7 +281,7 @@ let buildData = [
         chName:'天津',
         type:1,
         code:5,
-        url:'https://ai.cmbchina.com/mb5web/0022.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0022.html?popup=true'
     }, {
         style: {
             top: '16.064rem',
@@ -310,7 +310,7 @@ let buildData = [
         chName:'武汉',
         type:1,
         code:18,
-        url:'https://ai.cmbchina.com/mb5web/0027.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0027.html?popup=true'
     }, {
         style: {
             top: '25.642667rem',
@@ -325,7 +325,7 @@ let buildData = [
         chName:'重庆',
         type:1,
         code:8,
-        url:'https://ai.cmbchina.com/mb5web/0023.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0023.html?popup=true'
     }, {
         style: {
             left: '3.733333rem',
@@ -340,7 +340,7 @@ let buildData = [
         chName:'昆明',
         type:1,
         code:10,
-        url:'https://ai.cmbchina.com/mb5web/0871.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0871.html?popup=true'
     }, {
         style: {
             left: '21.376rem',
@@ -355,7 +355,7 @@ let buildData = [
         chName:'广州',
         type:1,
         code:16,
-        url:'https://ai.cmbchina.com/mb5web/0020.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0020.html?popup=true'
     }, {
         style: {
             left: '27.2rem',
@@ -370,7 +370,7 @@ let buildData = [
         chName:'长沙',
         type:1,
         code:19,
-        url:'https://ai.cmbchina.com/mb5web/0731.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0731.html?popup=true'
     }, {
         style: {
             left: '37.504rem',
@@ -385,7 +385,7 @@ let buildData = [
         chName:'南昌',
         type:1,
         code:3,
-        url:'https://ai.cmbchina.com/mb5web/0791.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0791.html?popup=true'
     }, {
         style: {
             left: '28.629333rem',
@@ -400,7 +400,7 @@ let buildData = [
         chName:'佛山',
         type:1,
         code:2,
-        url:'https://ai.cmbchina.com/mb5web/0757.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0757.html?popup=true'
     }, {
         style: {
             right: '26.24rem',
@@ -415,7 +415,7 @@ let buildData = [
         chName:'深圳',
         type:1,
         code:15,
-        url:'https://ai.cmbchina.com/mb5web/0755.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0755.html?popup=true'
     }, {
         style: {
             left: '39.765333rem',
@@ -693,68 +693,65 @@ export const flageJson = () => {
 };
 let cityList = [
     {
-        isShow: false, //是否选中
-        isExe:false,//是否去过
-        src: 'static/list/image_bj_2.png',
-        enName:'bj',
-        chName:'北京',
+        isShow: false,isExe:false,
+        src: 'static/list/image_tj_2.png',
+        enName:'tj',
+        chName:'天津',
         type:3,
-        code:13,
-        url:'https://ai.cmbchina.com/mb5web/0010.html?popup=ture'
+        code:5,
+        url:'https://ai.cmbchina.com/mb5web/0022.html?popup=true'
     },
     {
-        isShow: false,isExe:false,
-        src: 'static/list/image_sh_2.png',
-        enName:'sh',
-        chName:'上海',
-        type:3,
-        code:14,
-        url:'https://ai.cmbchina.com/mb5web/0021.html?popup=ture'
-    },
-     {
-        isShow: false,isExe:false,
-        src: 'static/list/image_shenzhen_2.png',
-        enName:'shenzhen',
-        chName:'深圳',
-        type:3,
-        code:15,
-        url:'https://ai.cmbchina.com/mb5web/0755.html?popup=ture'
-    },
-     {
-        isShow: false,isExe:false,
-        src: 'static/list/image_gz_2.png',
-        enName:'gz',
-        chName:'广州',
-        type:3,
-        code:16,
-        url:'https://ai.cmbchina.com/mb5web/0020.html?popup=ture'
-    },
-     {
-        isShow: false,isExe:false,
-        src: 'static/list/image_jn_2.png',
-        enName:'jn',
-        chName:'济南',
-        type:3,
-        code:17,
-        url:'https://ai.cmbchina.com/mb5web/0531.html?popup=ture'
-    },
-     {
         isShow: false,isExe:false,
         src: 'static/list/image_wh_2.png',
         enName:'wh',
         chName:'武汉',
         type:3,
         code:18,
-        url:'https://ai.cmbchina.com/mb5web/0027.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0027.html?popup=true'
     },
-     {
+    {
+        isShow: false,isExe:false,
+        src: 'static/list/image_dg_2.png',
+        enName:'dg',
+        chName:'东莞',
+        type:3,
+        code:22,
+        url:'https://ai.cmbchina.com/mb5web/0769.html?popup=true'
+    },
+    {
+        isShow: false,isExe:false,
+        src: 'static/list/image_nj_2.png',
+        enName:'nj',
+        chName:'南京',
+        type:3,
+        code:7,
+        url:'https://ai.cmbchina.com/mb5web/0025.html?popup=true'
+    },
+    {
         isShow: false,isExe:false,
         src: 'static/list/image_cs_2.png',
         enName:'cs',
         chName:'长沙',
         type:3,
         code:19,
-        url:'https://ai.cmbchina.com/mb5web/0731.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0731.html?popup=true'
+    },{
+        isShow: false,isExe:false,
+        src: 'static/list/image_fs_2.png',
+        enName:'fs',
+        chName:'佛山',
+        type:3,
+        code:2,
+        url:'https://ai.cmbchina.com/mb5web/0757.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_nt_2.png',
+        enName:'nt',
+        chName:'南通',
+        type:3,
+        code:1,
+        url:'https://ai.cmbchina.com/mb5web/0513.html?popup=true'
     },
     {
         isShow: false,isExe:false,
@@ -763,119 +760,16 @@ let cityList = [
         chName:'呼和浩特',
         type:3,
         code:20,
-        url:'https://ai.cmbchina.com/mb5web/0471.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_cd_2.png',
-        enName:'cd',
-        chName:'成都',
-        type:3,
-        code:12,
-        url:'https://ai.cmbchina.com/mb5web/0028.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_zz_2.png',
-        enName:'zz',
-        chName:'郑州',
-        type:3,
-        code:4,
-        url:'https://ai.cmbchina.com/mb5web/0371.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_sy_2.png',
-        enName:'sy',
-        chName:'沈阳',
-        type:3,
-        code:9,
-        url:'https://ai.cmbchina.com/mb5web/0024.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_yt_2.png',
-        enName:'yt',
-        chName:'烟台',
-        type:3,
-        code:6,
-        url:'https://ai.cmbchina.com/mb5web/0535.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_nt_2.png',
-        enName:'nt',
-        chName:'南通',
-        type:3,
-        code:1,
-        url:'https://ai.cmbchina.com/mb5web/0513.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_nj_2.png',
-        enName:'nj',
-        chName:'南京',
-        type:3,
-        code:7,
-        url:'https://ai.cmbchina.com/mb5web/0025.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_sz_2.png',
-        enName:'sz',
-        chName:'苏州',
-        type:3,
-        code:23,
-        url:'https://ai.cmbchina.com/mb5web/0512.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_dg_2.png',
-        enName:'dg',
-        chName:'东莞',
-        type:3,
-        code:22,
-        url:'https://ai.cmbchina.com/mb5web/0769.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_wx_2.png',
-        enName:'wx',
-        chName:'无锡',
-        type:3,
-        code:24,
-        url:'https://ai.cmbchina.com/mb5web/0510.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_hz_2.png',
-        enName:'hz',
-        chName:'杭州',
-        type:3,
-        code:21,
-        url:'https://ai.cmbchina.com/mb5web/0571.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_hf_2.png',
-        enName:'hf',
-        chName:'合肥',
-        type:3,
-        code:11,
-        url:'https://ai.cmbchina.com/mb5web/0551.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_tj_2.png',
-        enName:'tj',
-        chName:'天津',
-        type:3,
-        code:5,
-        url:'https://ai.cmbchina.com/mb5web/0022.html?popup=ture'
-    },  {
+        url:'https://ai.cmbchina.com/mb5web/0471.html?popup=true'
+    },
+    {
         isShow: false,isExe:false,
         src: 'static/list/image_cq_2.png',
         enName:'cq',
         chName:'重庆',
         type:3,
         code:8,
-        url:'https://ai.cmbchina.com/mb5web/0023.html?popup=ture'
-    }, {
-        isShow: false,isExe:false,
-        src: 'static/list/image_km_2.png',
-        enName:'km',
-        chName:'昆明',
-        type:3,
-        code:10,
-        url:'https://ai.cmbchina.com/mb5web/0871.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0023.html?popup=true'
     }, {
         isShow: false,isExe:false,
         src: 'static/list/image_nc_2.png',
@@ -883,15 +777,124 @@ let cityList = [
         chName:'南昌',
         type:3,
         code:3,
-        url:'https://ai.cmbchina.com/mb5web/0791.html?popup=ture'
+        url:'https://ai.cmbchina.com/mb5web/0791.html?popup=true'
     }, {
         isShow: false,isExe:false,
-        src: 'static/list/image_fs_2.png',
-        enName:'fs',
-        chName:'佛山',
+        src: 'static/list/image_yt_2.png',
+        enName:'yt',
+        chName:'烟台',
         type:3,
-        code:2,
-        url:'https://ai.cmbchina.com/mb5web/0757.html?popup=ture'
+        code:6,
+        url:'https://ai.cmbchina.com/mb5web/0535.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_sz_2.png',
+        enName:'sz',
+        chName:'苏州',
+        type:3,
+        code:23,
+        url:'https://ai.cmbchina.com/mb5web/0512.html?popup=true'
+    },
+    {
+        isShow: false, //是否选中
+        isExe:false,//是否去过
+        src: 'static/list/image_bj_2.png',
+        enName:'bj',
+        chName:'北京',
+        type:3,
+        code:13,
+        url:'https://ai.cmbchina.com/mb5web/0010.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_zz_2.png',
+        enName:'zz',
+        chName:'郑州',
+        type:3,
+        code:4,
+        url:'https://ai.cmbchina.com/mb5web/0371.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_hz_2.png',
+        enName:'hz',
+        chName:'杭州',
+        type:3,
+        code:21,
+        url:'https://ai.cmbchina.com/mb5web/0571.html?popup=true'
+    },
+    {
+        isShow: false,isExe:false,
+        src: 'static/list/image_sh_2.png',
+        enName:'sh',
+        chName:'上海',
+        type:3,
+        code:14,
+        url:'https://ai.cmbchina.com/mb5web/0021.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_jn_2.png',
+        enName:'jn',
+        chName:'济南',
+        type:3,
+        code:17,
+        url:'https://ai.cmbchina.com/mb5web/0531.html?popup=true'
+    },{
+        isShow: false,isExe:false,
+        src: 'static/list/image_sy_2.png',
+        enName:'sy',
+        chName:'沈阳',
+        type:3,
+        code:9,
+        url:'https://ai.cmbchina.com/mb5web/0024.html?popup=true'
+    },  {
+        isShow: false,isExe:false,
+        src: 'static/list/image_km_2.png',
+        enName:'km',
+        chName:'昆明',
+        type:3,
+        code:10,
+        url:'https://ai.cmbchina.com/mb5web/0871.html?popup=true'
+    },{
+        isShow: false,isExe:false,
+        src: 'static/list/image_gz_2.png',
+        enName:'gz',
+        chName:'广州',
+        type:3,
+        code:16,
+        url:'https://ai.cmbchina.com/mb5web/0020.html?popup=true'
+    },{
+        isShow: false,isExe:false,
+        src: 'static/list/image_wx_2.png',
+        enName:'wx',
+        chName:'无锡',
+        type:3,
+        code:24,
+        url:'https://ai.cmbchina.com/mb5web/0510.html?popup=true'
+    }, {
+        isShow: false,isExe:false,
+        src: 'static/list/image_cd_2.png',
+        enName:'cd',
+        chName:'成都',
+        type:3,
+        code:12,
+        url:'https://ai.cmbchina.com/mb5web/0028.html?popup=true'
+    },
+    {
+      isShow: false,isExe:false,
+      src: 'static/list/image_hf_2.png',
+      enName:'hf',
+      chName:'合肥',
+      type:3,
+      code:11,
+      url:'https://ai.cmbchina.com/mb5web/0551.html?popup=true'
+  },
+     {
+        isShow: false,isExe:false,
+        src: 'static/list/image_shenzhen_2.png',
+        enName:'shenzhen',
+        chName:'深圳',
+        type:3,
+        code:15,
+        url:'https://ai.cmbchina.com/mb5web/0755.html?popup=true'
     }
 ]
 export const cityListJson = () => {

@@ -4,8 +4,10 @@ var fullUrl = window.location.href;
 var url = location.search; //获取url中"?"符后的字串  
 //window.userId = 12; 
 //window.rootUrl = 'https://47.107.50.56:12333/';
-window.rootUrl = 'https://test.withmedia.net:12333/';
-window.shareUrl = 'https://test.withmedia.net/project1/share.html'
+//window.rootUrl = 'https://test.withmedia.net:12333/';//测试
+//window.shareUrl = 'https://test.withmedia.net/project1/share.html'//测试
+window.rootUrl = 'https://project1.withmedia.net:12333/';//生产
+window.shareUrl = 'https://project1.withmedia.net/project/share.html'//生产
 //window.location.href = "tplogin://47.107.50.56:12333/login?corpno=001156&auth=4531b80926b9ff2b35f6f32073c254ba"; 
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
@@ -22,6 +24,19 @@ if (url.indexOf("?") != -1) {
 var CMBLS ={};
 window.gobacks = -1;
 window.CMBLS = CMBLS;
+function cmblsJSExecutorhidden(cmblsCommand)
+{
+    if (window.cmblsExecutor) {
+        var cmblsExecutor = window.cmblsExecutor || {};
+        window.cmblsExecutor.executeCmbls("1.0", cmblsCommand);
+    } else {
+        document.addEventListener('CMBLSExecutorReady', function () {
+            var cmblsExecutor = window.cmblsExecutor || {};
+            window.cmblsExecutor.executeCmbls("1.0", cmblsCommand);
+        }, false);
+    }
+};
+cmblsJSExecutorhidden('https://host/path?showTopBar=false');
 /* document.referrer
 window.addEventListener('pageshow', function( e ){
 //   debugger
@@ -82,8 +97,17 @@ window.addEventListener('pageshow', function( e ){
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1';
-	}
+    window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1&showtopbar=false';
+  }
+  // if(searchParmas.gotoshare){
+  //   history.pushState({ui:window.userId}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId);
+  //   window.isReturn = true;
+  //   window.localStorage.setItem('isReflesh',true);
+  //   window.localStorage.setItem('isGotochoujiang',false);
+  //   window.localStorage.setItem('isGotodajiang',false);
+  //   window.localStorage.setItem('isGotoZhuanqu',false);
+  //   window.refresh();
+  // }
       audio && audio.play();
     }
   }
@@ -110,7 +134,7 @@ function isgoback(){
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?ui='+window.userId;
+    window.location.href = origin + pathname + '?ui='+window.userId +'&showtopbar=false';
     //window.history.go(0);
     return false;
   }

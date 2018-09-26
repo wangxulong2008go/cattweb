@@ -5,7 +5,7 @@
             <div class="flex-box">
                 <div @click="selectedCity(item)" :class="item.isShow?'execit':''" class="flex-item" v-for="(item,index) in cityList" :key="index">
                     <div :class="item.isExe?'execits':''" class="icon">
-                        <img v-lazy =item.src alt="2">
+                        <img :src="item.src" alt="2">
                     </div>
                     <div class="cityname">
                         {{item.chName}}
@@ -34,19 +34,7 @@
   </div>
 </template>
 <script>
-    var compare = function (prop) {
-        return function (obj1, obj2) {
-            var val1 = obj1[prop] ? 0:1;
-            var val2 = obj2[prop]? 0:1;
-            if (val1 > val2 ) {
-                return -1;
-            }else if(val1 < val2 ){
-                return 1; 
-            } else {
-                return 0;//不变
-            }            
-        } 
-    }
+   
   import vueSlider from 'vue-slider-component';
   import {cityListJson} from '@/utils/build.js'
   import cloudAlert from '@/views/home/cloudAlert.vue'
@@ -144,7 +132,17 @@
       // if(typeof window.cats_p == 'undefined' || getStore('isGotoZhuanqu') || getStore('isGotochoujiang')){
       //   this.$router.push({path:'home',query: {page:'home'}});//前往首页
       // }
-        this.cityList.sort(compare("isExe"));
+        //this.cityList.sort(compare("isExe"));
+        let arr = [];
+        let arrnone = [];
+        this.cityList.forEach(function(item){
+           if(item.isExe){
+             arr.push(item);
+           }else{
+             arrnone.push(item);
+           }
+         })
+         this.cityList = arrnone.concat(arr);
          this.isnum = this.isnum+1;
          this.sDom =  document.querySelector('.body-scorll');
          this.scrollHeight = this.sDom.scrollHeight - this.sDom.offsetHeight;

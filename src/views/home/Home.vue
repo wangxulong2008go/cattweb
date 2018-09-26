@@ -51,6 +51,25 @@
     <div class="absolute contorl-bottom-center">
       <div @click="goToHouses" class="map-go map-icon"></div>
     </div>
+    <div style="position: absolute;top:0;left:0;bottom:0;right:0;z-index:989898" v-show="gobackcloses">
+         <div class="infoHtml">
+        <div class="foot-box">
+            <div class="share-box" style="width:100%;">
+                <div onclick="shareFunc('weixinsession')" style="display:inline-block;padding-left:12.5%">
+                    <img src="../../assets/img/guid/weixin.png" alt="weixin">
+                    <p><span>微信好友</span></p>
+                </div>
+                <div onclick="shareFunc('weixintimeline')" style="display:inline-block;padding-right:12%">
+                <img src="../../assets/img/guid/people.png" style="padding:6px" alt="weixin">
+                <p><span>朋友圈</span></p>
+                </div>
+            </div>
+            <div class="cancel back" @click="gobackclose">
+                取消
+            </div>
+        </div>
+        </div>
+    </div>
      <!-- <vue-lazy-component :timeout="1000"> -->
       <one-alert :dataOjb="closeDialogIsShow"> </one-alert>
       <guide-alert :dataOjb="guideDialogIsShow"> </guide-alert>
@@ -67,7 +86,7 @@
              <img :src="isFirstImage" alt="1">
              <div class="p-div">
                <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信即可参与抽奖，50元话费券、自拍杆、商城券等你来拿哟！</p>
-               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone X、 200元话费券、耳机、商城券等豪礼哟！</p>
+               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone XS Max、 200元话费券、耳机、商城券等豪礼哟！</p>
              </div>
           </div>
           <div class="alert-mash" @click="isFirstLogin = false"></div>
@@ -76,6 +95,7 @@
 </template>
 <script>
 window.CMBLS.gps = {};
+window.CMBLS.socialShare = {};
 function paramsXML(text){
   try //Internet Explorer
   {
@@ -118,7 +138,21 @@ function cmblsJSExecutor(cmblsCommand)
         }, false);
     }
 };
+window.shareFunc = function(channel){
+ // var url ="https://cmbls/socialshare?id=catshare&type=url&url=https://test.withmedia.net/project1/shareurl.html&channel="+channel+ "&text="+"iPhoneX、百元话费券、商城券等豪礼等你拿！";
+  var title = '跟着招猫去旅行，每日抽奖赢豪礼！';
+  var text = 'iPhone XS Max、百元话费券、商城券等豪礼等你拿！';
+  //var shareUrl =encodeURI('https://cmbls/socialshare?id=fdsfsdfsf&type=url&url=https://test.withmedia.net/project1/shareurl.html&picurl=https://test.withmedia.net/project1/sharestatic/image/shareimg.png&channel='+channel+'&title='+title+'&text='+text);
+  var shareUrl =encodeURI('https://cmbls/socialshare?id=fdsfsdfsf&type=url&url=https://project1.withmedia.net/project/shareurl.html&picurl=https://project1.withmedia.net/project/sharestatic/image/shareimg.png&channel='+channel+'&title='+title+'&text='+text);
+  cmblsJSExecutor(shareUrl);//分享
+}
+window.CMBLS.socialShare.successCallback = function(id,message){
+  
+}
 
+window.CMBLS.socialShare.failCallback = function(id,message){
+  alert(message)
+}
 function autoPlayAudio1() {
         wx.config({
             // 配置信息, 即使不正确也能使用 wx.ready
@@ -148,6 +182,8 @@ function autoPlayAudio1() {
   export default {
     data(){
       return {
+        gobackcloses:false,
+        gotoshares:false,
           isFirstLogin:false,
           thisShouxin:false,
           isLogin:false,
@@ -386,6 +422,7 @@ function autoPlayAudio1() {
                 window.screenHeight = document.body.screenHeight
                 this.screenWidth = window.screenWidth
                 this.screenHeight = window.screenHeight
+                this.init();
             })()
         }
         this.smallDom=document.querySelector(".small-box-bg");
@@ -394,6 +431,9 @@ function autoPlayAudio1() {
         
     },
     methods:{
+      gobackclose(){
+        this.gobackcloses = false;
+      },
        audioAutoPlay(id){  
         var audio = document.getElementById(id);  
         audio && audio.play();  
@@ -414,28 +454,28 @@ function autoPlayAudio1() {
         },
       getCityShouxinTimeData(){
         //只执行一次
-        if(!this.isGetAllData && window.UrlParams.noneclear!=1){
-         var url = window.rootUrl+'?ae=2&ci=12&ui='+window.userId;//清楚数据
-          loginApi(url,{},'GET').then((res)=>{
-            if(res.status == 200){
-                 if(res.data.rc==1){
-                  this.isGetAllData = true;
-                  this.getCityAll();
-                  this.getShouxin();
-                  this.getreTimes();
-                }
-            }
-          })
-           this.isGetAllData = true;
+        // if(!this.isGetAllData && window.UrlParams.noneclear!=1){
+        //  var url = window.rootUrl+'?ae=2&ci=12&ui='+window.userId;//清楚数据
+        //   loginApi(url,{},'GET').then((res)=>{
+        //     if(res.status == 200){
+        //          if(res.data.rc==1){
+        //           this.isGetAllData = true;
+        //           this.getCityAll();
+        //           this.getShouxin();
+        //           this.getreTimes();
+        //         }
+        //     }
+        //   })
+         //  this.isGetAllData = true;
           //  this.getCityAll();
           //  this.getShouxin();
           //  this.getreTimes();
-        }else{
+       // }else{
            this.isGetAllData = true;
            this.getCityAll();
            this.getShouxin();
            this.getreTimes();
-        }
+       // }
       },
       getCityAll(isLoading){
            //获取所有列表
@@ -951,7 +991,10 @@ function autoPlayAudio1() {
       },
       openShare(){
         //去分享
-        location.href = window.shareUrl+'?datatime='+(new Date().getTime());
+        //history.pushState({ui:window.userId,gotoshare:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotoshare=1');
+        //location.href = window.shareUrl+'?datatime='+(new Date().getTime());
+        this.gobackcloses = true;
+      // this.$router.push({path:'share'});
       },
       isInAerea(params){
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
@@ -1146,7 +1189,7 @@ function autoPlayAudio1() {
    height:2.6026rem;
   width: 2.2613rem;
   background:url('../../assets/img/icon/icon_share.png');
-  background-size: 100%;
+  background-size: contain;
   background-position-y: 0rem;
   margin-top: 0.4rem;
 }
@@ -1240,5 +1283,63 @@ function autoPlayAudio1() {
   }
   .home-city{
      background: url('../../assets/img/guid/list_bg2.png') #999;
+  }
+   .infoHtml{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .foot-box{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6rem;
+    background: #fff;
+    color: #666;
+    font-size: 0.48rem;
+  }
+  .share-box{
+    box-sizing: border-box;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #ddd;
+    height: 3.3rem;
+  }
+  .share-box img{
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid #ddd;
+    box-sizing: border-box
+  }
+  .share-box>div{
+    box-sizing: border-box;
+    width: 49%;
+    text-align: center;
+  }
+  .cancel{
+    text-align: center;
+    font-size: 0.56rem;
+    color: red;
+    line-height: 2.698667rem;
+  }
+  .goback{
+    display: inline-block;
+    position: fixed;
+    height: 1.898667rem;
+    width: 1.877333rem;
+    background-image: url('../../assets/img/guid/back.png');
+    background-repeat: no-repeat;
+    background-size: contain; 
+    top: 0.4rem;
+    left: 0.4rem;
+    border-radius: 50%;
+    box-shadow: 0px 1px 4px 2px #333;
   }
 </style>

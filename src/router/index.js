@@ -13,6 +13,7 @@ const Error = resolve => require(['../views/error/Error'],resolve);//错误页�
 const Guid = resolve => require(['../views/home/Guid'],resolve);//引导页面
 const House = resolve => require(['../views/home/House'],resolve);//我的小窝
 const Citys = resolve => require(['../views/home/City'],resolve);//城市列表
+const share = resolve => require(['../views/home/share'],resolve);//分享
 let isReflesh = getStore('isReflesh');
 let router;
 if(isReflesh == true){
@@ -52,6 +53,13 @@ if(isReflesh == true){
           {
             path: '/error',
             component: Error,
+            meta: {
+              keepAlive:true
+            }
+          },
+          {
+            path: '/share',
+            component: share,
             meta: {
               keepAlive:true
             }
@@ -101,6 +109,13 @@ if(isReflesh == true){
           {
             path: '/error',
             component: Error,
+            meta: {
+              keepAlive:true
+            }
+          },
+          {
+            path: '/share',
+            component: share,
             meta: {
               keepAlive:true
             }

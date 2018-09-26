@@ -34,7 +34,7 @@
                 </span>
           </div>
           <div class="btn-big">
-            <div style="font-size:0.576rem;color:#532e00; font-family:'zhonghei';margin-bottom:.6rem">您已旅行{{i}}座城市，还差({{24-i}})座城市即可解锁彩蛋大奖。</div>
+            <div style="font-size:0.576rem;color:#532e00; font-family:'zhonghei';margin-bottom:.6rem">您已旅行{{indexcatcity}}座城市，还差({{24-indexcatcity}})座城市即可解锁彩蛋大奖。</div>
             <span @click="gotoBigDraw" class="btn-egg"></span>
           </div>
       </div>
@@ -58,11 +58,13 @@
   import drawAlert from '@/views/home/drawAlert.vue'
   import xuAlert from '@/views/home/xuAlert.vue'
   import bigAlert from '@/views/home/bigAlert.vue'
+  import {cityListJson} from '@/utils/build.js'
   import {loginApi} from '@/api/index'
   import {setStore,getStore} from '@/utils/utils.js'
   export default {
     data(){
       return {
+        indexcatcity:0,
         isLotteryFinalAward:true,//默认进行过了
          nowData:0,//总共有几个手信
          t:0,//剩余次数
@@ -90,7 +92,7 @@
      bigAlert
    },
     created() {
-   
+     
     },
     activated(){
      // console.log(this.$route.query,'ss')
@@ -101,12 +103,13 @@
     this.nowData =  window.cats_p;
     this.getdajiang();
       let lengthCity = 0;
-      window.cityListJson.forEach(element => {
-          if(element.isShow){
+      let cityList = cityListJson();
+      cityList.forEach(element => {
+          if(element.isExe){
             ++lengthCity;
           }
       });
-      this.i = lengthCity;
+      this.indexcatcity = lengthCity;
     },
     destroyed(){
          document.querySelector('#app').removeEventListener('touchmove', this.scrollTouch,false);
@@ -430,7 +433,7 @@
         .btn-one{
              display: inline-block;
               width: 6.357333rem;
-              background-image: url('../../assets/img/guid/window_2_btn.png');
+              background-image: url('../../assets/img/guid/window_2_btns.png');
               background-repeat: no-repeat;
               background-size: contain;
               box-sizing: border-box;
@@ -439,7 +442,7 @@
          .btn-two{
              display: inline-block;
               width: 6.357333rem;
-              background-image: url('../../assets/img/guid/home_btn_2.png');
+              background-image: url('../../assets/img/guid/home_btn_2s.png');
               background-repeat: no-repeat;
               background-size: contain;
               box-sizing: border-box;
@@ -455,7 +458,7 @@
         height: 4.92rem;
         width: 100%;
         position: fixed;
-        bottom: 0.4rem;
+        bottom: 0.16rem;
         text-align: center;
         .btn-egg{
            display: inline-block;
