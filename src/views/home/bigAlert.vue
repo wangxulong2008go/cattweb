@@ -68,6 +68,9 @@
            }
         }
     },
+    activated(){
+        window.$post([{id:27,times:1}]);//按钮埋点
+    },
     methods:{
           scrollTouch(evt){
             if(!evt._isScroller) {
@@ -98,9 +101,13 @@
           if(this.dataOjb.isAll)return;
           this.dataOjb.isShow = false;
          //抽大奖,设置本地
-         setStore('isGotodajiang',true);
-         history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
-         window.location.href = 'http://cmbt.cn/QQmnzR?AGP20180906191426muIarXCq';
+          setStore('isGotodajiang',true);
+         history.replaceState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
+          window.$post([{id:4,times:1}]);//按钮埋点
+          setTimeout(()=>{
+            window.location.href = 'http://cmbls/FunctionJump?action=gofuncid&funcid=16335001&clean=false&closeCurrentView=false&cmb_app_trans_parms_start=here&needlogin=false&ActGroupID=AGP20181008111056iOGwfQoN';
+          },100)
+        
       },
       closeDailog(){
           this.dataOjb.isShow = false;

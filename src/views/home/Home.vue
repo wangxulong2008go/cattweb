@@ -8,8 +8,8 @@
         <div style="background:#999" v-bind:style="{'transform':'translate3d('+bigMapLeft + 'px,'+bigMapTop+'px,0)','width':bigMapWidth+'rem','height':bigMapHeight+'rem'}" class="map-flex absolute">
             <div class="map_bg" style="height:100%;width:100%;line-height:0;">
                 <div class="one" style="display:flex">
-                    <img width="100px" :src ="bgImage[0]" alt="bg">
-                    <img width="100px" :src ="bgImage[1]" alt="bg">
+                    <img width="50%" :src ="bgImage[0]" alt="bg">
+                    <img width="50%" :src ="bgImage[1]" alt="bg">
                 </div>
                  <div class="two" style="display:flex">
                     <img width="50%" :src ="bgImage[2]" alt="bg">
@@ -86,7 +86,7 @@
              <img :src="isFirstImage" alt="1">
              <div class="p-div">
                <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信即可参与抽奖，50元话费券、自拍杆、商城券等你来拿哟！</p>
-               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone XS Max、 200元话费券、耳机、商城券等豪礼哟！</p>
+               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone XS Max、 200元话费券、耳机、商城券等豪礼哟，此活动与苹果公司无关！</p>
              </div>
           </div>
           <div class="alert-mash" @click="isFirstLogin = false"></div>
@@ -143,7 +143,7 @@ window.shareFunc = function(channel){
   var title = '跟着招猫去旅行，每日抽奖赢豪礼！';
   var text = 'iPhone XS Max、百元话费券、商城券等豪礼等你拿！';
   //var shareUrl =encodeURI('https://cmbls/socialshare?id=fdsfsdfsf&type=url&url=https://test.withmedia.net/project1/shareurl.html&picurl=https://test.withmedia.net/project1/sharestatic/image/shareimg.png&channel='+channel+'&title='+title+'&text='+text);
-  var shareUrl =encodeURI('https://cmbls/socialshare?id=fdsfsdfsf&type=url&url=https://project1.withmedia.net/project/shareurl.html&picurl=https://project1.withmedia.net/project/sharestatic/image/shareimg.png&channel='+channel+'&title='+title+'&text='+text);
+  var shareUrl ='https://cmbls/socialshare?id=fdsfsdfsf&type=url&url='+encodeURI("https://project1.withmedia.net/project/shareurl.html")+'&picurl='+encodeURI('https://project1.withmedia.net/project/sharestatic/image/shareimg.png')+'&channel='+channel+'&title='+encodeURI(title)+'&text='+encodeURI(text);
   cmblsJSExecutor(shareUrl);//分享
 }
 window.CMBLS.socialShare.successCallback = function(id,message){
@@ -995,6 +995,7 @@ function autoPlayAudio1() {
         //location.href = window.shareUrl+'?datatime='+(new Date().getTime());
         this.gobackcloses = true;
       // this.$router.push({path:'share'});
+     
       },
       isInAerea(params){
         if((params.left<=params.x && params.x<=(params.left+params.width)) && (params.top<=params.y && params.y<=(params.top+params.height))){
@@ -1032,7 +1033,7 @@ function autoPlayAudio1() {
            
             if((c==1 && window.cats_p>=3) || (c==0 && window.cats_p>=3)){
               //前往抽奖
-               window.$post([{id:8,times:1},{id:21,times:1}]);//埋点
+               window.$post([{id:8,times:1},{id:21,times:1,code:item.code}]);//埋点
                 this.$nextTick(()=>{
                   this.goDrawDialogIsShow.isShow = true;
                   this.goDrawDialogIsShow.t = window.cats_t;
@@ -1043,7 +1044,7 @@ function autoPlayAudio1() {
            //  if((c==1 && window.cats_p<3) || (c==0 && window.cats_p<3 && window.cats_t>0)){
              if(c==1 || (c==0 && window.cats_p<3 && window.cats_t>0)){
               //确认前往
-               window.$post([{id:7,times:1},{id:21,times:1}]);//埋点
+               window.$post([{id:7,times:1},{id:21,times:1,code:item.code}]);//埋点
                 this.$nextTick(()=>{
                   this.goCityListDialogIsShow.isShow = true;
                   this.goCityListDialogIsShow.item = item;
@@ -1053,7 +1054,7 @@ function autoPlayAudio1() {
             if(c==0 && window.cats_p<3 && window.cats_t==0){
               //休息一下
                this.$nextTick(()=>{
-                  window.$post([{id:9,times:1},{id:21,times:1}]);//埋点
+                  window.$post([{id:9,times:1},{id:21,times:1,code:item.code}]);//埋点
                   this.goXuxiDialogIsShow.isShow = true;
                 });
                 return false;
@@ -1075,7 +1076,7 @@ function autoPlayAudio1() {
               this.$store.commit('sett',window.cats_t -1);
               this.setCitySelect(data.code);
               this.clound('page',data);//url
-               window.$post([{id:16,times:1}]);//埋点
+               window.$post([{id:16,times:1,code:data.code}]);//埋点
                var url = window.rootUrl+'?ae=2&ci=5&ui='+window.userId;//设置去过改城市
                 loginApi(url,{params:JSON.stringify({cityCode:data.code})},'GET').then((res)=>{
                   if(res.status == 200){
@@ -1112,17 +1113,17 @@ function autoPlayAudio1() {
       },
       clound(page,data){
         this.cloundXuxiDialogIsShow.isShow = true;
+        history.replaceState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
         window.setTimeout(()=>{
           this.cloundXuxiDialogIsShow.isShow = false;
           setStore('isGotoZhuanqu',true);
-          this.$Indicator.open({
-                text: '正在努力加载中...',
-                spinnerType: 'triple-bounce'
-              });
+          // this.$Indicator.open({
+          //       text: '正在努力加载中...',
+          //       spinnerType: 'triple-bounce'
+          //     });
              // var origin = window.location.origin;
              // var pathname = window.location.pathname;
              // var search = window.location.search;
-            history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
               location.href = data.url+'&datatime='+(new Date().getTime());
         },5000)
       },

@@ -68,13 +68,13 @@
             this.$store.commit('setp',this.dataOjb.p - 3);
            // window.location.href=url;//跳转抽奖页面
            var url = window.rootUrl+'?ae=2&ci=4&ui='+window.userId;
+            history.replaceState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
           loginApi(url,{},'GET').then((res)=>{
             if(res.status == 200){
                  if(res.data.rc==1){
                      //需要设置，本地存储isGotochoujiang
                      setStore('isGotochoujiang',true);
-                     history.pushState({userid:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?userid='+window.userId+'&gotopage=1');
-                     window.location.href = 'http://cmbt.cn/QQmnzR?AGP20180906184328HjLG8BER';
+                     window.location.href = 'http://cmbls/FunctionJump?action=gofuncid&funcid=16335001&clean=false&closeCurrentView=false&cmb_app_trans_parms_start=here&needlogin=false&ActGroupID=AGP20180929145930vn5XQmuc';
                     //  if(res.data.urlIndex == 1){
                     //      //a页面
                     //  }else{

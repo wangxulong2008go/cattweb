@@ -9,12 +9,13 @@
                     <span class="title">活动对象：</span>招商银行App所有客户均可参加活动
                     <span class="title">参与方式：</span>
                     <span style="display:block">1、用户登录之后，拖动地图点击任意城市，或者点击页面下方的“去旅行”，进入城市列表，点击任意一座城市，都可以让小麦来到对应的城市旅行。</span>
-                    <span style="display:block">2、每次小麦旅行回来会为您带来一份手信，可以在“我的小窝”查看您拥有的手信及数量。小麦每天可以去旅行的城市不限，但最多只能带回三个手信。</span>
+                    <span style="display:block">2、每次小麦旅行回来会为您带来一份手信，可以在“我的小窝”查看您拥有的手信及数量。小麦每天最多可以去三个未去过的城市，带回三份手信。</span>
                     <span style="display:block">3、每集齐三份手信，即可参与一次抽奖，50元话费券、自拍杆、商城券等奖品等你来拿！每天最多只有一次抽奖机会。</span>
                     <span style="display:block">4、当小麦完成了所有城市的旅游之后，即可抽取惊喜彩蛋大奖，更有机会获得实物奖品，iPhone XS Max、 200元话费券、耳机、商城券等豪礼等你来拿哟！</span>
                     <span class="title">注意事项：</span>
                     <span style="display:block">1、“我的小窝”容量有限，您拥有的手信第二天就会被清空，如果已经集满三个手信，请您尽快参与抽奖哦。</span>
                     <span style="display:block"> 2、如有问题请联系招商银行客服：95555。</span>
+                    <span style="display:block">3.此活动与苹果公司无关。</span>
                 </p>
             </div>
             <div class="alert-button">

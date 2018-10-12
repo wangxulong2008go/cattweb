@@ -4,10 +4,10 @@ var fullUrl = window.location.href;
 var url = location.search; //获取url中"?"符后的字串  
 //window.userId = 12; 
 //window.rootUrl = 'https://47.107.50.56:12333/';
-//window.rootUrl = 'https://test.withmedia.net:12333/';//测试
-//window.shareUrl = 'https://test.withmedia.net/project1/share.html'//测试
-window.rootUrl = 'https://project1.withmedia.net:12333/';//生产
-window.shareUrl = 'https://project1.withmedia.net/project/share.html'//生产
+window.rootUrl = 'https://test.withmedia.net:12333/';//测试
+window.shareUrl = 'https://test.withmedia.net/project1/share.html'//测试
+//window.rootUrl = 'https://project1.withmedia.net:12333/';//生产
+//window.shareUrl = 'https://project1.withmedia.net/project/share.html'//生产
 //window.location.href = "tplogin://47.107.50.56:12333/login?corpno=001156&auth=4531b80926b9ff2b35f6f32073c254ba"; 
 var theRequest = new Object();   
 if (url.indexOf("?") != -1) {   
@@ -68,11 +68,16 @@ window.addEventListener('pageshow', function( e ){
    //$body.append("<script type='text/javascript'>;<\/script>");
   });
   }); */
-  document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  var hiddenProperty = 'hidden' in document ? 'hidden' :    
+  'webkitHidden' in document ? 'webkitHidden' :    
+  'mozHidden' in document ? 'mozHidden' :    
+  null;
+var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+  document.addEventListener(visibilityChangeEvent, handleVisibilityChange, false);
   function handleVisibilityChange() {
     //暂停音乐
-    var audio = document.getElementById('audio');  
-    if (document.hidden) {
+    var audio = document.getElementById('audio');
+    if (document[hiddenProperty]) {
       audio && audio.pause();
     } else  {
 	  var url = location.search; //获取url中"?"符后的字串 
@@ -87,7 +92,7 @@ window.addEventListener('pageshow', function( e ){
 			}
 			  searchParmas[strs[i].split("=")[0]]=unescape(value);   
 		   }   
-		}
+    }
 	if(searchParmas.gotopage){
     window.isReturn = true;
     window.localStorage.setItem('isReflesh',true);
@@ -97,7 +102,10 @@ window.addEventListener('pageshow', function( e ){
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1&showtopbar=false';
+    setTimeout(() => {
+      window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1&showtopbar=false';
+    }, 100);
+   
   }
   // if(searchParmas.gotoshare){
   //   history.pushState({ui:window.userId}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId);
@@ -116,27 +124,29 @@ window.UrlParams = theRequest;
 //window.userId = window.UrlParams.userid;
 window.userId = window.UrlParams.ui;
 function isgoback(){
-  var isGotoZhuanqu = JSON.parse(window.localStorage.getItem('isGotoZhuanqu'));
-  var isGotochoujiang = JSON.parse(window.localStorage.getItem('isGotochoujiang'));
-  var isGotodajiang = JSON.parse(window.localStorage.getItem('isGotodajiang'));
-  if(theRequest && theRequest.gotopage){
-    //var userID = window.localStorage.getItem('userId');
-    //if(window.userId && userID && userID != '' && userID != 'undefined' && userID == window.userId){
-      window.isReturn = true;
-      window.localStorage.setItem('isReflesh',true);
-   // }else{
-    //  window.localStorage.setItem('isReflesh',false);
-   // }
-    
+  var url = location.search; //获取url中"?"符后的字串 
+  var searchParmas = new Object();   
+  if (url.indexOf("?") != -1) {   
+     var str = url.substr(1);   
+     var strs = str.split("&");   
+     for(var i = 0; i < strs.length; i ++) {
+     var value = strs[i].split("=")[1];
+    if(value){
+      value = value.split('#')[0];
+    }
+      searchParmas[strs[i].split("=")[0]]=unescape(value);   
+     }   
+  }
+  if(searchParmas.gotopage){
+    window.isReturn = true;
+    window.localStorage.setItem('isReflesh',true);
     window.localStorage.setItem('isGotochoujiang',false);
     window.localStorage.setItem('isGotodajiang',false);
     window.localStorage.setItem('isGotoZhuanqu',false);
     var origin = window.location.origin;
     var pathname = window.location.pathname;
     var search = window.location.search;
-    window.location.href = origin + pathname + '?ui='+window.userId +'&showtopbar=false';
-    //window.history.go(0);
-    return false;
+    window.location.href = origin + pathname + '?ui='+window.userId + '&noneclear=1&showtopbar=false';
   }
 }
 isgoback();

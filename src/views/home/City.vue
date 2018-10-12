@@ -220,11 +220,12 @@
           });
           this.isnum = this.isnum+1;
         },
-        clound(page){
+        clound(page,isgoto){
           let that = this;
         that.cloundXuxiDialogIsShow.isShow = true;
           //需要调用去往城市接口
-          var url = window.rootUrl+'?ae=2&ci=5&ui='+window.userId;//设置去过改城市
+          if(!isgoto){
+              var url = window.rootUrl+'?ae=2&ci=5&ui='+window.userId;//设置去过改城市
                 loginApi(url,{params:JSON.stringify({cityCode:that.selected.code})},'GET').then((res)=>{
                   if(res.status == 200){
                       if(res.data.rc==1){
@@ -232,14 +233,15 @@
                       }
                   }
                 })
+          }
+        history.replaceState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
         window.setTimeout(()=>{
           that.cloundXuxiDialogIsShow.isShow = false;
            setStore('isGotoZhuanqu',true);
-             this.$Indicator.open({
-                text: '正在努力加载中...',
-                spinnerType: 'triple-bounce'
-              });
-          history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
+            //  this.$Indicator.open({
+            //     text: '正在努力加载中...',
+            //     spinnerType: 'triple-bounce'
+            //   });
           location.href = that.selected.url;
          // this.$router.push({path:page,query: {page:page}});
         },5000)
@@ -255,8 +257,8 @@
                 let c = this.selected.isExe ?1:0;
                 if(c==1 && window.cats_p<3){
                     //城市专区
-                   window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
-                   this.clound('page');
+                   window.$post([{id:24,times:1},{id:16,times:1,code:this.selected.code}]);//埋点
+                   this.clound('page',true);
                    return ;
                 }
                  if(c==0 && window.cats_p<3 && window.cats_t>0){
@@ -264,7 +266,7 @@
                     this.$store.commit('setp',window.cats_p +1);
                     this.$store.commit('sett',window.cats_t -1);
                     this.setCitySelect(this.selected.code);
-                   window.$post([{id:24,times:1},{id:16,times:1}]);//埋点
+                   window.$post([{id:24,times:1},{id:16,times:1,code:this.selected.code}]);//埋点
                  
                    this.clound('page');
                    return ;

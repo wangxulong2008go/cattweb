@@ -26,7 +26,7 @@
           </div>
          
           <div class="btn">
-               <span @click="gotoDraw" class="btn-one" :class="nowData<3?'btn-none':''">
+               <span @click="gotoDraw" class="btn-one" :class="cats_t != 0 ?'btn-none':''">
 
                 </span>
                 <span @click="gotpHouse" class="btn-two">
@@ -39,7 +39,7 @@
           </div>
       </div>
        <div class="tip">
-              <div class="tip-img" :class="nowData==3?'all-img':''">
+              <div class="tip-img" :class="cats_t == 0?'all-img':''">
 
               </div>
           </div>
@@ -67,6 +67,7 @@
         indexcatcity:0,
         isLotteryFinalAward:true,//默认进行过了
          nowData:0,//总共有几个手信
+         cats_t:3,
          t:0,//剩余次数
          i:0,
           goDrawDialogIsShow:{
@@ -101,6 +102,7 @@
     //     this.$router.push({path:'home',query: {page:'home'}});//前往首页
     //   }
     this.nowData =  window.cats_p;
+    this.cats_t = window.cats_t;
     this.getdajiang();
       let lengthCity = 0;
       let cityList = cityListJson();
@@ -147,7 +149,7 @@
         },
         gotoDraw(){
           //去抽奖
-          if(this.nowData<3){
+          if(this.cats_t != 0){
             return false;
           }
           window.$post([{id:25,times:1}]);//按钮埋点
@@ -158,16 +160,16 @@
           //   //b页面
           //   url = ''
           // }
-          this.$store.commit('setp',this.nowData - 3);
+          this.$store.commit('setp',0);
           //window.location.href=url;//跳转抽奖页面
            var url = window.rootUrl+'?ae=2&ci=4&ui='+window.userId;
+           history.replaceState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
           loginApi(url,{},'GET').then((res)=>{
             if(res.status == 200){
                  if(res.data.rc==1){
                    //需要设置存储isGotochoujiang
                      setStore('isGotochoujiang',true);
-                     history.pushState({ui:window.userId,gotopage:1}, '招商猫', window.location.origin+window.location.pathname+'?ui='+window.userId+'&gotopage=1');
-                     window.location.href = 'http://cmbt.cn/QQmnzR?AGP20180906184328HjLG8BER';
+                     window.location.href = 'http://cmbls/FunctionJump?action=gofuncid&funcid=16335001&clean=false&closeCurrentView=false&cmb_app_trans_parms_start=here&needlogin=false&ActGroupID=AGP20180929145930vn5XQmuc';
                     //  if(res.data.urlIndex == 1){
                     //      //a页面
                     //  }else{
@@ -201,14 +203,7 @@
         gotoBigDraw(){
           //抽大奖
           //判断是否满足24
-           //城市列表
-           let lengthCity = 0;
-          window.cityListJson.forEach(element => {
-              if(element.isShow){
-                ++lengthCity;
-              }
-          });
-          if(lengthCity == window.cityListJson.length && lengthCity>0 && !this.isLotteryFinalAward){
+          if(this.indexcatcity == 24){
              this.goBigDialogIsShow.isAll = false;
           }else{
              this.goBigDialogIsShow.isAll = true;
@@ -216,14 +211,14 @@
           this.goBigDialogIsShow.isShow = true;
         },
         getdajiang(){
-            var url = window.rootUrl+'?ae=2&ci=10&ui='+window.userId;//获取是否可以抽大奖
-            loginApi(url,{},'GET').then((res)=>{
-              if(res.status == 200){
-                  if(res.data.rc==1){
-                     this.isLotteryFinalAward = res.data.isLotteryFinalAward;
-                  }
-              }
-            })
+            // var url = window.rootUrl+'?ae=2&ci=10&ui='+window.userId;//获取是否可以抽大奖
+            // loginApi(url,{},'GET').then((res)=>{
+            //   if(res.status == 200){
+            //       if(res.data.rc==1){
+            //          this.isLotteryFinalAward = res.data.isLotteryFinalAward;
+            //       }
+            //   }
+            // })
         }
     }
   }

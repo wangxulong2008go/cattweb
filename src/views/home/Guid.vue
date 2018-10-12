@@ -36,7 +36,10 @@
      //执行埋点
      this.progressValue = 0;
      this.setProgress();
-    window.$post([{id:1,times:1}]);
+      if(window.userId){
+            window.$post([{id:1,times:1}]);
+        }
+    
     },
     mounted(){
       document.querySelector('#app').addEventListener('touchmove', scrollTouch,false);
