@@ -86,7 +86,7 @@
              <img :src="isFirstImage" alt="1">
              <div class="p-div">
                <p class="p1">每旅行一座城市即可获得一份手信，每日集齐三份手信即可参与抽奖，50元话费券、自拍杆、商城券等你来拿哟！</p>
-               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得iPhone XS Max、 200元话费券、耳机、商城券等豪礼哟，此活动与苹果公司无关！</p>
+               <p class="p2">累计旅行24座城市后即可抽取彩蛋大奖，更有机会获得200元话费券、耳机、商城券等豪礼哟，此活动与苹果公司无关！</p>
              </div>
           </div>
           <div class="alert-mash" @click="isFirstLogin = false"></div>
@@ -141,7 +141,7 @@ function cmblsJSExecutor(cmblsCommand)
 window.shareFunc = function(channel){
  // var url ="https://cmbls/socialshare?id=catshare&type=url&url=https://test.withmedia.net/project1/shareurl.html&channel="+channel+ "&text="+"iPhoneX、百元话费券、商城券等豪礼等你拿！";
   var title = '跟着招猫去旅行，每日抽奖赢豪礼！';
-  var text = 'iPhone XS Max、百元话费券、商城券等豪礼等你拿！';
+  var text = '百元话费券、商城券等豪礼等你拿！';
   //var shareUrl =encodeURI('https://cmbls/socialshare?id=fdsfsdfsf&type=url&url=https://test.withmedia.net/project1/shareurl.html&picurl=https://test.withmedia.net/project1/sharestatic/image/shareimg.png&channel='+channel+'&title='+title+'&text='+text);
   var shareUrl ='https://cmbls/socialshare?id=fdsfsdfsf&type=url&url='+encodeURI("https://project1.withmedia.net/project/shareurl.html")+'&picurl='+encodeURI('https://project1.withmedia.net/project/sharestatic/image/shareimg.png')+'&channel='+channel+'&title='+encodeURI(title)+'&text='+encodeURI(text);
   cmblsJSExecutor(shareUrl);//分享
@@ -190,7 +190,7 @@ function autoPlayAudio1() {
           p:0,//手信数量,
           t:0,//剩余旅行次数,
           c:0,//c=1，未去过记c=0
-          isFirstImage:'static/win_lucky.png',
+          isFirstImage:'static/win_lucky1.png',
           bgImage:['static/map_bg_01.png','static/map_bg_02.png','static/map_bg_03.png','static/map_bg_04.png','static/map_bg_05.png','static/map_bg_06.png'],
           buildImage:[],
           flageImage:[],

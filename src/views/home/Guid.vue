@@ -84,7 +84,7 @@
 </script>
 <style scoped lang="scss">
     .contain-box{
-        background-image: url('../../assets/img/guid/guid_BG.png');
+        background-image: url('../../assets/img/guid/guid_BG1.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
         .progress-box{

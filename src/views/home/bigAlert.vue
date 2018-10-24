@@ -174,11 +174,11 @@
                     top: -2rem;
                 margin:0 auto;
                  width: 13.376rem;
-                 background-image: url('../../assets/img/guid/window_03.png');
+                 background-image: url('../../assets/img/guid/window_031.png');
                  background-repeat: no-repeat;
                  background-size: contain;
                  box-sizing: border-box;
-                 height: 13.589333rem;
+                 height: 14.989333rem;
                  position: relative;
                  .close{
                      height: 1.92rem;
